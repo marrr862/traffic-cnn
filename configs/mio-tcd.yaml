@@ -1,0 +1,10 @@
+path: /Users/macbook/Desktop/traffic-cnn/data/mio-tcd-yolo
+train: train-subset.txt
+val: images/val
+test: images/test
+names:
+  0: car
+  1: van
+  2: truck
+  3: bus
+  4: motorcycle

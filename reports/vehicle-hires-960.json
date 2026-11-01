@@ -1,0 +1,108 @@
+{
+  "name": "vehicle-hires-960",
+  "initialization": "local-checkpoint",
+  "initial_weights": "/Users/macbook/Desktop/traffic-cnn/runs/experiments/vehicle-expanded-full/weights/best.pt",
+  "optimizer_requested": "AdamW",
+  "lr0_requested": 0.0005,
+  "data": "/Users/macbook/Desktop/traffic-cnn/configs/visdrone-expanded-full.yaml",
+  "epochs_completed": 15,
+  "epochs_requested": 15,
+  "imgsz": 960,
+  "batch": 8,
+  "device": "mps",
+  "seed": 42,
+  "training_seconds": 13234.010904541996,
+  "best_weights": "/Users/macbook/Desktop/traffic-cnn/runs/experiments/vehicle-hires-960/weights/best.pt",
+  "validation": {
+    "metrics/precision(B)": 0.6385238219811303,
+    "metrics/recall(B)": 0.47942293414923387,
+    "metrics/mAP50(B)": 0.5162593866406282,
+    "metrics/mAP50-95(B)": 0.33348794838962015,
+    "fitness": 0.33348794838962015
+  },
+  "validation_by_class": {
+    "car": {
+      "precision": 0.7337945803388706,
+      "recall": 0.7885230747351205,
+      "mAP50": 0.8099634477021672,
+      "mAP50_95": 0.5587034627686305
+    },
+    "van": {
+      "precision": 0.5746232036497629,
+      "recall": 0.4042312026547013,
+      "mAP50": 0.43528755534601726,
+      "mAP50_95": 0.3052973024310397
+    },
+    "truck": {
+      "precision": 0.5309433480391277,
+      "recall": 0.34561905693899936,
+      "mAP50": 0.34901448543288427,
+      "mAP50_95": 0.23562128853727934
+    },
+    "bus": {
+      "precision": 0.7225572183541099,
+      "recall": 0.4581673306772908,
+      "mAP50": 0.5298387051145512,
+      "mAP50_95": 0.3721215988398656
+    },
+    "motorcycle": {
+      "precision": 0.6307007595237808,
+      "recall": 0.4005740057400574,
+      "mAP50": 0.4571927396075212,
+      "mAP50_95": 0.1956960893712856
+    }
+  },
+  "test": {
+    "metrics/precision(B)": 0.559419192755511,
+    "metrics/recall(B)": 0.4554608061726447,
+    "metrics/mAP50(B)": 0.4593862383338629,
+    "metrics/mAP50-95(B)": 0.28592369838421144,
+    "fitness": 0.28592369838421144
+  },
+  "test_by_class": {
+    "car": {
+      "precision": 0.7080111442243068,
+      "recall": 0.7321008762556102,
+      "mAP50": 0.7356065073798227,
+      "mAP50_95": 0.4638187884885251
+    },
+    "van": {
+      "precision": 0.4363536191278229,
+      "recall": 0.36702604373966563,
+      "mAP50": 0.35489261830280805,
+      "mAP50_95": 0.2366590669624001
+    },
+    "truck": {
+      "precision": 0.4443055468471458,
+      "recall": 0.4027830011282437,
+      "mAP50": 0.3745710235103151,
+      "mAP50_95": 0.2398530660379544
+    },
+    "bus": {
+      "precision": 0.6793311894603205,
+      "recall": 0.5091836734693878,
+      "mAP50": 0.544096547947871,
+      "mAP50_95": 0.37631308797655294
+    },
+    "motorcycle": {
+      "precision": 0.5290944641179589,
+      "recall": 0.2662104362703165,
+      "mAP50": 0.28776449452849784,
+      "mAP50_95": 0.11297448245562454
+    }
+  },
+  "test_speed_ms": {
+    "preprocess": 0.29364849559338013,
+    "inference": 0.9371401428647038,
+    "loss": 0.00017021807280849226,
+    "postprocess": 9.188665110496398
+  },
+  "versions": {
+    "python": "3.10.20",
+    "torch": "2.14.1",
+    "ultralytics": "8.4.174"
+  },
+  "platform": "macOS-26.6.2-arm64-arm-64bit",
+  "mps_determinism_note": "Some scatter/index operations are nondeterministic even with seed=42.",
+  "training_directory": "/Users/macbook/Desktop/traffic-cnn/runs/experiments/vehicle-hires-960"
+}

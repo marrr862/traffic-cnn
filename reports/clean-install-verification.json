@@ -1,0 +1,19 @@
+{
+  "tests": 33,
+  "clean_environment": true,
+  "system_site_packages": false,
+  "installation": "python -m venv .venv-clean; python -m pip install -e .",
+  "pip_check": "No broken requirements found",
+  "clean_tests": "passed",
+  "platform": "macOS-26.6.2-arm64-arm-64bit",
+  "python": "3.10.20 (main, Mar  3 2026, 00:49:35) [Clang 21.0.0 (clang-2100.0.123.102)]",
+  "limitations": "Fresh environment on the same Mac; a separate physical computer and Windows/Linux remain untested.",
+  "logs": [
+    "clean-install.log",
+    "clean-dependencies-check.log",
+    "tests-practical-clean.log"
+  ],
+  "freeze": "requirements-clean-macos.txt",
+  "relocated_bundle_tests": "33 passed",
+  "relocated_bundle_log": "clean-bundle-verification.log"
+}

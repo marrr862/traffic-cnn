@@ -1,0 +1,27 @@
+{
+  "car": {
+    "boxes": 28074,
+    "median_min_side_at_640": 10.5142848,
+    "fraction_min_side_below_10px": 0.46135214077082
+  },
+  "van": {
+    "boxes": 5771,
+    "median_min_side_at_640": 11.4285696,
+    "fraction_min_side_below_10px": 0.39282619996534396
+  },
+  "truck": {
+    "boxes": 2659,
+    "median_min_side_at_640": 16.914284799999997,
+    "fraction_min_side_below_10px": 0.2391876645355397
+  },
+  "bus": {
+    "boxes": 2940,
+    "median_min_side_at_640": 17.3714304,
+    "fraction_min_side_below_10px": 0.2163265306122449
+  },
+  "motorcycle": {
+    "boxes": 5845,
+    "median_min_side_at_640": 7.014613965762004,
+    "fraction_min_side_below_10px": 0.7500427715996578
+  }
+}

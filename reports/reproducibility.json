@@ -1,0 +1,29 @@
+{
+  "client_date": "2026-10-09",
+  "code_sha256": {
+    "pyproject.toml": "b1624d29ab214cd7cb7da5f09148fdfc1ecf100672470272626de5b2aff827ba",
+    "requirements-lock.txt": "630b69107aa9c6c3506cea63ccc96d16b9bfa9634a79aec4cc86955804e302fc",
+    "app.py": "06e7211251cdd8dea43587a3ca672907e494d65bd620e4a6d16720ae73e1668b",
+    "traffic_cnn/counting.py": "c9952b2f5c5e13cc10ae78336c98e865e8b1d24de1dcab9ab707a28ec4065940",
+    "traffic_cnn/__init__.py": "dfb9e54411cd6a4a9bcf04ea4795565925a1f38ebf1d65020924c7a327c97f02",
+    "traffic_cnn/cli.py": "1aeabd860db39ddcd70ad30f09d82ae4e1571e4f2170d66a3baba66237791642",
+    "scripts/prepare_visdrone.py": "741bd347595b25158d266fe3ddff030b397ee0b60f0aacb0344bbdd4068729a6",
+    "scripts/preview_predictions.py": "d61f351ece5e533f4a8172b1d3a473619d890b93af6c4a674441da4ccc65d024",
+    "scripts/evaluate_counting.py": "be0bd3ee60aa88911c12a0f0fe1195f02aa9d2af58cc35045be3470d9cc4fb55",
+    "scripts/download_data.py": "2183824febc19afbaadb26435a2f87d7078d11644cd1638772e68b3fac5269aa",
+    "scripts/make_report.py": "0571397fdd96c13eaf108f64782c4363a41e5de33c9881db55ba96dddb875fe2",
+    "scripts/run_experiment.py": "f696efd4a4699e7265c57659280bc8f437e3e5b508c53ba8ea23483954ac91a1",
+    "configs/vehicles.yaml": "58e609dcf32dce73b2f90db60e69c8118b9b89a85b381523c441452b34ea2b73",
+    "configs/visdrone-vehicles.yaml": "c405ad86bca5487d9f8b0e2f653fcc63ce383cb2b1f734b46d343eb2f98e54b3",
+    "configs/visdrone-pilot.yaml": "1eb3af5cd497b4f2a4f5eed7007086334006180889c068da20c26b4c7a8e90c5"
+  },
+  "dataset_archive_sha256": {
+    "test-dev": "b28a94b06dfd9e36ce77ff8155fb82b9d2c030f198a76105933bd56c6ea6a68d",
+    "val": "abeea063037e5d20398837deb11084e652402a34ddf4f207bdf541a6f2a35ef9",
+    "train": "86a77eba93137bfc16e4993860de9245b0675c0dba0d3ab98fb458699e256f84"
+  },
+  "experiment_reports": [
+    "runs/experiments/vehicle-finetune-pilot",
+    "runs/experiments/vehicle-scratch-pilot"
+  ]
+}

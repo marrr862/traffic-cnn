@@ -1,0 +1,32 @@
+{
+  "full:960": {
+    "mAP50": 0.4306,
+    "mAP50_95": 0.2684,
+    "per_class_AP50": {
+      "car": 0.727,
+      "van": 0.2656,
+      "truck": 0.36,
+      "bus": 0.5116,
+      "motorcycle": 0.2886
+    },
+    "images": 1610,
+    "ms_per_image": 20.5,
+    "split": "test",
+    "weights": "runs/experiments/vehicle-hires-960/weights/best.pt"
+  },
+  "tile:640:0.2:960:full:1280": {
+    "mAP50": 0.4981,
+    "mAP50_95": 0.3119,
+    "per_class_AP50": {
+      "car": 0.8091,
+      "van": 0.371,
+      "truck": 0.3752,
+      "bus": 0.5622,
+      "motorcycle": 0.3731
+    },
+    "images": 1610,
+    "ms_per_image": 156.3,
+    "split": "test",
+    "weights": "runs/experiments/vehicle-hires-960/weights/best.pt"
+  }
+}

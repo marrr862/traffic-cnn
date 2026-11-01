@@ -1,0 +1,11 @@
+# Template for a fully annotated five-class custom vehicle corpus.
+path: /absolute/path/to/vehicle-dataset
+train: images/train
+val: images/val
+test: images/test
+names:
+  0: car
+  1: van
+  2: truck
+  3: bus
+  4: motorcycle

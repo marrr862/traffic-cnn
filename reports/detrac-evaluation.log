@@ -1,0 +1,336 @@
+WARNING ⚠️ Ultralytics settings updated to the latest schema. Existing values were preserved where possible. 
+View Ultralytics Settings with 'yolo settings' or at '/Users/macbook/Library/Application Support/Ultralytics/settings.json'
+Update Settings with 'yolo settings key=value', i.e. 'yolo settings runs_dir=path/to/dir'. For help see https://docs.ultralytics.com/usage/settings.
+{
+  "tracked_ids": 57,
+  "frames": 300,
+  "duration_seconds": 12.0,
+  "crossings": 6,
+  "by_direction": {
+    "positive_to_negative": 6
+  },
+  "source_video": "/Users/macbook/Downloads/FakeNewsNet-master/traffic-cnn/data/video/detrac-MVI_39031-300.mp4",
+  "source_sha256": "50ffa86f4ad4ecb372e1080614555f45ff8fc9914e75cd101267fce1fe4f1d41",
+  "mean_visible_tracked_vehicles": 5.886666666666667,
+  "peak_visible_tracked_vehicles": 12,
+  "by_class": {
+    "car": 5,
+    "van": 1
+  },
+  "flow_vehicles_per_hour": 1800.0,
+  "processing_fps": 49.6079999983795,
+  "line": [
+    0.0,
+    324.0,
+    959.0,
+    324.0
+  ],
+  "direction_labels": {
+    "negative_to_positive": "\u041a \u043d\u0438\u0436\u043d\u0435\u043c\u0443 \u043a\u0440\u0430\u044e \u043a\u0430\u0434\u0440\u0430",
+    "positive_to_negative": "\u041a \u0432\u0435\u0440\u0445\u043d\u0435\u043c\u0443 \u043a\u0440\u0430\u044e \u043a\u0430\u0434\u0440\u0430"
+  },
+  "weights": "/Users/macbook/Downloads/FakeNewsNet-master/traffic-cnn/runs/experiments/vehicle-finetune-full/weights/best.pt",
+  "confidence": 0.3,
+  "imgsz": 640,
+  "source_fps": 25.0,
+  "video_codec": "avc1",
+  "interval_seconds": 5.0,
+  "tracking": {
+    "mode": "baseline",
+    "detector_threshold": 0.3,
+    "initialization_threshold": 0.25,
+    "agnostic_nms": false,
+    "continuity_max_gap": 0,
+    "continuity_iou": 0.5,
+    "class_vote": "instantaneous"
+  },
+  "limitations": "One crossing per track ID. ID switches can duplicate counts; occlusion can cause misses. Flow extrapolates observed duration. Speed is not calibrated."
+}
+detection 640: 100/300
+detection 640: 200/300
+detection 640: 300/300
+{
+  "tracked_ids": 86,
+  "frames": 300,
+  "duration_seconds": 12.0,
+  "crossings": 5,
+  "by_direction": {
+    "positive_to_negative": 5
+  },
+  "source_video": "/Users/macbook/Downloads/FakeNewsNet-master/traffic-cnn/data/video/detrac-MVI_39031-300.mp4",
+  "source_sha256": "50ffa86f4ad4ecb372e1080614555f45ff8fc9914e75cd101267fce1fe4f1d41",
+  "mean_visible_tracked_vehicles": 8.29,
+  "peak_visible_tracked_vehicles": 18,
+  "by_class": {
+    "car": 5
+  },
+  "flow_vehicles_per_hour": 1500.0,
+  "processing_fps": 34.13189839802217,
+  "line": [
+    0.0,
+    324.0,
+    959.0,
+    324.0
+  ],
+  "direction_labels": {
+    "negative_to_positive": "\u041a \u043d\u0438\u0436\u043d\u0435\u043c\u0443 \u043a\u0440\u0430\u044e \u043a\u0430\u0434\u0440\u0430",
+    "positive_to_negative": "\u041a \u0432\u0435\u0440\u0445\u043d\u0435\u043c\u0443 \u043a\u0440\u0430\u044e \u043a\u0430\u0434\u0440\u0430"
+  },
+  "weights": "/Users/macbook/Downloads/FakeNewsNet-master/traffic-cnn/runs/experiments/vehicle-expanded-full/weights/best.pt",
+  "confidence": 0.3,
+  "imgsz": 960,
+  "source_fps": 25.0,
+  "video_codec": "avc1",
+  "interval_seconds": 5.0,
+  "tracking": {
+    "mode": "baseline",
+    "detector_threshold": 0.3,
+    "initialization_threshold": 0.25,
+    "agnostic_nms": false,
+    "continuity_max_gap": 0,
+    "continuity_iou": 0.5,
+    "class_vote": "instantaneous"
+  },
+  "limitations": "One crossing per track ID. ID switches can duplicate counts; occlusion can cause misses. Flow extrapolates observed duration. Speed is not calibrated."
+}
+detection 960: 100/300
+detection 960: 200/300
+detection 960: 300/300
+[
+  {
+    "name": "vehicle-finetune-full",
+    "imgsz": 640,
+    "counting": {
+      "reference_total": 5,
+      "predicted_total": 6,
+      "matched_events": 5,
+      "missed_events": 0,
+      "extra_events": 1,
+      "event_precision": 0.8333333333333334,
+      "event_recall": 1.0,
+      "event_f1": 0.9090909090909091,
+      "matched_pairs": [
+        {
+          "reference": {
+            "label": "published-track-1",
+            "class": "car",
+            "frame_interval": [
+              19,
+              22
+            ],
+            "direction": "positive_to_negative"
+          },
+          "predicted": {
+            "frame": "21",
+            "time_seconds": "0.84",
+            "track_id": "1",
+            "vehicle_class": "car",
+            "direction": "positive_to_negative"
+          }
+        },
+        {
+          "reference": {
+            "label": "published-track-2",
+            "class": "car",
+            "frame_interval": [
+              46,
+              49
+            ],
+            "direction": "positive_to_negative"
+          },
+          "predicted": {
+            "frame": "49",
+            "time_seconds": "1.96",
+            "track_id": "25",
+            "vehicle_class": "car",
+            "direction": "positive_to_negative"
+          }
+        },
+        {
+          "reference": {
+            "label": "published-track-3",
+            "class": "car",
+            "frame_interval": [
+              113,
+              116
+            ],
+            "direction": "positive_to_negative"
+          },
+          "predicted": {
+            "frame": "115",
+            "time_seconds": "4.6",
+            "track_id": "47",
+            "vehicle_class": "car",
+            "direction": "positive_to_negative"
+          }
+        },
+        {
+          "reference": {
+            "label": "published-track-4",
+            "class": "van",
+            "frame_interval": [
+              202,
+              205
+            ],
+            "direction": "positive_to_negative"
+          },
+          "predicted": {
+            "frame": "206",
+            "time_seconds": "8.24",
+            "track_id": "75",
+            "vehicle_class": "car",
+            "direction": "positive_to_negative"
+          }
+        },
+        {
+          "reference": {
+            "label": "published-track-10",
+            "class": "car",
+            "frame_interval": [
+              292,
+              294
+            ],
+            "direction": "positive_to_negative"
+          },
+          "predicted": {
+            "frame": "294",
+            "time_seconds": "11.76",
+            "track_id": "188",
+            "vehicle_class": "van",
+            "direction": "positive_to_negative"
+          }
+        }
+      ],
+      "class_metrics": "Not evaluated: published others does not equal truck, taxonomy differs",
+      "processing_fps": 49.6079999983795
+    },
+    "detection": {
+      "vehicle_AP50": 0.9704418197394017,
+      "vehicle_AP50_95": 0.7676128500703997,
+      "annotated_boxes": 523,
+      "predictions_above_0_3": 638,
+      "precision_at_0_3": 0.8040752351097179,
+      "recall_at_0_3": 0.9808795411089866,
+      "ignored_predictions": 37571,
+      "protocol": "Class-agnostic vehicle; greedy IoU matching per image, 101-point precision envelope. Remove GT/predictions whose box centers lie inside published ignore rectangles. Custom protocol, not official UA-DETRAC or five-class VisDrone mAP."
+    }
+  },
+  {
+    "name": "vehicle-expanded-full",
+    "imgsz": 960,
+    "counting": {
+      "reference_total": 5,
+      "predicted_total": 5,
+      "matched_events": 5,
+      "missed_events": 0,
+      "extra_events": 0,
+      "event_precision": 1.0,
+      "event_recall": 1.0,
+      "event_f1": 1.0,
+      "matched_pairs": [
+        {
+          "reference": {
+            "label": "published-track-1",
+            "class": "car",
+            "frame_interval": [
+              19,
+              22
+            ],
+            "direction": "positive_to_negative"
+          },
+          "predicted": {
+            "frame": "22",
+            "time_seconds": "0.88",
+            "track_id": "1",
+            "vehicle_class": "car",
+            "direction": "positive_to_negative"
+          }
+        },
+        {
+          "reference": {
+            "label": "published-track-2",
+            "class": "car",
+            "frame_interval": [
+              46,
+              49
+            ],
+            "direction": "positive_to_negative"
+          },
+          "predicted": {
+            "frame": "49",
+            "time_seconds": "1.96",
+            "track_id": "33",
+            "vehicle_class": "car",
+            "direction": "positive_to_negative"
+          }
+        },
+        {
+          "reference": {
+            "label": "published-track-3",
+            "class": "car",
+            "frame_interval": [
+              113,
+              116
+            ],
+            "direction": "positive_to_negative"
+          },
+          "predicted": {
+            "frame": "115",
+            "time_seconds": "4.6",
+            "track_id": "127",
+            "vehicle_class": "car",
+            "direction": "positive_to_negative"
+          }
+        },
+        {
+          "reference": {
+            "label": "published-track-4",
+            "class": "van",
+            "frame_interval": [
+              202,
+              205
+            ],
+            "direction": "positive_to_negative"
+          },
+          "predicted": {
+            "frame": "207",
+            "time_seconds": "8.28",
+            "track_id": "224",
+            "vehicle_class": "car",
+            "direction": "positive_to_negative"
+          }
+        },
+        {
+          "reference": {
+            "label": "published-track-10",
+            "class": "car",
+            "frame_interval": [
+              292,
+              294
+            ],
+            "direction": "positive_to_negative"
+          },
+          "predicted": {
+            "frame": "295",
+            "time_seconds": "11.8",
+            "track_id": "419",
+            "vehicle_class": "car",
+            "direction": "positive_to_negative"
+          }
+        }
+      ],
+      "class_metrics": "Not evaluated: published others does not equal truck, taxonomy differs",
+      "processing_fps": 34.13189839802217
+    },
+    "detection": {
+      "vehicle_AP50": 0.9729447075594331,
+      "vehicle_AP50_95": 0.7554553177705898,
+      "annotated_boxes": 523,
+      "predictions_above_0_3": 618,
+      "precision_at_0_3": 0.8317152103559871,
+      "recall_at_0_3": 0.982791586998088,
+      "ignored_predictions": 48557,
+      "protocol": "Class-agnostic vehicle; greedy IoU matching per image, 101-point precision envelope. Remove GT/predictions whose box centers lie inside published ignore rectangles. Custom protocol, not official UA-DETRAC or five-class VisDrone mAP."
+    }
+  }
+]

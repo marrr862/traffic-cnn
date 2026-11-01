@@ -1,0 +1,12 @@
+Traceback (most recent call last):
+  File "/Users/macbook/Downloads/FakeNewsNet-master/traffic-cnn/scripts/download_detrac.py", line 86, in <module>
+    if __name__ == '__main__': main()
+  File "/Users/macbook/Downloads/FakeNewsNet-master/traffic-cnn/scripts/download_detrac.py", line 69, in main
+    with zipfile.ZipFile(RemoteZip(URL)) as archive:
+  File "/opt/homebrew/Cellar/python@3.10/3.10.20_1/Frameworks/Python.framework/Versions/3.10/lib/python3.10/zipfile.py", line 1288, in __init__
+    self._RealGetContents()
+  File "/opt/homebrew/Cellar/python@3.10/3.10.20_1/Frameworks/Python.framework/Versions/3.10/lib/python3.10/zipfile.py", line 1373, in _RealGetContents
+    data = fp.read(size_cd)
+  File "/Users/macbook/Downloads/FakeNewsNet-master/traffic-cnn/scripts/download_detrac.py", line 46, in read
+    else: raise ValueError(f'Incorrect byte-range response for {start}-{end}')
+ValueError: Incorrect byte-range response for 9832091806-9849591887

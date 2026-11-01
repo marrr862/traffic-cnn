@@ -1,0 +1,122 @@
+{
+  "video": "data/video/vehicles.mp4",
+  "reference_type": "Preliminary visual annotation by the assistant from contact sheets, before model predictions; requires independent human verification.",
+  "line": [
+    0,
+    1296,
+    3839,
+    1296
+  ],
+  "point_convention": "Visible vehicle bottom-center, approximate crossing intervals; frame indices are zero-based.",
+  "fps": 25,
+  "expected_by_direction": {
+    "negative_to_positive": 7,
+    "positive_to_negative": 3
+  },
+  "expected_by_class": {
+    "car": 8,
+    "truck": 2
+  },
+  "expected_total": 10,
+  "events": [
+    {
+      "vehicle": "first white truck approaching",
+      "class": "truck",
+      "direction": "negative_to_positive",
+      "frame_interval": [
+        0,
+        12
+      ]
+    },
+    {
+      "vehicle": "first dark car approaching",
+      "class": "car",
+      "direction": "negative_to_positive",
+      "frame_interval": [
+        0,
+        24
+      ]
+    },
+    {
+      "vehicle": "first white car approaching",
+      "class": "car",
+      "direction": "negative_to_positive",
+      "frame_interval": [
+        12,
+        36
+      ]
+    },
+    {
+      "vehicle": "first dark estate departing",
+      "class": "car",
+      "direction": "positive_to_negative",
+      "frame_interval": [
+        12,
+        24
+      ]
+    },
+    {
+      "vehicle": "second dark estate departing",
+      "class": "car",
+      "direction": "positive_to_negative",
+      "frame_interval": [
+        72,
+        84
+      ]
+    },
+    {
+      "vehicle": "second dark car approaching",
+      "class": "car",
+      "direction": "negative_to_positive",
+      "frame_interval": [
+        204,
+        216
+      ]
+    },
+    {
+      "vehicle": "third dark car approaching",
+      "class": "car",
+      "direction": "negative_to_positive",
+      "frame_interval": [
+        336,
+        348
+      ]
+    },
+    {
+      "vehicle": "second white truck approaching",
+      "class": "truck",
+      "direction": "negative_to_positive",
+      "frame_interval": [
+        408,
+        420
+      ]
+    },
+    {
+      "vehicle": "white car departing",
+      "class": "car",
+      "direction": "positive_to_negative",
+      "frame_interval": [
+        408,
+        420
+      ]
+    },
+    {
+      "vehicle": "fourth dark car approaching",
+      "class": "car",
+      "direction": "negative_to_positive",
+      "frame_interval": [
+        480,
+        492
+      ]
+    }
+  ],
+  "evidence": [
+    "reports/video-contact-1.jpg",
+    "reports/video-contact-2.jpg",
+    "reports/video-contact-3.jpg",
+    "reports/video-contact-4.jpg"
+  ],
+  "limitations": "Only one 21.52-second daylight video. Contact-sheet intervals are approximate; classes are visually assigned. This is not a ground-truth benchmark or an estimate of general counting accuracy.",
+  "source_sha256": "ac81100d9310bd4e9c02bc0b13b6492781d009742ced347766b2601be3c44ad4",
+  "annotation_status": "preliminary_assistant"
+}

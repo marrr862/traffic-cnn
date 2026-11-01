@@ -1,0 +1,59 @@
+{
+  "source": "https://tcd.miovision.com/static/dataset/MIO-TCD-Localization.tar",
+  "license": "CC BY-NC-SA 4.0",
+  "mapping": {
+    "car": 0,
+    "pickup_truck": 0,
+    "work_van": 1,
+    "articulated_truck": 2,
+    "single_unit_truck": 2,
+    "bus": 3,
+    "motorcycle": 4
+  },
+  "ignored_as_masked": [
+    "motorized_vehicle"
+  ],
+  "split_rule": "sha256(image_id): 10% test, 5% val, 85% train",
+  "train_subset": 30000,
+  "splits": {
+    "train": {
+      "car": 236467,
+      "truck": 12880,
+      "images": 93642,
+      "bus": 9089,
+      "masked_motorized_vehicle": 21950,
+      "van": 7393,
+      "non_target_pedestrian": 5990,
+      "non_target_bicycle": 1935,
+      "non_target_non-motorized_vehicle": 1999,
+      "motorcycle": 1571,
+      "invalid_box": 4
+    },
+    "val": {
+      "truck": 712,
+      "van": 449,
+      "masked_motorized_vehicle": 1298,
+      "car": 14114,
+      "images": 5400,
+      "non_target_non-motorized_vehicle": 108,
+      "non_target_pedestrian": 369,
+      "bus": 450,
+      "motorcycle": 85,
+      "non_target_bicycle": 106
+    },
+    "test": {
+      "car": 27195,
+      "masked_motorized_vehicle": 2597,
+      "images": 10958,
+      "truck": 1449,
+      "bus": 1059,
+      "non_target_bicycle": 219,
+      "non_target_non-motorized_vehicle": 243,
+      "non_target_pedestrian": 769,
+      "van": 867,
+      "motorcycle": 181,
+      "invalid_box": 1
+    }
+  },
+  "limitation": "MIO-TCD gives no camera identifiers; frames of the same camera can fall in different splits."
+}

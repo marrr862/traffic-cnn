@@ -1,0 +1,106 @@
+{
+  "name": "vehicle-scratch-pilot",
+  "initialization": "random",
+  "data": "/Users/macbook/Desktop/traffic-cnn/configs/visdrone-pilot.yaml",
+  "epochs_requested": 15,
+  "imgsz": 416,
+  "batch": 8,
+  "device": "mps",
+  "seed": 42,
+  "training_seconds": 467.20819387500524,
+  "best_weights": "/Users/macbook/Desktop/traffic-cnn/runs/experiments/vehicle-scratch-pilot/weights/best.pt",
+  "validation": {
+    "metrics/precision(B)": 0.5008914629335869,
+    "metrics/recall(B)": 0.09929627198696608,
+    "metrics/mAP50(B)": 0.06499243409658842,
+    "metrics/mAP50-95(B)": 0.025823570962009854,
+    "fitness": 0.025823570962009854
+  },
+  "validation_by_class": {
+    "car": {
+      "precision": 0.2166029047709128,
+      "recall": 0.44720187726658606,
+      "mAP50": 0.27786695723447785,
+      "mAP50_95": 0.11213277230745729
+    },
+    "van": {
+      "precision": 0.07804392902171046,
+      "recall": 0.018734177215189874,
+      "mAP50": 0.023832016786784243,
+      "mAP50_95": 0.008548638001301354
+    },
+    "truck": {
+      "precision": 1.0,
+      "recall": 0.0,
+      "mAP50": 0.002014166597014858,
+      "mAP50_95": 0.0007224760960438889
+    },
+    "bus": {
+      "precision": 1.0,
+      "recall": 0.0,
+      "mAP50": 0.0,
+      "mAP50_95": 0.0
+    },
+    "motorcycle": {
+      "precision": 0.20981048087531126,
+      "recall": 0.03054530545305453,
+      "mAP50": 0.021249029864665127,
+      "mAP50_95": 0.007713968405246782
+    }
+  },
+  "test": {
+    "metrics/precision(B)": 0.4878429341011281,
+    "metrics/recall(B)": 0.03775047779050842,
+    "metrics/mAP50(B)": 0.026245708219264592,
+    "metrics/mAP50-95(B)": 0.00872389541978251,
+    "fitness": 0.00872389541978251
+  },
+  "test_by_class": {
+    "car": {
+      "precision": 0.21798320843482072,
+      "recall": 0.18141340742323858,
+      "mAP50": 0.11007068055623812,
+      "mAP50_95": 0.03788475184368147
+    },
+    "van": {
+      "precision": 0.0,
+      "recall": 0.0,
+      "mAP50": 0.010399758478526542,
+      "mAP50_95": 0.0028286191508055
+    },
+    "truck": {
+      "precision": 1.0,
+      "recall": 0.0,
+      "mAP50": 0.0019120791582020894,
+      "mAP50_95": 0.0005588237940638798
+    },
+    "bus": {
+      "precision": 1.0,
+      "recall": 0.0,
+      "mAP50": 0.0007142857142857143,
+      "mAP50_95": 0.00011366238961813722
+    },
+    "motorcycle": {
+      "precision": 0.22123146207081973,
+      "recall": 0.007338981529303511,
+      "mAP50": 0.008131737189070502,
+      "mAP50_95": 0.0022336199207435665
+    }
+  },
+  "test_speed_ms": {
+    "preprocess": 0.14979651196706487,
+    "inference": 0.6563178346396904,
+    "loss": 6.167459596665749e-05,
+    "postprocess": 3.3838618000801537
+  },
+  "versions": {
+    "python": "3.10.20",
+    "torch": "2.14.1",
+    "ultralytics": "8.4.174"
+  },
+  "platform": "macOS-26.6.2-arm64-arm-64bit",
+  "training_directory": "/Users/macbook/Desktop/traffic-cnn/runs/experiments/vehicle-scratch-pilot",
+  "epochs_completed": 15,
+  "mps_determinism_note": "Some scatter/index operations are nondeterministic even with seed=42.",
+  "original_project_root": "/Users/macbook/Downloads/FakeNewsNet-master/traffic-cnn"
+}

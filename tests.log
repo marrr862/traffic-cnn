@@ -1,0 +1,30 @@
+test_crossing_once_with_dead_band (test_counting.CountingTests) ... ok
+test_invalid (test_counting.CountingTests) ... ok
+test_outside_segment (test_counting.CountingTests) ... ok
+test_reverse (test_counting.CountingTests) ... ok
+test_same_side (test_counting.CountingTests) ... ok
+test_stale (test_counting.CountingTests) ... ok
+test_video_outputs (test_video.VideoSmokeTest) ... {
+  "frames": 5,
+  "duration_seconds": 0.5,
+  "crossings": 0,
+  "by_direction": {},
+  "by_class": {},
+  "flow_vehicles_per_hour": 0.0,
+  "processing_fps": 5.127186700687815,
+  "line": [
+    0,
+    144.0,
+    319,
+    144.0
+  ],
+  "weights": "/Users/macbook/Downloads/FakeNewsNet-master/traffic-cnn/runs/train/smoke/weights/best.pt",
+  "confidence": 0.3,
+  "limitations": "One crossing per track ID. ID switches can duplicate counts; occlusion can cause misses. Flow extrapolates observed duration. Speed is not calibrated."
+}
+ok
+
+----------------------------------------------------------------------
+Ran 7 tests in 2.072s
+
+OK

@@ -1,0 +1,12 @@
+{
+  "source": "https://media.roboflow.com/supervision/video-examples/vehicles.mp4",
+  "source_reference": "https://github.com/roboflow/supervision/blob/0.21.0/supervision/assets/list.py",
+  "sha256": "ac81100d9310bd4e9c02bc0b13b6492781d009742ced347766b2601be3c44ad4",
+  "md5": "8155ff4e4de08cfa25f39de96483f918",
+  "frames": 538,
+  "fps": 25.0,
+  "width": 3840,
+  "height": 2160,
+  "duration_seconds": 21.52,
+  "purpose": "Out-of-domain roadside demonstration; not a labeled tracking benchmark."
+}

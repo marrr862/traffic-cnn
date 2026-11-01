@@ -1,0 +1,93 @@
+{
+  "name": "full-baseline",
+  "reference_type": "Preliminary visual annotation by the assistant from contact sheets, before model predictions; requires independent human verification.",
+  "temporal_event_check": {
+    "tolerance_frames": 6,
+    "matched_events": 9,
+    "unmatched_reference_events": [
+      {
+        "vehicle": "first dark car approaching",
+        "class": "car",
+        "direction": "negative_to_positive",
+        "frame_interval": [
+          0,
+          24
+        ]
+      }
+    ],
+    "unmatched_predicted_events": [
+      {
+        "frame": "420",
+        "time_seconds": "16.8",
+        "track_id": "155",
+        "vehicle_class": "van",
+        "direction": "positive_to_negative"
+      }
+    ],
+    "matched_class_disagreements": [
+      {
+        "reference": {
+          "vehicle": "first white truck approaching",
+          "class": "truck",
+          "direction": "negative_to_positive",
+          "frame_interval": [
+            0,
+            12
+          ]
+        },
+        "predicted": {
+          "frame": "8",
+          "time_seconds": "0.32",
+          "track_id": "3",
+          "vehicle_class": "van",
+          "direction": "negative_to_positive"
+        }
+      },
+      {
+        "reference": {
+          "vehicle": "second white truck approaching",
+          "class": "truck",
+          "direction": "negative_to_positive",
+          "frame_interval": [
+            408,
+            420
+          ]
+        },
+        "predicted": {
+          "frame": "412",
+          "time_seconds": "16.48",
+          "track_id": "85",
+          "vehicle_class": "bus",
+          "direction": "negative_to_positive"
+        }
+      }
+    ],
+    "note": "Approximate interval matching, not a validated benchmark. Equal total counts can hide missed and duplicated events."
+  },
+  "observed_total": 10,
+  "reference_total": 10,
+  "absolute_count_difference": 0,
+  "by_direction": {
+    "negative_to_positive": {
+      "observed": 6,
+      "reference": 7,
+      "absolute_difference": 1
+    },
+    "positive_to_negative": {
+      "observed": 4,
+      "reference": 3,
+      "absolute_difference": 1
+    }
+  },
+  "observed_by_class": {
+    "van": 2,
+    "car": 7,
+    "bus": 1
+  },
+  "reference_by_class": {
+    "car": 8,
+    "truck": 2
+  },
+  "limitations": "Only one 21.52-second daylight video. Contact-sheet intervals are approximate; classes are visually assigned. This is not a ground-truth benchmark or an estimate of general counting accuracy.",
+  "processing_fps": 11.891159235865649
+}

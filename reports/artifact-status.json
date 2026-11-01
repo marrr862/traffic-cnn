@@ -1,0 +1,10 @@
+{
+  "stage": "visual_qa_complete",
+  "docx": "/Users/macbook/Downloads/FakeNewsNet-master/traffic-cnn/thesis/DIPLOMA.docx",
+  "pptx": "/Users/macbook/Downloads/FakeNewsNet-master/traffic-cnn/thesis/presentation/DEFENSE.pptx",
+  "word_pages": 22,
+  "presentation_slides": 8,
+  "software_tests_passed": 20,
+  "gui_verified": true,
+  "checked_at": "2026-10-10T09:56:57.262596"
+}

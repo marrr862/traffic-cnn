@@ -1,0 +1,67 @@
+test_app_opens_without_exception (test_app.AppTests) ... 2026-10-10 10:05:02.036 WARNING streamlit.runtime.scriptrunner_utils.script_run_context: Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.
+ok
+test_crossing_once_with_dead_band (test_counting.CountingTests) ... ok
+test_invalid (test_counting.CountingTests) ... ok
+test_outside_segment (test_counting.CountingTests) ... ok
+test_reverse (test_counting.CountingTests) ... ok
+test_same_side (test_counting.CountingTests) ... ok
+test_stale (test_counting.CountingTests) ... ok
+test_conversion_and_duplicate_exclusion (test_dataset.DatasetTests) ... test {'images': 1, 'boxes_by_class': {'car': 1, 'bus': 1}, 'negative_images': 0, 'skipped_annotations': {'ignored': 1, 'non_vehicle': 1}}
+val {'images': 1, 'boxes_by_class': {'car': 1, 'bus': 1}, 'negative_images': 0, 'skipped_annotations': {'ignored': 1, 'non_vehicle': 1}}
+train {'images': 1, 'boxes_by_class': {'car': 1, 'bus': 1}, 'negative_images': 0, 'skipped_annotations': {'ignored': 1, 'non_vehicle': 1}}
+ok
+test_class_error_is_separate_from_counting (test_event_matching.EventMatchingTests) ... ok
+test_direction_must_match (test_event_matching.EventMatchingTests) ... ok
+test_duplicate_events_match_only_once (test_event_matching.EventMatchingTests) ... ok
+test_empty_events (test_event_matching.EventMatchingTests) ... ok
+test_equal_totals_can_hide_compensating_errors (test_event_matching.EventMatchingTests) ... ok
+test_boundaries_empty_window_and_short_tail (test_flow.FlowTests) ... ok
+test_invalid_parameters_and_outside_event (test_flow.FlowTests) ... ok
+test_ambiguous_candidates_not_merged (test_tracklets.TrackletTests) ... ok
+test_competing_new_ids_not_merged (test_tracklets.TrackletTests) ... ok
+test_lost_id_preserves_vehicle_and_class (test_tracklets.TrackletTests) ... ok
+test_reappearing_original_track_splits_simultaneous_alias (test_tracklets.TrackletTests) ... ok
+test_simultaneous_vehicles_not_merged (test_tracklets.TrackletTests) ... ok
+test_stale_id_not_reused (test_tracklets.TrackletTests) ... ok
+test_video_outputs (test_video.VideoSmokeTest) ... {
+  "tracked_ids": 0,
+  "frames": 5,
+  "duration_seconds": 0.5,
+  "crossings": 0,
+  "by_direction": {},
+  "source_video": "/private/var/folders/0t/cbnm228n2ts1lm7bws0mp25r0000gn/T/tmpj7828ozy/blank.mp4",
+  "source_sha256": "a1a013a92b2645d2881253871fb08799592c1fdf1895ebe835ef415e7ef0ded6",
+  "mean_visible_tracked_vehicles": 0.0,
+  "peak_visible_tracked_vehicles": 0,
+  "by_class": {},
+  "flow_vehicles_per_hour": 0.0,
+  "processing_fps": 6.876698222162846,
+  "line": [
+    0,
+    144.0,
+    319,
+    144.0
+  ],
+  "weights": "/Users/macbook/Downloads/FakeNewsNet-master/traffic-cnn/runs/train/smoke/weights/best.pt",
+  "confidence": 0.3,
+  "imgsz": 640,
+  "source_fps": 10.0,
+  "video_codec": "avc1",
+  "interval_seconds": 10,
+  "tracking": {
+    "mode": "baseline",
+    "detector_threshold": 0.3,
+    "initialization_threshold": 0.25,
+    "agnostic_nms": false,
+    "continuity_max_gap": 0,
+    "continuity_iou": 0.5,
+    "class_vote": "instantaneous"
+  },
+  "limitations": "One crossing per track ID. ID switches can duplicate counts; occlusion can cause misses. Flow extrapolates observed duration. Speed is not calibrated."
+}
+ok
+
+----------------------------------------------------------------------
+Ran 22 tests in 2.463s
+
+OK

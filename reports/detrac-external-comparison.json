@@ -1,0 +1,64 @@
+{
+  "rows": [
+    {
+      "sequence": "MVI_39031",
+      "frames": 300,
+      "model": "vehicle-finetune-full",
+      "imgsz": 640,
+      "reference": 5,
+      "predicted": 6,
+      "matched": 5,
+      "missed": 0,
+      "extra": 1,
+      "event_f1": 0.9090909090909091,
+      "vehicle_AP50": 0.9704418197394017,
+      "vehicle_AP50_95": 0.7676128500703997,
+      "processing_fps": 49.6079999983795
+    },
+    {
+      "sequence": "MVI_39031",
+      "frames": 300,
+      "model": "vehicle-expanded-full",
+      "imgsz": 960,
+      "reference": 5,
+      "predicted": 5,
+      "matched": 5,
+      "missed": 0,
+      "extra": 0,
+      "event_f1": 1.0,
+      "vehicle_AP50": 0.9729447075594331,
+      "vehicle_AP50_95": 0.7554553177705898,
+      "processing_fps": 34.13189839802217
+    }
+  ],
+  "counting_aggregate": [
+    {
+      "model": "vehicle-expanded-full",
+      "sequences": 1,
+      "reference": 5,
+      "predicted": 5,
+      "matched": 5,
+      "missed": 0,
+      "extra": 0,
+      "event_precision": 1.0,
+      "event_recall": 1.0,
+      "event_f1": 1.0
+    },
+    {
+      "model": "vehicle-finetune-full",
+      "sequences": 1,
+      "reference": 5,
+      "predicted": 6,
+      "matched": 5,
+      "missed": 0,
+      "extra": 1,
+      "event_precision": 0.8333333333333334,
+      "event_recall": 1.0,
+      "event_f1": 0.9090909090909091
+    }
+  ],
+  "selection": "Planned first 300 frames of first three alphabetic test sequences; only MVI_39031 completed before author Drive quota blocked further downloads; no selection by model score",
+  "download_limitation": "Google Drive Quota exceeded for further scenes",
+  "training_on_detrac": false,
+  "limitations": "Small external transfer check, correlated frames; custom class-agnostic detection AP, not official UA-DETRAC protocol or five-class VisDrone mAP. Events derived from published trajectories, not separately human-verified. Models and input sizes selected previously on VisDrone validation. Different checkpoint and input size confound attribution. Counting includes all annotated trajectories; unannotated ignored regions may cause extras."
+}

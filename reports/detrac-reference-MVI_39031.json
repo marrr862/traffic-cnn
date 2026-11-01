@@ -1,0 +1,82 @@
+{
+  "sequence": "MVI_39031",
+  "frames": 300,
+  "fps": 25,
+  "line": [
+    0,
+    324,
+    959,
+    324
+  ],
+  "source_sha256": "50ffa86f4ad4ecb372e1080614555f45ff8fc9914e75cd101267fce1fe4f1d41",
+  "events": [
+    {
+      "label": "published-track-1",
+      "class": "car",
+      "frame_interval": [
+        19,
+        22
+      ],
+      "direction": "positive_to_negative"
+    },
+    {
+      "label": "published-track-2",
+      "class": "car",
+      "frame_interval": [
+        46,
+        49
+      ],
+      "direction": "positive_to_negative"
+    },
+    {
+      "label": "published-track-3",
+      "class": "car",
+      "frame_interval": [
+        113,
+        116
+      ],
+      "direction": "positive_to_negative"
+    },
+    {
+      "label": "published-track-4",
+      "class": "van",
+      "frame_interval": [
+        202,
+        205
+      ],
+      "direction": "positive_to_negative"
+    },
+    {
+      "label": "published-track-10",
+      "class": "car",
+      "frame_interval": [
+        292,
+        294
+      ],
+      "direction": "positive_to_negative"
+    }
+  ],
+  "annotation_status": "published_dataset",
+  "reference_type": "Published UA-DETRAC XML trajectories; automatically derived crossing events",
+  "limitations": "First 12 seconds of one test camera only; line preselected at 60% height; bottom-center points, 4px hysteresis, max gap 30 frames, one event per published ID. Derived events are not a separately human-verified line-count annotation.",
+  "ignored_regions": [
+    [
+      335.75,
+      52.75,
+      256.5,
+      117.5
+    ],
+    [
+      0.5,
+      296.75,
+      223.75,
+      120.5
+    ],
+    [
+      690.75,
+      116.75,
+      269.75,
+      94.5
+    ]
+  ]
+}

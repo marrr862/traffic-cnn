@@ -1,0 +1,8 @@
+{
+  "description": "vehicles.mp4 (3840x2160): road-plane rectangle covering both carriageways, 25 m wide and 250 m long.",
+  "source": "Approximate calibration published in the Roboflow Supervision speed-estimation example for the same video; not surveyed on site.",
+  "image_points": [[1252, 787], [2298, 803], [5039, 2159], [-550, 2159]],
+  "width_m": 25,
+  "length_m": 250,
+  "lanes": 4
+}

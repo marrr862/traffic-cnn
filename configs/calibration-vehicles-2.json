@@ -1,0 +1,8 @@
+{
+  "description": "vehicles-2.mp4 (1920x1080): approaching carriageway (left side of frame), 3 lanes. Rectangle between the left edge line and the median edge line, from image row 710 to row 1017.",
+  "source": "Estimated by the author from the frame: 10 periods of the broken lane line (assumed 3 m dash + 9 m gap = 12 m) give 120 m; lane width assumed 3.6 m. Spacing of dashes checked against the perspective model (1/(y - y_horizon) changes uniformly). Approximate, not surveyed.",
+  "image_points": [[599, 710], [908, 710], [848, 1017], [167, 1017]],
+  "width_m": 10.8,
+  "length_m": 120,
+  "lanes": 3
+}

@@ -1,0 +1,16 @@
+.venv/
+__pycache__/
+*.pt
+runs/
+outputs/
+data/
+*.egg-info/
+.venv-clean/
+.chart-data-*/
+backups/
+deliverables/
+*.zip
+Claude outputs/
+.slides-build/
+.claude/
+.DS_Store

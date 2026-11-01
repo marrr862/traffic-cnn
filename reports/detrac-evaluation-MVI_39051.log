@@ -1,0 +1,6 @@
+Traceback (most recent call last):
+  File "/Users/macbook/Downloads/FakeNewsNet-master/traffic-cnn/scripts/evaluate_detrac.py", line 125, in <module>
+    if __name__=='__main__': main()
+  File "/Users/macbook/Downloads/FakeNewsNet-master/traffic-cnn/scripts/evaluate_detrac.py", line 96, in main
+    if len(images)!=args.frames: raise ValueError('Download the requested frames first')
+ValueError: Download the requested frames first

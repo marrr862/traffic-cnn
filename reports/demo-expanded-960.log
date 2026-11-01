@@ -1,0 +1,46 @@
+{
+  "tracked_ids": 86,
+  "frames": 538,
+  "duration_seconds": 21.52,
+  "crossings": 10,
+  "by_direction": {
+    "negative_to_positive": 6,
+    "positive_to_negative": 4
+  },
+  "source_video": "/Users/macbook/Downloads/FakeNewsNet-master/traffic-cnn/data/video/vehicles.mp4",
+  "source_sha256": "ac81100d9310bd4e9c02bc0b13b6492781d009742ced347766b2601be3c44ad4",
+  "mean_visible_tracked_vehicles": 5.849442379182156,
+  "peak_visible_tracked_vehicles": 12,
+  "by_class": {
+    "car": 9,
+    "van": 1
+  },
+  "flow_vehicles_per_hour": 1672.8624535315985,
+  "processing_fps": 12.954703326783207,
+  "line": [
+    0,
+    1296.0,
+    3839,
+    1296.0
+  ],
+  "direction_labels": {
+    "negative_to_positive": "\u041a \u043d\u0438\u0436\u043d\u0435\u043c\u0443 \u043a\u0440\u0430\u044e \u043a\u0430\u0434\u0440\u0430",
+    "positive_to_negative": "\u041a \u0432\u0435\u0440\u0445\u043d\u0435\u043c\u0443 \u043a\u0440\u0430\u044e \u043a\u0430\u0434\u0440\u0430"
+  },
+  "weights": "/Users/macbook/Downloads/FakeNewsNet-master/traffic-cnn/runs/experiments/vehicle-expanded-full/weights/best.pt",
+  "confidence": 0.3,
+  "imgsz": 960,
+  "source_fps": 25.0,
+  "video_codec": "avc1",
+  "interval_seconds": 5.0,
+  "tracking": {
+    "mode": "baseline",
+    "detector_threshold": 0.3,
+    "initialization_threshold": 0.25,
+    "agnostic_nms": false,
+    "continuity_max_gap": 0,
+    "continuity_iou": 0.5,
+    "class_vote": "instantaneous"
+  },
+  "limitations": "One crossing per track ID. ID switches can duplicate counts; occlusion can cause misses. Flow extrapolates observed duration. Speed is not calibrated."
+}

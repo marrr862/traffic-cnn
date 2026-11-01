@@ -1,0 +1,32 @@
+{
+  "full:960": {
+    "mAP50": 0.4449,
+    "mAP50_95": 0.2812,
+    "per_class_AP50": {
+      "car": 0.7526,
+      "van": 0.2994,
+      "truck": 0.3364,
+      "bus": 0.5259,
+      "motorcycle": 0.3104
+    },
+    "images": 1610,
+    "ms_per_image": 26.3,
+    "split": "test",
+    "weights": "runs/experiments/vehicle-road-yolov8s/weights/best.pt"
+  },
+  "tile:800:0.2:960:full": {
+    "mAP50": 0.4763,
+    "mAP50_95": 0.3034,
+    "per_class_AP50": {
+      "car": 0.7858,
+      "van": 0.3657,
+      "truck": 0.3479,
+      "bus": 0.5358,
+      "motorcycle": 0.3462
+    },
+    "images": 1610,
+    "ms_per_image": 165.7,
+    "split": "test",
+    "weights": "runs/experiments/vehicle-road-yolov8s/weights/best.pt"
+  }
+}

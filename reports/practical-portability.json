@@ -1,0 +1,15 @@
+{
+  "tests": 33,
+  "local_tests": "passed",
+  "relocated_tests": "passed",
+  "video_smoke_device": "cpu",
+  "weights": "runs/experiments/vehicle-finetune-full/weights/best.pt",
+  "python": "3.10.20 (main, Mar  3 2026, 00:49:35) [Clang 21.0.0 (clang-2100.0.123.102)]",
+  "platform": "macOS-26.6.2-arm64-arm-64bit",
+  "limitations": "Fresh isolated Python environment and relocated ZIP tested on the same Mac; separate physical computer and Windows/Linux not tested.",
+  "verified_bundle_files": 279,
+  "verification_note": "All 278 packaged files verified; extracted application passed 33 tests using the clean environment. Final rebuild adds this verification log and updates reports only; checksum verification repeated for all 279 files.",
+  "clean_environment_tests": "passed",
+  "clean_installation": "passed",
+  "clean_relocated_tests": "passed"
+}

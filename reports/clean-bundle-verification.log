@@ -1,0 +1,92 @@
+Project paths updated for /private/var/folders/0t/cbnm228n2ts1lm7bws0mp25r0000gn/T/traffic-practical-702930jw/traffic-cnn
+test_app_opens_without_exception (test_app.AppTests) ... 2026-10-11 12:16:02.637 WARNING streamlit.runtime.scriptrunner_utils.script_run_context: Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.
+ok
+test_custom_line_and_original_frame_annotation_render (test_app.AppTests) ... 2026-10-11 12:16:03.685 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.
+ok
+test_crossing_once_with_dead_band (test_counting.CountingTests) ... ok
+test_invalid (test_counting.CountingTests) ... ok
+test_outside_segment (test_counting.CountingTests) ... ok
+test_reverse (test_counting.CountingTests) ... ok
+test_same_side (test_counting.CountingTests) ... ok
+test_stale (test_counting.CountingTests) ... ok
+test_conversion_and_duplicate_exclusion (test_dataset.DatasetTests) ... test {'images': 1, 'boxes_by_class': {'car': 1, 'bus': 1}, 'negative_images': 0, 'skipped_annotations': {'ignored': 1, 'non_vehicle': 1}}
+val {'images': 1, 'boxes_by_class': {'car': 1, 'bus': 1}, 'negative_images': 0, 'skipped_annotations': {'ignored': 1, 'non_vehicle': 1}}
+train {'images': 1, 'boxes_by_class': {'car': 1, 'bus': 1}, 'negative_images': 0, 'skipped_annotations': {'ignored': 1, 'non_vehicle': 1}}
+ok
+test_counts_and_corrupt_box (test_dataset_audit.DatasetAuditTests) ... ok
+test_cross_split_duplicate_rejected (test_dataset_audit.DatasetAuditTests) ... ok
+test_gap_and_segment_exclude_false_crossings (test_detrac.DetracTests) ... ok
+test_ignore_center_and_iou (test_detrac.DetracTests) ... ok
+test_published_id_crossing_and_original_class (test_detrac.DetracTests) ... ok
+test_class_error_is_separate_from_counting (test_event_matching.EventMatchingTests) ... ok
+test_direction_must_match (test_event_matching.EventMatchingTests) ... ok
+test_duplicate_events_match_only_once (test_event_matching.EventMatchingTests) ... ok
+test_empty_events (test_event_matching.EventMatchingTests) ... ok
+test_equal_totals_can_hide_compensating_errors (test_event_matching.EventMatchingTests) ... ok
+test_evaluation_requires_same_source_line_and_fps (test_event_matching.EventMatchingTests) ... ok
+test_horizontal_flip_corrects_only_x_and_preserves_box (test_expansion.ExpansionTests) ... ok
+test_boundaries_empty_window_and_short_tail (test_flow.FlowTests) ... ok
+test_invalid_parameters_and_outside_event (test_flow.FlowTests) ... ok
+test_finite_segment_and_direction_for_vertical_and_reversed_lines (test_geometry.GeometryTests) ... ok
+test_nan_and_invalid_endpoints_are_rejected (test_geometry.GeometryTests) ... ok
+test_nested_results_and_idempotent_rebase (test_portability.PortabilityTests) ... ok
+test_ambiguous_candidates_not_merged (test_tracklets.TrackletTests) ... ok
+test_competing_new_ids_not_merged (test_tracklets.TrackletTests) ... ok
+test_lost_id_preserves_vehicle_and_class (test_tracklets.TrackletTests) ... ok
+test_reappearing_original_track_splits_simultaneous_alias (test_tracklets.TrackletTests) ... ok
+test_simultaneous_vehicles_not_merged (test_tracklets.TrackletTests) ... ok
+test_stale_id_not_reused (test_tracklets.TrackletTests) ... ok
+test_video_outputs (test_video.VideoSmokeTest) ... {
+  "tracked_ids": 0,
+  "frames": 5,
+  "duration_seconds": 0.5,
+  "crossings": 0,
+  "by_direction": {},
+  "source_video": "/private/var/folders/0t/cbnm228n2ts1lm7bws0mp25r0000gn/T/tmp7plj51hz/blank.mp4",
+  "source_sha256": "117e06981a0c2945b52b3a5dad3adeb25ef39ad4a12e4bdb9a431254211331af",
+  "mean_visible_tracked_vehicles": 0.0,
+  "peak_visible_tracked_vehicles": 0,
+  "by_class": {},
+  "flow_vehicles_per_hour": 0.0,
+  "processing_fps": 7.174247457672292,
+  "line": [
+    0,
+    144.0,
+    319,
+    144.0
+  ],
+  "direction_labels": {
+    "negative_to_positive": "\u041a \u043d\u0438\u0436\u043d\u0435\u043c\u0443 \u043a\u0440\u0430\u044e \u043a\u0430\u0434\u0440\u0430",
+    "positive_to_negative": "\u041a \u0432\u0435\u0440\u0445\u043d\u0435\u043c\u0443 \u043a\u0440\u0430\u044e \u043a\u0430\u0434\u0440\u0430"
+  },
+  "weights": "/private/var/folders/0t/cbnm228n2ts1lm7bws0mp25r0000gn/T/traffic-practical-702930jw/traffic-cnn/runs/experiments/vehicle-finetune-full/weights/best.pt",
+  "confidence": 0.3,
+  "imgsz": 640,
+  "source_fps": 10.0,
+  "video_codec": "avc1",
+  "interval_seconds": 10,
+  "tracking": {
+    "mode": "baseline",
+    "detector_threshold": 0.3,
+    "initialization_threshold": 0.25,
+    "agnostic_nms": false,
+    "continuity_max_gap": 0,
+    "continuity_iou": 0.5,
+    "class_vote": "instantaneous"
+  },
+  "limitations": "One crossing per track ID. ID switches can duplicate counts; occlusion can cause misses. Flow extrapolates observed duration. Speed is not calibrated."
+}
+ok
+
+----------------------------------------------------------------------
+Ran 33 tests in 4.447s
+
+OK
+Project paths updated for /private/var/folders/0t/cbnm228n2ts1lm7bws0mp25r0000gn/T/tmpgubqbv3b
+Project paths updated for /private/var/folders/0t/cbnm228n2ts1lm7bws0mp25r0000gn/T/tmpgubqbv3b
+{
+  "archive": "/Users/macbook/Downloads/FakeNewsNet-master/traffic-cnn/deliverables/traffic-cnn-practical.zip",
+  "verified_files": 278,
+  "bytes": 488159920,
+  "relocated_tests": true
+}

@@ -1,0 +1,7 @@
+{
+  "name": "vehicle-road-yolov8s",
+  "weights": "runs/experiments/vehicle-road-yolov8s/weights/best.pt",
+  "inference_imgsz": 960,
+  "previous": "vehicle-road-combined",
+  "selection": "YOLOv8s trained on VisDrone + MIO-TCD. Chosen on road-camera checks: MIO-TCD test mAP50 86.8% @640 / 83.3% @960 (YOLOv8n road-combined: 83.7% / 79.6%), VisDrone test 48.0% @960 (43.0%), UA-DETRAC MVI_39031 5/5 counts, highway 9/10. vehicle-road-combined (YOLOv8n) is about 15% faster and remains a good option for weaker computers."
+}

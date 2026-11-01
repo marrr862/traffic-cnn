@@ -1,0 +1,939 @@
+{
+  "reference": {
+    "sequence": "MVI_39031",
+    "frames": 300,
+    "fps": 25,
+    "line": [
+      0,
+      324,
+      959,
+      324
+    ],
+    "source_sha256": "50ffa86f4ad4ecb372e1080614555f45ff8fc9914e75cd101267fce1fe4f1d41",
+    "events": [
+      {
+        "label": "published-track-1",
+        "class": "car",
+        "frame_interval": [
+          19,
+          22
+        ],
+        "direction": "positive_to_negative"
+      },
+      {
+        "label": "published-track-2",
+        "class": "car",
+        "frame_interval": [
+          46,
+          49
+        ],
+        "direction": "positive_to_negative"
+      },
+      {
+        "label": "published-track-3",
+        "class": "car",
+        "frame_interval": [
+          113,
+          116
+        ],
+        "direction": "positive_to_negative"
+      },
+      {
+        "label": "published-track-4",
+        "class": "van",
+        "frame_interval": [
+          202,
+          205
+        ],
+        "direction": "positive_to_negative"
+      },
+      {
+        "label": "published-track-10",
+        "class": "car",
+        "frame_interval": [
+          292,
+          294
+        ],
+        "direction": "positive_to_negative"
+      }
+    ],
+    "annotation_status": "published_dataset",
+    "reference_type": "Published UA-DETRAC XML trajectories; automatically derived crossing events",
+    "limitations": "First 12 seconds of one test camera only; line preselected at 60% height; bottom-center points, 4px hysteresis, max gap 30 frames, one event per published ID. Derived events are not a separately human-verified line-count annotation.",
+    "ignored_regions": [
+      [
+        335.75,
+        52.75,
+        256.5,
+        117.5
+      ],
+      [
+        0.5,
+        296.75,
+        223.75,
+        120.5
+      ],
+      [
+        690.75,
+        116.75,
+        269.75,
+        94.5
+      ]
+    ]
+  },
+  "results": [
+    {
+      "name": "vehicle-finetune-full",
+      "imgsz": 640,
+      "counting": {
+        "reference_total": 5,
+        "predicted_total": 6,
+        "matched_events": 5,
+        "missed_events": 0,
+        "extra_events": 1,
+        "event_precision": 0.8333333333333334,
+        "event_recall": 1.0,
+        "event_f1": 0.9090909090909091,
+        "matched_pairs": [
+          {
+            "reference": {
+              "label": "published-track-1",
+              "class": "car",
+              "frame_interval": [
+                19,
+                22
+              ],
+              "direction": "positive_to_negative"
+            },
+            "predicted": {
+              "frame": "21",
+              "time_seconds": "0.84",
+              "track_id": "1",
+              "vehicle_class": "car",
+              "direction": "positive_to_negative"
+            }
+          },
+          {
+            "reference": {
+              "label": "published-track-2",
+              "class": "car",
+              "frame_interval": [
+                46,
+                49
+              ],
+              "direction": "positive_to_negative"
+            },
+            "predicted": {
+              "frame": "49",
+              "time_seconds": "1.96",
+              "track_id": "25",
+              "vehicle_class": "car",
+              "direction": "positive_to_negative"
+            }
+          },
+          {
+            "reference": {
+              "label": "published-track-3",
+              "class": "car",
+              "frame_interval": [
+                113,
+                116
+              ],
+              "direction": "positive_to_negative"
+            },
+            "predicted": {
+              "frame": "115",
+              "time_seconds": "4.6",
+              "track_id": "47",
+              "vehicle_class": "car",
+              "direction": "positive_to_negative"
+            }
+          },
+          {
+            "reference": {
+              "label": "published-track-4",
+              "class": "van",
+              "frame_interval": [
+                202,
+                205
+              ],
+              "direction": "positive_to_negative"
+            },
+            "predicted": {
+              "frame": "206",
+              "time_seconds": "8.24",
+              "track_id": "75",
+              "vehicle_class": "car",
+              "direction": "positive_to_negative"
+            }
+          },
+          {
+            "reference": {
+              "label": "published-track-10",
+              "class": "car",
+              "frame_interval": [
+                292,
+                294
+              ],
+              "direction": "positive_to_negative"
+            },
+            "predicted": {
+              "frame": "294",
+              "time_seconds": "11.76",
+              "track_id": "188",
+              "vehicle_class": "van",
+              "direction": "positive_to_negative"
+            }
+          }
+        ],
+        "class_metrics": "Not evaluated: published others does not equal truck, taxonomy differs",
+        "processing_fps": 49.6079999983795
+      },
+      "detection": {
+        "vehicle_AP50": 0.9704418197394017,
+        "vehicle_AP50_95": 0.7676128500703997,
+        "annotated_boxes": 523,
+        "predictions_above_0_3": 638,
+        "precision_at_0_3": 0.8040752351097179,
+        "recall_at_0_3": 0.9808795411089866,
+        "ignored_predictions": 37571,
+        "protocol": "Class-agnostic vehicle; greedy IoU matching per image, 101-point precision envelope. Remove GT/predictions whose box centers lie inside published ignore rectangles. Custom protocol, not official UA-DETRAC or five-class VisDrone mAP."
+      }
+    },
+    {
+      "name": "vehicle-expanded-full",
+      "imgsz": 960,
+      "counting": {
+        "reference_total": 5,
+        "predicted_total": 5,
+        "matched_events": 5,
+        "missed_events": 0,
+        "extra_events": 0,
+        "event_precision": 1.0,
+        "event_recall": 1.0,
+        "event_f1": 1.0,
+        "matched_pairs": [
+          {
+            "reference": {
+              "label": "published-track-1",
+              "class": "car",
+              "frame_interval": [
+                19,
+                22
+              ],
+              "direction": "positive_to_negative"
+            },
+            "predicted": {
+              "frame": "22",
+              "time_seconds": "0.88",
+              "track_id": "1",
+              "vehicle_class": "car",
+              "direction": "positive_to_negative"
+            }
+          },
+          {
+            "reference": {
+              "label": "published-track-2",
+              "class": "car",
+              "frame_interval": [
+                46,
+                49
+              ],
+              "direction": "positive_to_negative"
+            },
+            "predicted": {
+              "frame": "49",
+              "time_seconds": "1.96",
+              "track_id": "33",
+              "vehicle_class": "car",
+              "direction": "positive_to_negative"
+            }
+          },
+          {
+            "reference": {
+              "label": "published-track-3",
+              "class": "car",
+              "frame_interval": [
+                113,
+                116
+              ],
+              "direction": "positive_to_negative"
+            },
+            "predicted": {
+              "frame": "115",
+              "time_seconds": "4.6",
+              "track_id": "127",
+              "vehicle_class": "car",
+              "direction": "positive_to_negative"
+            }
+          },
+          {
+            "reference": {
+              "label": "published-track-4",
+              "class": "van",
+              "frame_interval": [
+                202,
+                205
+              ],
+              "direction": "positive_to_negative"
+            },
+            "predicted": {
+              "frame": "207",
+              "time_seconds": "8.28",
+              "track_id": "224",
+              "vehicle_class": "car",
+              "direction": "positive_to_negative"
+            }
+          },
+          {
+            "reference": {
+              "label": "published-track-10",
+              "class": "car",
+              "frame_interval": [
+                292,
+                294
+              ],
+              "direction": "positive_to_negative"
+            },
+            "predicted": {
+              "frame": "295",
+              "time_seconds": "11.8",
+              "track_id": "419",
+              "vehicle_class": "car",
+              "direction": "positive_to_negative"
+            }
+          }
+        ],
+        "class_metrics": "Not evaluated: published others does not equal truck, taxonomy differs",
+        "processing_fps": 34.13189839802217
+      },
+      "detection": {
+        "vehicle_AP50": 0.9729447075594331,
+        "vehicle_AP50_95": 0.7554553177705898,
+        "annotated_boxes": 523,
+        "predictions_above_0_3": 618,
+        "precision_at_0_3": 0.8317152103559871,
+        "recall_at_0_3": 0.982791586998088,
+        "ignored_predictions": 48557,
+        "protocol": "Class-agnostic vehicle; greedy IoU matching per image, 101-point precision envelope. Remove GT/predictions whose box centers lie inside published ignore rectangles. Custom protocol, not official UA-DETRAC or five-class VisDrone mAP."
+      }
+    },
+    {
+      "name": "vehicle-hires-960",
+      "imgsz": 960,
+      "counting": {
+        "reference_total": 5,
+        "predicted_total": 5,
+        "matched_events": 5,
+        "missed_events": 0,
+        "extra_events": 0,
+        "event_precision": 1.0,
+        "event_recall": 1.0,
+        "event_f1": 1.0,
+        "matched_pairs": [
+          {
+            "reference": {
+              "label": "published-track-1",
+              "class": "car",
+              "frame_interval": [
+                19,
+                22
+              ],
+              "direction": "positive_to_negative"
+            },
+            "predicted": {
+              "frame": "22",
+              "time_seconds": "0.88",
+              "track_id": "1",
+              "vehicle_class": "car",
+              "direction": "positive_to_negative",
+              "speed_kmh": ""
+            }
+          },
+          {
+            "reference": {
+              "label": "published-track-2",
+              "class": "car",
+              "frame_interval": [
+                46,
+                49
+              ],
+              "direction": "positive_to_negative"
+            },
+            "predicted": {
+              "frame": "49",
+              "time_seconds": "1.96",
+              "track_id": "15",
+              "vehicle_class": "car",
+              "direction": "positive_to_negative",
+              "speed_kmh": ""
+            }
+          },
+          {
+            "reference": {
+              "label": "published-track-3",
+              "class": "car",
+              "frame_interval": [
+                113,
+                116
+              ],
+              "direction": "positive_to_negative"
+            },
+            "predicted": {
+              "frame": "115",
+              "time_seconds": "4.6",
+              "track_id": "55",
+              "vehicle_class": "van",
+              "direction": "positive_to_negative",
+              "speed_kmh": ""
+            }
+          },
+          {
+            "reference": {
+              "label": "published-track-4",
+              "class": "van",
+              "frame_interval": [
+                202,
+                205
+              ],
+              "direction": "positive_to_negative"
+            },
+            "predicted": {
+              "frame": "208",
+              "time_seconds": "8.32",
+              "track_id": "105",
+              "vehicle_class": "truck",
+              "direction": "positive_to_negative",
+              "speed_kmh": ""
+            }
+          },
+          {
+            "reference": {
+              "label": "published-track-10",
+              "class": "car",
+              "frame_interval": [
+                292,
+                294
+              ],
+              "direction": "positive_to_negative"
+            },
+            "predicted": {
+              "frame": "295",
+              "time_seconds": "11.8",
+              "track_id": "174",
+              "vehicle_class": "car",
+              "direction": "positive_to_negative",
+              "speed_kmh": ""
+            }
+          }
+        ],
+        "class_metrics": "Not evaluated: published others does not equal truck, taxonomy differs",
+        "processing_fps": 40.764571237438176
+      },
+      "detection": {
+        "vehicle_AP50": 0.9665093650952801,
+        "vehicle_AP50_95": 0.7703762221138175,
+        "annotated_boxes": 523,
+        "predictions_above_0_3": 641,
+        "precision_at_0_3": 0.8034321372854915,
+        "recall_at_0_3": 0.9847036328871893,
+        "ignored_predictions": 35242,
+        "protocol": "Class-agnostic vehicle; greedy IoU matching per image, 101-point precision envelope. Remove GT/predictions whose box centers lie inside published ignore rectangles. Custom protocol, not official UA-DETRAC or five-class VisDrone mAP."
+      }
+    },
+    {
+      "name": "vehicle-road-combined",
+      "imgsz": 640,
+      "counting": {
+        "reference_total": 5,
+        "predicted_total": 5,
+        "matched_events": 5,
+        "missed_events": 0,
+        "extra_events": 0,
+        "event_precision": 1.0,
+        "event_recall": 1.0,
+        "event_f1": 1.0,
+        "matched_pairs": [
+          {
+            "reference": {
+              "label": "published-track-1",
+              "class": "car",
+              "frame_interval": [
+                19,
+                22
+              ],
+              "direction": "positive_to_negative"
+            },
+            "predicted": {
+              "frame": "20",
+              "time_seconds": "0.8",
+              "track_id": "1",
+              "vehicle_class": "car",
+              "direction": "positive_to_negative",
+              "speed_kmh": ""
+            }
+          },
+          {
+            "reference": {
+              "label": "published-track-2",
+              "class": "car",
+              "frame_interval": [
+                46,
+                49
+              ],
+              "direction": "positive_to_negative"
+            },
+            "predicted": {
+              "frame": "48",
+              "time_seconds": "1.92",
+              "track_id": "4",
+              "vehicle_class": "car",
+              "direction": "positive_to_negative",
+              "speed_kmh": ""
+            }
+          },
+          {
+            "reference": {
+              "label": "published-track-3",
+              "class": "car",
+              "frame_interval": [
+                113,
+                116
+              ],
+              "direction": "positive_to_negative"
+            },
+            "predicted": {
+              "frame": "114",
+              "time_seconds": "4.56",
+              "track_id": "26",
+              "vehicle_class": "car",
+              "direction": "positive_to_negative",
+              "speed_kmh": ""
+            }
+          },
+          {
+            "reference": {
+              "label": "published-track-4",
+              "class": "van",
+              "frame_interval": [
+                202,
+                205
+              ],
+              "direction": "positive_to_negative"
+            },
+            "predicted": {
+              "frame": "206",
+              "time_seconds": "8.24",
+              "track_id": "34",
+              "vehicle_class": "car",
+              "direction": "positive_to_negative",
+              "speed_kmh": ""
+            }
+          },
+          {
+            "reference": {
+              "label": "published-track-10",
+              "class": "car",
+              "frame_interval": [
+                292,
+                294
+              ],
+              "direction": "positive_to_negative"
+            },
+            "predicted": {
+              "frame": "294",
+              "time_seconds": "11.76",
+              "track_id": "56",
+              "vehicle_class": "car",
+              "direction": "positive_to_negative",
+              "speed_kmh": ""
+            }
+          }
+        ],
+        "class_metrics": "Not evaluated: published others does not equal truck, taxonomy differs",
+        "processing_fps": 45.59058528815604
+      },
+      "detection": {
+        "vehicle_AP50": 0.9855191507933313,
+        "vehicle_AP50_95": 0.7814882940544954,
+        "annotated_boxes": 523,
+        "predictions_above_0_3": 569,
+        "precision_at_0_3": 0.9121265377855887,
+        "recall_at_0_3": 0.9923518164435946,
+        "ignored_predictions": 13860,
+        "protocol": "Class-agnostic vehicle; greedy IoU matching per image, 101-point precision envelope. Remove GT/predictions whose box centers lie inside published ignore rectangles. Custom protocol, not official UA-DETRAC or five-class VisDrone mAP."
+      }
+    },
+    {
+      "name": "vehicle-road-combined",
+      "imgsz": 960,
+      "counting": {
+        "reference_total": 5,
+        "predicted_total": 5,
+        "matched_events": 5,
+        "missed_events": 0,
+        "extra_events": 0,
+        "event_precision": 1.0,
+        "event_recall": 1.0,
+        "event_f1": 1.0,
+        "matched_pairs": [
+          {
+            "reference": {
+              "label": "published-track-1",
+              "class": "car",
+              "frame_interval": [
+                19,
+                22
+              ],
+              "direction": "positive_to_negative"
+            },
+            "predicted": {
+              "frame": "21",
+              "time_seconds": "0.84",
+              "track_id": "1",
+              "vehicle_class": "car",
+              "direction": "positive_to_negative",
+              "speed_kmh": ""
+            }
+          },
+          {
+            "reference": {
+              "label": "published-track-2",
+              "class": "car",
+              "frame_interval": [
+                46,
+                49
+              ],
+              "direction": "positive_to_negative"
+            },
+            "predicted": {
+              "frame": "49",
+              "time_seconds": "1.96",
+              "track_id": "12",
+              "vehicle_class": "car",
+              "direction": "positive_to_negative",
+              "speed_kmh": ""
+            }
+          },
+          {
+            "reference": {
+              "label": "published-track-3",
+              "class": "car",
+              "frame_interval": [
+                113,
+                116
+              ],
+              "direction": "positive_to_negative"
+            },
+            "predicted": {
+              "frame": "115",
+              "time_seconds": "4.6",
+              "track_id": "43",
+              "vehicle_class": "car",
+              "direction": "positive_to_negative",
+              "speed_kmh": ""
+            }
+          },
+          {
+            "reference": {
+              "label": "published-track-4",
+              "class": "van",
+              "frame_interval": [
+                202,
+                205
+              ],
+              "direction": "positive_to_negative"
+            },
+            "predicted": {
+              "frame": "207",
+              "time_seconds": "8.28",
+              "track_id": "71",
+              "vehicle_class": "car",
+              "direction": "positive_to_negative",
+              "speed_kmh": ""
+            }
+          },
+          {
+            "reference": {
+              "label": "published-track-10",
+              "class": "car",
+              "frame_interval": [
+                292,
+                294
+              ],
+              "direction": "positive_to_negative"
+            },
+            "predicted": {
+              "frame": "294",
+              "time_seconds": "11.76",
+              "track_id": "99",
+              "vehicle_class": "car",
+              "direction": "positive_to_negative",
+              "speed_kmh": ""
+            }
+          }
+        ],
+        "class_metrics": "Not evaluated: published others does not equal truck, taxonomy differs",
+        "processing_fps": 42.43964237230847
+      },
+      "detection": {
+        "vehicle_AP50": 0.9734659281281253,
+        "vehicle_AP50_95": 0.7780727628095702,
+        "annotated_boxes": 523,
+        "predictions_above_0_3": 601,
+        "precision_at_0_3": 0.8569051580698835,
+        "recall_at_0_3": 0.9847036328871893,
+        "ignored_predictions": 23352,
+        "protocol": "Class-agnostic vehicle; greedy IoU matching per image, 101-point precision envelope. Remove GT/predictions whose box centers lie inside published ignore rectangles. Custom protocol, not official UA-DETRAC or five-class VisDrone mAP."
+      }
+    },
+    {
+      "name": "vehicle-road-yolov8s",
+      "imgsz": 640,
+      "counting": {
+        "reference_total": 5,
+        "predicted_total": 5,
+        "matched_events": 5,
+        "missed_events": 0,
+        "extra_events": 0,
+        "event_precision": 1.0,
+        "event_recall": 1.0,
+        "event_f1": 1.0,
+        "matched_pairs": [
+          {
+            "reference": {
+              "label": "published-track-1",
+              "class": "car",
+              "frame_interval": [
+                19,
+                22
+              ],
+              "direction": "positive_to_negative"
+            },
+            "predicted": {
+              "frame": "21",
+              "time_seconds": "0.84",
+              "track_id": "1",
+              "vehicle_class": "car",
+              "direction": "positive_to_negative",
+              "speed_kmh": ""
+            }
+          },
+          {
+            "reference": {
+              "label": "published-track-2",
+              "class": "car",
+              "frame_interval": [
+                46,
+                49
+              ],
+              "direction": "positive_to_negative"
+            },
+            "predicted": {
+              "frame": "49",
+              "time_seconds": "1.96",
+              "track_id": "11",
+              "vehicle_class": "car",
+              "direction": "positive_to_negative",
+              "speed_kmh": ""
+            }
+          },
+          {
+            "reference": {
+              "label": "published-track-3",
+              "class": "car",
+              "frame_interval": [
+                113,
+                116
+              ],
+              "direction": "positive_to_negative"
+            },
+            "predicted": {
+              "frame": "114",
+              "time_seconds": "4.56",
+              "track_id": "45",
+              "vehicle_class": "car",
+              "direction": "positive_to_negative",
+              "speed_kmh": ""
+            }
+          },
+          {
+            "reference": {
+              "label": "published-track-4",
+              "class": "van",
+              "frame_interval": [
+                202,
+                205
+              ],
+              "direction": "positive_to_negative"
+            },
+            "predicted": {
+              "frame": "207",
+              "time_seconds": "8.28",
+              "track_id": "64",
+              "vehicle_class": "car",
+              "direction": "positive_to_negative",
+              "speed_kmh": ""
+            }
+          },
+          {
+            "reference": {
+              "label": "published-track-10",
+              "class": "car",
+              "frame_interval": [
+                292,
+                294
+              ],
+              "direction": "positive_to_negative"
+            },
+            "predicted": {
+              "frame": "294",
+              "time_seconds": "11.76",
+              "track_id": "97",
+              "vehicle_class": "car",
+              "direction": "positive_to_negative",
+              "speed_kmh": ""
+            }
+          }
+        ],
+        "class_metrics": "Not evaluated: published others does not equal truck, taxonomy differs",
+        "processing_fps": 38.776177939154124
+      },
+      "detection": {
+        "vehicle_AP50": 0.9677357693458685,
+        "vehicle_AP50_95": 0.7892687375919087,
+        "annotated_boxes": 523,
+        "predictions_above_0_3": 591,
+        "precision_at_0_3": 0.8663282571912013,
+        "recall_at_0_3": 0.9789674952198852,
+        "ignored_predictions": 15201,
+        "protocol": "Class-agnostic vehicle; greedy IoU matching per image, 101-point precision envelope. Remove GT/predictions whose box centers lie inside published ignore rectangles. Custom protocol, not official UA-DETRAC or five-class VisDrone mAP."
+      }
+    },
+    {
+      "name": "vehicle-road-yolov8s",
+      "imgsz": 960,
+      "counting": {
+        "reference_total": 5,
+        "predicted_total": 5,
+        "matched_events": 5,
+        "missed_events": 0,
+        "extra_events": 0,
+        "event_precision": 1.0,
+        "event_recall": 1.0,
+        "event_f1": 1.0,
+        "matched_pairs": [
+          {
+            "reference": {
+              "label": "published-track-1",
+              "class": "car",
+              "frame_interval": [
+                19,
+                22
+              ],
+              "direction": "positive_to_negative"
+            },
+            "predicted": {
+              "frame": "21",
+              "time_seconds": "0.84",
+              "track_id": "1",
+              "vehicle_class": "car",
+              "direction": "positive_to_negative",
+              "speed_kmh": ""
+            }
+          },
+          {
+            "reference": {
+              "label": "published-track-2",
+              "class": "car",
+              "frame_interval": [
+                46,
+                49
+              ],
+              "direction": "positive_to_negative"
+            },
+            "predicted": {
+              "frame": "49",
+              "time_seconds": "1.96",
+              "track_id": "24",
+              "vehicle_class": "car",
+              "direction": "positive_to_negative",
+              "speed_kmh": ""
+            }
+          },
+          {
+            "reference": {
+              "label": "published-track-3",
+              "class": "car",
+              "frame_interval": [
+                113,
+                116
+              ],
+              "direction": "positive_to_negative"
+            },
+            "predicted": {
+              "frame": "115",
+              "time_seconds": "4.6",
+              "track_id": "77",
+              "vehicle_class": "car",
+              "direction": "positive_to_negative",
+              "speed_kmh": ""
+            }
+          },
+          {
+            "reference": {
+              "label": "published-track-4",
+              "class": "van",
+              "frame_interval": [
+                202,
+                205
+              ],
+              "direction": "positive_to_negative"
+            },
+            "predicted": {
+              "frame": "208",
+              "time_seconds": "8.32",
+              "track_id": "117",
+              "vehicle_class": "car",
+              "direction": "positive_to_negative",
+              "speed_kmh": ""
+            }
+          },
+          {
+            "reference": {
+              "label": "published-track-10",
+              "class": "car",
+              "frame_interval": [
+                292,
+                294
+              ],
+              "direction": "positive_to_negative"
+            },
+            "predicted": {
+              "frame": "294",
+              "time_seconds": "11.76",
+              "track_id": "163",
+              "vehicle_class": "car",
+              "direction": "positive_to_negative",
+              "speed_kmh": ""
+            }
+          }
+        ],
+        "class_metrics": "Not evaluated: published others does not equal truck, taxonomy differs",
+        "processing_fps": 37.16574963998288
+      },
+      "detection": {
+        "vehicle_AP50": 0.9644586833839931,
+        "vehicle_AP50_95": 0.7900124394618293,
+        "annotated_boxes": 523,
+        "predictions_above_0_3": 630,
+        "precision_at_0_3": 0.8206349206349206,
+        "recall_at_0_3": 0.988527724665392,
+        "ignored_predictions": 22867,
+        "protocol": "Class-agnostic vehicle; greedy IoU matching per image, 101-point precision envelope. Remove GT/predictions whose box centers lie inside published ignore rectangles. Custom protocol, not official UA-DETRAC or five-class VisDrone mAP."
+      }
+    }
+  ],
+  "training_on_detrac": false,
+  "limitations": "External transfer check, one camera prefix; correlated frames. Models were selected on VisDrone validation before this check. Comparison changes both checkpoint and resolution and cannot isolate training-data effects. No official ranking claim. Detection ignores published regions; counting includes all published trajectories and may penalize detections from unannotated regions."
+}

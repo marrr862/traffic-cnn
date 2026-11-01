@@ -1,0 +1,42 @@
+{
+  "tracked_ids": 46,
+  "frames": 538,
+  "duration_seconds": 21.52,
+  "crossings": 10,
+  "by_direction": {
+    "negative_to_positive": 6,
+    "positive_to_negative": 4
+  },
+  "source_video": "/Users/macbook/Downloads/FakeNewsNet-master/traffic-cnn/data/video/vehicles.mp4",
+  "source_sha256": "ac81100d9310bd4e9c02bc0b13b6492781d009742ced347766b2601be3c44ad4",
+  "mean_visible_tracked_vehicles": 4.105947955390334,
+  "peak_visible_tracked_vehicles": 9,
+  "by_class": {
+    "van": 2,
+    "car": 7,
+    "bus": 1
+  },
+  "flow_vehicles_per_hour": 1672.8624535315985,
+  "processing_fps": 11.891159235865649,
+  "line": [
+    0.0,
+    1296.0,
+    3839.0,
+    1296.0
+  ],
+  "weights": "/Users/macbook/Downloads/FakeNewsNet-master/traffic-cnn/runs/experiments/vehicle-finetune-full/weights/best.pt",
+  "confidence": 0.3,
+  "imgsz": 640,
+  "source_fps": 25.0,
+  "video_codec": "avc1",
+  "tracking": {
+    "mode": "baseline",
+    "detector_threshold": 0.3,
+    "initialization_threshold": 0.25,
+    "agnostic_nms": false,
+    "continuity_max_gap": 0,
+    "continuity_iou": 0.5,
+    "class_vote": "instantaneous"
+  },
+  "limitations": "One crossing per track ID. ID switches can duplicate counts; occlusion can cause misses. Flow extrapolates observed duration. Speed is not calibrated."
+}

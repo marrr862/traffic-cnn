@@ -1,0 +1,288 @@
+{
+  "tracked_ids": 28,
+  "frames": 538,
+  "duration_seconds": 21.52,
+  "crossings": 8,
+  "by_direction": {
+    "negative_to_positive": 5,
+    "positive_to_negative": 3
+  },
+  "source_video": "/Users/macbook/Desktop/traffic-cnn/data/video/vehicles.mp4",
+  "source_sha256": "ac81100d9310bd4e9c02bc0b13b6492781d009742ced347766b2601be3c44ad4",
+  "mean_visible_tracked_vehicles": 4.74721189591078,
+  "peak_visible_tracked_vehicles": 8,
+  "by_class": {
+    "car": 7,
+    "truck": 1
+  },
+  "flow_vehicles_per_hour": 1338.2899628252787,
+  "processing_fps": 5.052465334962212,
+  "line": [
+    0.0,
+    1296.0,
+    3839.0,
+    1296.0
+  ],
+  "direction_labels": {
+    "negative_to_positive": "\u0534\u0565\u057a\u056b \u056f\u0561\u0564\u0580\u056b \u057d\u057f\u0578\u0580\u056b\u0576 \u0565\u0566\u0580",
+    "positive_to_negative": "\u0534\u0565\u057a\u056b \u056f\u0561\u0564\u0580\u056b \u057e\u0565\u0580\u056b\u0576 \u0565\u0566\u0580"
+  },
+  "weights": "/Users/macbook/Desktop/traffic-cnn/runs/experiments/vehicle-road-combined/weights/best.pt",
+  "confidence": 0.3,
+  "imgsz": 640,
+  "source_fps": 25.0,
+  "video_codec": "avc1",
+  "interval_seconds": 10,
+  "tracking": {
+    "mode": "baseline",
+    "detector_threshold": 0.1,
+    "initialization_threshold": 0.3,
+    "agnostic_nms": true,
+    "nms_iou": 0.5,
+    "continuity_max_gap": 0,
+    "continuity_iou": 0.5,
+    "class_vote": "instantaneous"
+  },
+  "source_description": "vehicles.mp4",
+  "live_source": false,
+  "stopped_early": false,
+  "limitations": "One crossing per track ID. ID switches can duplicate counts; occlusion can cause misses. Flow extrapolates observed duration. Speed is not calibrated.",
+  "lines": [
+    {
+      "line_id": 0,
+      "coordinates": [
+        0.0,
+        1296.0,
+        3839.0,
+        1296.0
+      ],
+      "crossings": 8,
+      "by_direction": {
+        "negative_to_positive": 5,
+        "positive_to_negative": 3
+      },
+      "flow_vehicles_per_hour": 1338.2899628252787
+    }
+  ]
+}
+{
+  "reference_type": "Preliminary visual annotation by the assistant from contact sheets, before model predictions; requires independent human verification.",
+  "annotation_status": "preliminary_assistant",
+  "temporal_event_check": {
+    "tolerance_frames": 6,
+    "matched_events": 8,
+    "matched_pairs": [
+      {
+        "reference": {
+          "vehicle": "first dark car approaching",
+          "class": "car",
+          "direction": "negative_to_positive",
+          "frame_interval": [
+            0,
+            24
+          ]
+        },
+        "predicted": {
+          "frame": "9",
+          "time_seconds": "0.36",
+          "track_id": "2",
+          "vehicle_class": "car",
+          "direction": "negative_to_positive",
+          "speed_kmh": ""
+        }
+      },
+      {
+        "reference": {
+          "vehicle": "first dark estate departing",
+          "class": "car",
+          "direction": "positive_to_negative",
+          "frame_interval": [
+            12,
+            24
+          ]
+        },
+        "predicted": {
+          "frame": "16",
+          "time_seconds": "0.64",
+          "track_id": "1",
+          "vehicle_class": "car",
+          "direction": "positive_to_negative",
+          "speed_kmh": ""
+        }
+      },
+      {
+        "reference": {
+          "vehicle": "second dark estate departing",
+          "class": "car",
+          "direction": "positive_to_negative",
+          "frame_interval": [
+            72,
+            84
+          ]
+        },
+        "predicted": {
+          "frame": "79",
+          "time_seconds": "3.16",
+          "track_id": "15",
+          "vehicle_class": "car",
+          "direction": "positive_to_negative",
+          "speed_kmh": ""
+        }
+      },
+      {
+        "reference": {
+          "vehicle": "second dark car approaching",
+          "class": "car",
+          "direction": "negative_to_positive",
+          "frame_interval": [
+            204,
+            216
+          ]
+        },
+        "predicted": {
+          "frame": "209",
+          "time_seconds": "8.36",
+          "track_id": "6",
+          "vehicle_class": "car",
+          "direction": "negative_to_positive",
+          "speed_kmh": ""
+        }
+      },
+      {
+        "reference": {
+          "vehicle": "third dark car approaching",
+          "class": "car",
+          "direction": "negative_to_positive",
+          "frame_interval": [
+            336,
+            348
+          ]
+        },
+        "predicted": {
+          "frame": "345",
+          "time_seconds": "13.8",
+          "track_id": "21",
+          "vehicle_class": "car",
+          "direction": "negative_to_positive",
+          "speed_kmh": ""
+        }
+      },
+      {
+        "reference": {
+          "vehicle": "second white truck approaching",
+          "class": "truck",
+          "direction": "negative_to_positive",
+          "frame_interval": [
+            408,
+            420
+          ]
+        },
+        "predicted": {
+          "frame": "412",
+          "time_seconds": "16.48",
+          "track_id": "49",
+          "vehicle_class": "truck",
+          "direction": "negative_to_positive",
+          "speed_kmh": ""
+        }
+      },
+      {
+        "reference": {
+          "vehicle": "white car departing",
+          "class": "car",
+          "direction": "positive_to_negative",
+          "frame_interval": [
+            408,
+            420
+          ]
+        },
+        "predicted": {
+          "frame": "419",
+          "time_seconds": "16.76",
+          "track_id": "63",
+          "vehicle_class": "car",
+          "direction": "positive_to_negative",
+          "speed_kmh": ""
+        }
+      },
+      {
+        "reference": {
+          "vehicle": "fourth dark car approaching",
+          "class": "car",
+          "direction": "negative_to_positive",
+          "frame_interval": [
+            480,
+            492
+          ]
+        },
+        "predicted": {
+          "frame": "479",
+          "time_seconds": "19.16",
+          "track_id": "62",
+          "vehicle_class": "car",
+          "direction": "negative_to_positive",
+          "speed_kmh": ""
+        }
+      }
+    ],
+    "unmatched_reference_events": [
+      {
+        "vehicle": "first white truck approaching",
+        "class": "truck",
+        "direction": "negative_to_positive",
+        "frame_interval": [
+          0,
+          12
+        ]
+      },
+      {
+        "vehicle": "first white car approaching",
+        "class": "car",
+        "direction": "negative_to_positive",
+        "frame_interval": [
+          12,
+          36
+        ]
+      }
+    ],
+    "unmatched_predicted_events": [],
+    "matched_class_disagreements": [],
+    "note": "Approximate interval matching, not a validated benchmark. Equal total counts can hide missed and duplicated events."
+  },
+  "event_precision": 1.0,
+  "event_recall": 0.8,
+  "event_f1": 0.8888888888888888,
+  "observed_total": 8,
+  "reference_total": 10,
+  "absolute_count_difference": 2,
+  "by_direction": {
+    "negative_to_positive": {
+      "observed": 5,
+      "reference": 7,
+      "absolute_difference": 2
+    },
+    "positive_to_negative": {
+      "observed": 3,
+      "reference": 3,
+      "absolute_difference": 0
+    }
+  },
+  "observed_by_class": {
+    "car": 7,
+    "truck": 1
+  },
+  "reference_by_class": {
+    "truck": 2,
+    "car": 8
+  },
+  "limitations": "Only one 21.52-second daylight video. Contact-sheet intervals are approximate; classes are visually assigned. This is not a ground-truth benchmark or an estimate of general counting accuracy.",
+  "source_sha256": "ac81100d9310bd4e9c02bc0b13b6492781d009742ced347766b2601be3c44ad4",
+  "line": [
+    0.0,
+    1296.0,
+    3839.0,
+    1296.0
+  ],
+  "processing_fps": 5.052465334962212,
+  "name": "vehicle-road-combined-640"
+}

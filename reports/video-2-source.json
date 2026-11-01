@@ -1,0 +1,9 @@
+{
+  "url": "https://media.roboflow.com/supervision/video-examples/vehicles-2.mp4",
+  "md5": "830af6fba21ffbf14867a7fea595937b",
+  "sha256": "f1fb78b80c67f9185c91f7ce280e42e2c923810646172b7cf2fe90ea998e0062",
+  "frames": 1275,
+  "fps": 29.97002997002997,
+  "width": 1920,
+  "height": 1080
+}

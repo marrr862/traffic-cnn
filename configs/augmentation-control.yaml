@@ -1,0 +1,10 @@
+path: /Users/macbook/Desktop/traffic-cnn/data/visdrone-vehicles
+train: /Users/macbook/Desktop/traffic-cnn/data/visdrone-vehicles/augmentation-control-train.txt
+val: images/val
+test: images/test
+names:
+  0: car
+  1: van
+  2: truck
+  3: bus
+  4: motorcycle

@@ -1,0 +1,3 @@
+test {'images': 1610, 'boxes_by_class': {'car': 28074, 'truck': 2659, 'motorcycle': 5845, 'van': 5771, 'bus': 2940}, 'negative_images': 32, 'skipped_annotations': {'non_vehicle': 29813, 'ignored': 2445}}
+val {'images': 547, 'boxes_by_class': {'car': 14063, 'motorcycle': 4878, 'truck': 750, 'van': 1975, 'bus': 251}, 'negative_images': 5, 'skipped_annotations': {'non_vehicle': 16802, 'ignored': 1410}}
+train {'images': 6469, 'boxes_by_class': {'car': 144842, 'van': 24954, 'truck': 12874, 'motorcycle': 29646, 'bus': 5926}, 'negative_images': 184, 'skipped_annotations': {'ignored': 10341, 'non_vehicle': 124924, 'invalid_box': 1}}

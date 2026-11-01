@@ -1,0 +1,86 @@
+{
+  "protocol": "Original corpus only. Minimum box side after proportional resize to maximum side 640; excludes online geometric augmentations. This is a descriptive statistic, not a measured cause of model errors.",
+  "splits": {
+    "train": {
+      "car": {
+        "boxes": 144842,
+        "median_min_side_at_640": 10.9714304,
+        "fraction_min_side_below_10px": 0.4439458168210878
+      },
+      "van": {
+        "boxes": 24954,
+        "median_min_side_at_640": 12.3428544,
+        "fraction_min_side_below_10px": 0.3819828484411317
+      },
+      "truck": {
+        "boxes": 12874,
+        "median_min_side_at_640": 15.36,
+        "fraction_min_side_below_10px": 0.2741183781264564
+      },
+      "bus": {
+        "boxes": 5926,
+        "median_min_side_at_640": 16.4571456,
+        "fraction_min_side_below_10px": 0.2490718866014175
+      },
+      "motorcycle": {
+        "boxes": 29646,
+        "median_min_side_at_640": 7.5294143999999985,
+        "fraction_min_side_below_10px": 0.6718950279970316
+      }
+    },
+    "val": {
+      "car": {
+        "boxes": 14063,
+        "median_min_side_at_640": 12.235296,
+        "fraction_min_side_below_10px": 0.3762355116262533
+      },
+      "van": {
+        "boxes": 1975,
+        "median_min_side_at_640": 13.3333312,
+        "fraction_min_side_below_10px": 0.3286075949367089
+      },
+      "truck": {
+        "boxes": 750,
+        "median_min_side_at_640": 15.058823799999999,
+        "fraction_min_side_below_10px": 0.2693333333333333
+      },
+      "bus": {
+        "boxes": 251,
+        "median_min_side_at_640": 14.5882368,
+        "fraction_min_side_below_10px": 0.29880478087649404
+      },
+      "motorcycle": {
+        "boxes": 4878,
+        "median_min_side_at_640": 8.0,
+        "fraction_min_side_below_10px": 0.6527265272652727
+      }
+    },
+    "test": {
+      "car": {
+        "boxes": 28074,
+        "median_min_side_at_640": 10.5142848,
+        "fraction_min_side_below_10px": 0.46135214077082
+      },
+      "van": {
+        "boxes": 5771,
+        "median_min_side_at_640": 11.4285696,
+        "fraction_min_side_below_10px": 0.39282619996534396
+      },
+      "truck": {
+        "boxes": 2659,
+        "median_min_side_at_640": 16.914284799999997,
+        "fraction_min_side_below_10px": 0.2391876645355397
+      },
+      "bus": {
+        "boxes": 2940,
+        "median_min_side_at_640": 17.3714304,
+        "fraction_min_side_below_10px": 0.2163265306122449
+      },
+      "motorcycle": {
+        "boxes": 5845,
+        "median_min_side_at_640": 7.014613965762004,
+        "fraction_min_side_below_10px": 0.7500427715996578
+      }
+    }
+  }
+}

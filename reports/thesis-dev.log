@@ -1,0 +1,46 @@
+{
+ "v1": {
+  "crossings": 12,
+  "speed": {
+   "count": 10,
+   "time_mean_kmh": 127.14899999999997,
+   "space_mean_kmh": 121.48334183414258,
+   "median_kmh": 130.79500000000002,
+   "p85_kmh": 152.393,
+   "min_kmh": 81.67,
+   "max_kmh": 167.61
+  },
+  "density": {
+   "mean_vehicles_in_zone": 2.942379182156134,
+   "peak_vehicles_in_zone": 8,
+   "mean_density_per_km": 11.769516728624536,
+   "mean_density_per_km_per_lane": 2.942379182156134,
+   "level_of_service": "A",
+   "zone_length_m": 250.0,
+   "lanes": 4
+  },
+  "fps": 2.1676545802784846
+ },
+ "v2": {
+  "crossings": 448,
+  "speed": {
+   "count": 11,
+   "time_mean_kmh": 183.66181818181815,
+   "space_mean_kmh": 119.97698438180122,
+   "median_kmh": 193.95,
+   "p85_kmh": 231.82,
+   "min_kmh": 25.04,
+   "max_kmh": 241.93
+  },
+  "density": {
+   "mean_vehicles_in_zone": 4.552156862745098,
+   "peak_vehicles_in_zone": 10,
+   "mean_density_per_km": 37.93464052287577,
+   "mean_density_per_km_per_lane": 12.644880174291922,
+   "level_of_service": "C",
+   "zone_length_m": 120.0,
+   "lanes": 3
+  },
+  "fps": 2.8748080757791987
+ }
+}

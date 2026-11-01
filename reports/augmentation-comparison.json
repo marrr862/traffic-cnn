@@ -1,0 +1,73 @@
+{
+  "protocol": "Exploratory matched 3-epoch continuation from the same full checkpoint, 2048 examples per epoch, seed 42. Control repeats 1024 original training images; expanded uses originals plus 1024 transformed variants. Online augmentations remain identical. No independent scenes added. Test has been used in prior experiments, not a new blind holdout.",
+  "selected_by_validation": "vehicle-expanded-full",
+  "baseline": {
+    "validation": {
+      "metrics/precision(B)": 0.5097449688495155,
+      "metrics/recall(B)": 0.3540144848353045,
+      "metrics/mAP50(B)": 0.35551770898781276,
+      "metrics/mAP50-95(B)": 0.22054593971945397,
+      "fitness": 0.22054593971945397
+    },
+    "test": {
+      "metrics/precision(B)": 0.4607486122304927,
+      "metrics/recall(B)": 0.3582809772742829,
+      "metrics/mAP50(B)": 0.3441307334723412,
+      "metrics/mAP50-95(B)": 0.20289561117556193,
+      "fitness": 0.20289561117556193
+    }
+  },
+  "runs": {
+    "vehicle-augmentation-control": {
+      "validation": {
+        "metrics/precision(B)": 0.5226822264178795,
+        "metrics/recall(B)": 0.3578347925317051,
+        "metrics/mAP50(B)": 0.3659240134346908,
+        "metrics/mAP50-95(B)": 0.22553078413685262,
+        "fitness": 0.22553078413685262
+      },
+      "test": {
+        "metrics/precision(B)": 0.46693391202951257,
+        "metrics/recall(B)": 0.35220096263543194,
+        "metrics/mAP50(B)": 0.33853817964313937,
+        "metrics/mAP50-95(B)": 0.19784623872593246,
+        "fitness": 0.19784623872593246
+      }
+    },
+    "vehicle-augmentation-expanded": {
+      "validation": {
+        "metrics/precision(B)": 0.5198725054420499,
+        "metrics/recall(B)": 0.358916819645818,
+        "metrics/mAP50(B)": 0.37002278113834375,
+        "metrics/mAP50-95(B)": 0.22671677059829773,
+        "fitness": 0.22671677059829773
+      },
+      "test": {
+        "metrics/precision(B)": 0.4532519670477182,
+        "metrics/recall(B)": 0.35182852066523207,
+        "metrics/mAP50(B)": 0.336292728432497,
+        "metrics/mAP50-95(B)": 0.19724114907493548,
+        "fitness": 0.19724114907493548
+      }
+    },
+    "vehicle-expanded-full": {
+      "validation": {
+        "metrics/precision(B)": 0.5258650584128282,
+        "metrics/recall(B)": 0.3583806960432183,
+        "metrics/mAP50(B)": 0.37286560588262935,
+        "metrics/mAP50-95(B)": 0.22913250189184417,
+        "fitness": 0.22913250189184417
+      },
+      "test": {
+        "metrics/precision(B)": 0.4761329693103059,
+        "metrics/recall(B)": 0.35804317229370064,
+        "metrics/mAP50(B)": 0.34702885452133564,
+        "metrics/mAP50-95(B)": 0.20504476729465787,
+        "fitness": 0.20504476729465787
+      }
+    }
+  },
+  "validation_delta_expanded_minus_control": 0.0011859864614451043,
+  "test_delta_expanded_minus_control": -0.0006050896509969816,
+  "full_expansion_protocol": "Additional 3-epoch continuation from the original full checkpoint on all 6469 originals plus 1024 variants. No matched full-data continuation control: its improvement cannot be attributed solely to augmentation."
+}

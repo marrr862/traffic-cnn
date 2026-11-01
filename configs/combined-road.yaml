@@ -1,0 +1,17 @@
+# VisDrone (drone, small objects) + MIO-TCD (fixed traffic cameras, 30k subset)
+path: /Users/macbook/Desktop/traffic-cnn/data
+train:
+  - visdrone-vehicles/augmentation-full-train.txt
+  - mio-tcd-yolo/train-subset.txt
+val:
+  - visdrone-vehicles/images/val
+  - mio-tcd-yolo/images/val
+test:
+  - visdrone-vehicles/images/test
+  - mio-tcd-yolo/images/test
+names:
+  0: car
+  1: van
+  2: truck
+  3: bus
+  4: motorcycle

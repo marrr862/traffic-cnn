@@ -1,0 +1,49 @@
+{
+  "config": "/Users/macbook/Downloads/FakeNewsNet-master/traffic-cnn/configs/visdrone-expanded-full.yaml",
+  "names": {
+    "0": "car",
+    "1": "van",
+    "2": "truck",
+    "3": "bus",
+    "4": "motorcycle"
+  },
+  "splits": {
+    "train": {
+      "exposures": 7493,
+      "unique_image_sha256": 7493,
+      "negative_exposures": 223,
+      "boxes_by_class": {
+        "car": 171398,
+        "van": 28368,
+        "truck": 14715,
+        "motorcycle": 36181,
+        "bus": 6568
+      }
+    },
+    "val": {
+      "exposures": 547,
+      "unique_image_sha256": 547,
+      "negative_exposures": 5,
+      "boxes_by_class": {
+        "car": 14063,
+        "motorcycle": 4878,
+        "truck": 750,
+        "van": 1975,
+        "bus": 251
+      }
+    },
+    "test": {
+      "exposures": 1610,
+      "unique_image_sha256": 1610,
+      "negative_exposures": 32,
+      "boxes_by_class": {
+        "car": 28074,
+        "truck": 2659,
+        "motorcycle": 5845,
+        "van": 5771,
+        "bus": 2940
+      }
+    }
+  },
+  "limitations": "SHA256 excludes exact cross-split duplicates only; camera identity and near-duplicate independence are not established."
+}

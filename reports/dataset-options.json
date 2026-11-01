@@ -1,0 +1,38 @@
+{
+  "measured_external_datasets": [],
+  "current_dataset": "VisDrone2019 DET vehicle-only",
+  "camera_match_assessment": "UA-DETRAC is the most similar candidate to the fixed traffic camera demo by capture setting; this is an inference, not measured cross-dataset accuracy.",
+  "options": [
+    {
+      "name": "VisDrone",
+      "source": "https://github.com/VisDrone/VisDrone-Dataset",
+      "setting": "drone cameras",
+      "five_classes_compatible": true
+    },
+    {
+      "name": "UA-DETRAC",
+      "source": "https://arxiv.org/html/1511.04136v4",
+      "setting": "traffic surveillance",
+      "classes": [
+        "car",
+        "bus",
+        "van",
+        "others"
+      ],
+      "warning": "others includes trucks and special vehicles; do not map directly to truck"
+    },
+    {
+      "name": "BDD100K",
+      "source": "https://arxiv.org/abs/1805.04687",
+      "setting": "driving videos",
+      "warning": "Select detection labels, reconcile class coverage and ignore rules"
+    },
+    {
+      "name": "KITTI",
+      "source": "https://www.cvlibs.net/datasets/kitti/eval_object.php?obj_benchmark=2d",
+      "training_images": 7481,
+      "test_images": 7518,
+      "warning": "Different official classes and evaluation protocol"
+    }
+  ]
+}

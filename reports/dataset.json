@@ -1,0 +1,100 @@
+{
+  "source": "https://github.com/VisDrone/VisDrone-Dataset",
+  "mirror": "https://github.com/ultralytics/assets/releases/download/v0.0.0/",
+  "classes": {
+    "0": "car",
+    "1": "van",
+    "2": "truck",
+    "3": "bus",
+    "4": "motorcycle"
+  },
+  "splits": {
+    "test": {
+      "images": 1610,
+      "boxes_by_class": {
+        "car": 28074,
+        "truck": 2659,
+        "motorcycle": 5845,
+        "van": 5771,
+        "bus": 2940
+      },
+      "negative_images": 32,
+      "skipped_annotations": {
+        "non_vehicle": 29813,
+        "ignored": 2445
+      }
+    },
+    "val": {
+      "images": 547,
+      "boxes_by_class": {
+        "car": 14063,
+        "motorcycle": 4878,
+        "truck": 750,
+        "van": 1975,
+        "bus": 251
+      },
+      "negative_images": 5,
+      "skipped_annotations": {
+        "non_vehicle": 16802,
+        "ignored": 1410
+      }
+    },
+    "train": {
+      "images": 6469,
+      "boxes_by_class": {
+        "car": 144842,
+        "van": 24954,
+        "truck": 12874,
+        "motorcycle": 29646,
+        "bus": 5926
+      },
+      "negative_images": 184,
+      "skipped_annotations": {
+        "ignored": 10341,
+        "non_vehicle": 124924,
+        "invalid_box": 1
+      }
+    }
+  },
+  "archive_sha256": {
+    "test-dev": "b28a94b06dfd9e36ce77ff8155fb82b9d2c030f198a76105933bd56c6ea6a68d",
+    "val": "abeea063037e5d20398837deb11084e652402a34ddf4f207bdf541a6f2a35ef9",
+    "train": "86a77eba93137bfc16e4993860de9245b0675c0dba0d3ab98fb458699e256f84"
+  },
+  "duplicates_excluded": [
+    {
+      "split": "val",
+      "file": "0000023_00000_d_0000008.jpg",
+      "duplicate_of": "val/0000022_00000_d_0000004.jpg"
+    },
+    {
+      "split": "train",
+      "file": "0000239_06950_d_0000018.jpg",
+      "duplicate_of": "train/0000239_06450_d_0000017.jpg"
+    },
+    {
+      "split": "train",
+      "file": "9999950_00000_d_10000080.jpg",
+      "duplicate_of": "train/9999950_00000_d_0000079.jpg"
+    }
+  ],
+  "metric_protocol": "Vehicle-only YOLO evaluation; ignored regions not masked. Not an official VisDrone challenge score.",
+  "pilot": {
+    "images": 1024,
+    "seed": 42,
+    "selection": "Round-robin filename prefixes within official train; all official val/test retained.",
+    "boxes_by_class": {
+      "car": 26556,
+      "van": 3414,
+      "motorcycle": 6535,
+      "truck": 1841,
+      "bus": 642
+    }
+  },
+  "limitations": [
+    "Drone viewpoint differs from a fixed roadside camera.",
+    "Exact duplicate hashes checked; near duplicates and camera identity across official splits are not verified.",
+    "Ignored regions omitted from labels, not masked during training/evaluation.",
+    "Pilot subset is not full-data training."
+  ]
+}
