@@ -1,7 +1,5 @@
 # Տեսախցիկներով երթևեկության հոսքի վերլուծության ծրագրային միջոց
 
-[![tests](https://github.com/marrr862/traffic-cnn/actions/workflows/tests.yml/badge.svg)](https://github.com/marrr862/traffic-cnn/actions/workflows/tests.yml)
-
 *Vehicle detection (YOLOv8), tracking (ByteTrack), line counting, speed (km/h), density and level of service from traffic camera video, with a Streamlit UI. Diploma project; documentation in Armenian, with a Russian version in [README.ru.md](README.ru.md).*
 
 ![Նշագրված կադր՝ հայտնաբերում, ID-ներ և հաշվման գիծ](docs/demo.jpg)
@@ -103,7 +101,7 @@ python scripts/evaluate_counting.py --results outputs/<արդյունք> --name 
 python scripts/thesis_video_results.py --weights runs/experiments/<մոդել>/weights/best.pt --imgsz 960
 ```
 
-Արդյունքները պահպանվում են `outputs/` և `reports/` պանակներում։ Ուսուցանված մոդելները ներբեռնվում են `scripts/download_assets.py`-ով։ Ստուգումները (`python -m unittest discover -s tests` կամ `pytest`) GitHub Actions-ում գործարկվում են յուրաքանչյուր push-ի ժամանակ. տեղական կշիռներ կամ արդյունքներ պահանջող ստուգումները բաց են թողնվում, եթե դրանք բացակայում են։
+Արդյունքները պահպանվում են `outputs/` և `reports/` պանակներում։ Ուսուցանված մոդելները ներբեռնվում են `scripts/download_assets.py`-ով։ Ստուգումները գործարկվում են `python -m unittest discover -s tests` կամ `pytest` հրամանով. տեղական կշիռներ կամ արդյունքներ պահանջող ստուգումները բաց են թողնվում, եթե դրանք բացակայում են։
 
 ## Սահմանափակումներ
 

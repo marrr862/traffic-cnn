@@ -7,7 +7,7 @@ ROOT = Path(__file__).resolve().parents[1]
 runs = [json.loads(p.read_text()) for p in sorted((ROOT/'reports').glob('vehicle-*.json'))]
 recommended_path = ROOT/'reports/recommended-model.json'
 recommended = json.loads(recommended_path.read_text())['name'] if recommended_path.exists() else None
-# Count tests the same way CI does, so the number in STATUS.md never goes stale.
+# Count tests by discovery, so the number in STATUS.md never goes stale.
 listing = subprocess.run([sys.executable,'-c','import unittest;s=unittest.defaultTestLoader.discover("tests");print(s.countTestCases())'],cwd=ROOT,capture_output=True,text=True)
 test_count = listing.stdout.strip() or '?'
 lines = ['# Состояние дипломного проекта','',
@@ -27,7 +27,7 @@ for r in runs:
 lines.extend(['', 'Все запуски: seed 42, Apple M4, 16 ГБ, MPS. Лучшая эпоха выбирается по validation. Часть операций MPS недетерминирована.', '',
               'Обученные веса трех основных моделей (vehicle-road-yolov8s, vehicle-road-combined, vehicle-hires-960) и демонстрационные видео скачиваются командой `python scripts/download_assets.py`.', '',
               '## Проверки и материалы','',
-              f'{test_count} автоматических проверок (`python -m unittest discover -s tests`) охватывают геометрию, калибровку, смену ID, соседние машины, тайлинг, преобразование разметки, сопоставление событий, источники видео, интерфейс и обработку видео. Проверки, требующие локальных весов или результатов, пропускаются при их отсутствии. GitHub Actions запускает проверки при каждом push. Точность CNN определяется отдельными экспериментами.', '',
+              f'{test_count} автоматических проверок (`python -m unittest discover -s tests`) охватывают геометрию, калибровку, смену ID, соседние машины, тайлинг, преобразование разметки, сопоставление событий, источники видео, интерфейс и обработку видео. Проверки, требующие локальных весов или результатов, пропускаются при их отсутствии. Точность CNN определяется отдельными экспериментами.', '',
               'Интерфейс: http://127.0.0.1:8501. Запуск: run_app.command. Инструкции: README.md, QUICKSTART.md. Метрики: reports/EXPERIMENT_REPORT.md, reports/DETRAC_RESULTS.md, reports/RESOLUTION_RESULTS.md. Текст: thesis/DIPLOMA.docx. Презентация: thesis/presentation/DEFENSE.pptx. Материал выступления: thesis/DEFENSE_NOTES.md.', '',
               '## Что осталось','',
               '- thesis/DIPLOMA.docx и thesis/presentation/DEFENSE.pptx собраны 10 октября и описывают модель vehicle-finetune-full (test mAP50 0,34). Их нужно обновить под текущую рекомендуемую модель, MIO-TCD, тайлинг, скорость в км/ч и проверку на UA-DETRAC.',
