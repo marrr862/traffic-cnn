@@ -1,5 +1,11 @@
 # Տեսախցիկներով երթևեկության հոսքի վերլուծության ծրագրային միջոց
 
+[![tests](https://github.com/marrr862/traffic-cnn/actions/workflows/tests.yml/badge.svg)](https://github.com/marrr862/traffic-cnn/actions/workflows/tests.yml)
+
+*Vehicle detection (YOLOv8), tracking (ByteTrack), line counting, speed (km/h), density and level of service from traffic camera video, with a Streamlit UI. Diploma project; documentation in Armenian, with a Russian version in [README.ru.md](README.ru.md).*
+
+![Նշագրված կադր՝ հայտնաբերում, ID-ներ և հաշվման գիծ](docs/demo.jpg)
+
 Դիպլոմային աշխատանք՝ «Տեսախցիկների միջոցով տրանսպորտային միջոցների շարժման և երթևեկության հոսքի վերլուծության ծրագրային միջոցի մշակումը» (Ղազարյան Մարիամ Սարգիսի)։
 
 Python հավելվածը տեսանյութում հայտնաբերում է տրանսպորտային միջոցները CNN-ով (YOLOv8s / YOLOv8n, ուսուցանված VisDrone2019-DET և MIO-TCD ճանապարհային տեսախցիկների կորպուսներով), հետագծում է ByteTrack-ով և հաշվարկում է՝
@@ -20,6 +26,21 @@ Python հավելվածը տեսանյութում հայտնաբերում է �
 | **vehicle-road-yolov8s** (YOLOv8s, VisDrone + MIO-TCD, առաջարկվող) | **48,0%** | **86,8%** | 96,5% / 5 / 5 | 9 / 10 |
 
 Առաջարկվող մոդելը նշված է `reports/recommended-model.json`-ում (ճանապարհային տեսախցիկներ, 960 պքս)։ Թույլ համակարգչի դեպքում ընտրեք ավելի արագ `vehicle-road-combined`-ը (մոտ 15%-ով արագ)։ Անօդաչու սարքի (վերևից) պատկերների համար ավելի հարմար է `vehicle-hires-960`-ը։
+
+## Տեղադրում
+
+Python 3.10–3.13։
+
+```sh
+git clone https://github.com/marrr862/traffic-cnn.git
+cd traffic-cnn
+python3 -m venv .venv
+source .venv/bin/activate
+python -m pip install -e '.[dev]'
+python scripts/download_assets.py
+```
+
+`download_assets.py`-ը ներբեռնում է երեք ուսուցանված մոդելները (GitHub Release v1.0) `runs/experiments/<մոդել>/weights/best.pt` և երկու ցուցադրական տեսանյութերը (Roboflow Supervision) `data/video/` պանակ՝ ստուգելով SHA-256-ը։
 
 ## Արագ մեկնարկ
 
@@ -82,7 +103,7 @@ python scripts/evaluate_counting.py --results outputs/<արդյունք> --name 
 python scripts/thesis_video_results.py --weights runs/experiments/<մոդել>/weights/best.pt --imgsz 960
 ```
 
-Արդյունքները պահպանվում են `outputs/` և `reports/` պանակներում։ Ներառված մոդելը՝ `runs/experiments/vehicle-hires-960/weights/best.pt` (YOLOv8n, 960 px, test mAP50 = 45,9%)։
+Արդյունքները պահպանվում են `outputs/` և `reports/` պանակներում։ Ուսուցանված մոդելները ներբեռնվում են `scripts/download_assets.py`-ով։ Ստուգումները (`python -m unittest discover -s tests` կամ `pytest`) GitHub Actions-ում գործարկվում են յուրաքանչյուր push-ի ժամանակ. տեղական կշիռներ կամ արդյունքներ պահանջող ստուգումները բաց են թողնվում, եթե դրանք բացակայում են։
 
 ## Սահմանափակումներ
 
