@@ -1,25 +1,25 @@
 {
  "v1": {
-  "directory": "outputs/thesis-v1-final",
+  "directory": "outputs/thesis-v1-v8s",
   "summary": {
-   "tracked_ids": 27,
+   "tracked_ids": 32,
    "frames": 538,
    "duration_seconds": 21.52,
-   "crossings": 9,
+   "crossings": 10,
    "by_direction": {
-    "negative_to_positive": 6,
+    "negative_to_positive": 7,
     "positive_to_negative": 3
    },
    "source_video": "/Users/macbook/Desktop/traffic-cnn/data/video/vehicles.mp4",
    "source_sha256": "ac81100d9310bd4e9c02bc0b13b6492781d009742ced347766b2601be3c44ad4",
-   "mean_visible_tracked_vehicles": 5.91449814126394,
-   "peak_visible_tracked_vehicles": 9,
+   "mean_visible_tracked_vehicles": 8.139405204460967,
+   "peak_visible_tracked_vehicles": 11,
    "by_class": {
     "car": 8,
-    "bus": 1
+    "truck": 2
    },
-   "flow_vehicles_per_hour": 1505.5762081784387,
-   "processing_fps": 12.041140110784001,
+   "flow_vehicles_per_hour": 1672.8624535315985,
+   "processing_fps": 7.974781064287689,
    "line": [
     0.0,
     1296.0,
@@ -30,10 +30,19 @@
     "negative_to_positive": "Դեպի կադրի ստորին եզր",
     "positive_to_negative": "Դեպի կադրի վերին եզր"
    },
-   "weights": "/Users/macbook/Desktop/traffic-cnn/runs/experiments/vehicle-hires-960/weights/best.pt",
+   "weights": "/Users/macbook/Desktop/traffic-cnn/runs/experiments/vehicle-road-yolov8s/weights/best.pt",
    "confidence": 0.3,
    "imgsz": 960,
+   "tiling": null,
    "source_fps": 25.0,
+   "time_scale": 1.0,
+   "time_fps": 25.0,
+   "motion": {
+    "samples": 3537,
+    "median_box_heights_per_frame": 0.034641223748116574,
+    "per_video_second": 0.8660305937029144,
+    "per_real_second": 0.8660305937029144
+   },
    "video_codec": "avc1",
    "interval_seconds": 5.0,
    "tracking": {
@@ -46,7 +55,18 @@
     "continuity_iou": 0.5,
     "class_vote": "instantaneous"
    },
-   "limitations": "One crossing per track ID. ID switches can duplicate counts; occlusion can cause misses. Flow extrapolates observed duration. Speed is not calibrated. Speed and density rely on the supplied road calibration (flat road, static camera); calibration error scales the speeds proportionally.",
+   "source_description": "vehicles.mp4",
+   "live_source": false,
+   "stopped_early": false,
+   "start_crossings": true,
+   "duplicate_guard": {
+    "enabled": true,
+    "overlap": 0.7,
+    "window_frames": 50,
+    "suppressed": 0,
+    "suppressed_all_lines": 0
+   },
+   "limitations": "One crossing per track ID; a second ID whose box coincides with an already counted vehicle is not counted. ID switches can duplicate counts; occlusion can cause misses. Flow extrapolates observed duration. Speed and density rely on the supplied road calibration (flat road, static camera); calibration error scales the speeds proportionally.",
    "lines": [
     {
      "line_id": 0,
@@ -56,12 +76,12 @@
       3839.0,
       1296.0
      ],
-     "crossings": 9,
+     "crossings": 10,
      "by_direction": {
-      "negative_to_positive": 6,
+      "negative_to_positive": 7,
       "positive_to_negative": 3
      },
-     "flow_vehicles_per_hour": 1505.5762081784387
+     "flow_vehicles_per_hour": 1672.8624535315985
     },
     {
      "line_id": 1,
@@ -71,12 +91,12 @@
       3839.0,
       1700.0
      ],
-     "crossings": 9,
+     "crossings": 10,
      "by_direction": {
-      "negative_to_positive": 7,
+      "negative_to_positive": 8,
       "positive_to_negative": 2
      },
-     "flow_vehicles_per_hour": 1505.5762081784387
+     "flow_vehicles_per_hour": 1672.8624535315985
     }
    ],
    "calibration": {
@@ -124,55 +144,65 @@
    },
    "speed": {
     "at_counting_line": {
-     "count": 9,
-     "time_mean_kmh": 121.31333333333333,
-     "space_mean_kmh": 117.10405380797876,
-     "median_kmh": 127.03,
-     "p85_kmh": 136.98,
-     "min_kmh": 82.86,
-     "max_kmh": 153.83
+     "count": 10,
+     "time_mean_kmh": 117.897,
+     "space_mean_kmh": 112.61178202393484,
+     "median_kmh": 122.97,
+     "p85_kmh": 138.7755,
+     "min_kmh": 81.97,
+     "max_kmh": 154.14
     },
     "all_tracks": {
-     "count": 13,
-     "time_mean_kmh": 108.46002740997359,
-     "space_mean_kmh": 103.50601992913896,
-     "median_kmh": 110.94238254737203,
-     "p85_kmh": 134.64362886296988,
-     "min_kmh": 79.6525805773764,
-     "max_kmh": 148.0275012675804
+     "count": 12,
+     "time_mean_kmh": 114.32163571804256,
+     "space_mean_kmh": 106.59011556828942,
+     "median_kmh": 120.74622587226006,
+     "p85_kmh": 142.87559080448426,
+     "min_kmh": 60.6244159822149,
+     "max_kmh": 148.47901631325976
     },
-    "method": "Road-plane displacement over a 0.5–1.0 s window, median of recent estimates; flat road assumed."
+    "method": "Road-plane displacement over a 0.5–1.0 s window, median of recent estimates; flat road assumed.",
+    "implausible_measurement_share": 0.0,
+    "raw_median_kmh": 115.85600785913,
+    "crossings_with_speed_share": 1.0
    },
    "density": {
-    "mean_vehicles_in_zone": 2.923791821561338,
+    "mean_vehicles_in_zone": 2.782527881040892,
     "peak_vehicles_in_zone": 5,
-    "mean_density_per_km": 11.695167286245352,
-    "mean_density_per_km_per_lane": 2.923791821561338,
+    "mean_density_per_km": 11.130111524163569,
+    "mean_density_per_km_per_lane": 2.782527881040892,
     "level_of_service": "A",
     "zone_length_m": 250.0,
     "lanes": 4
    },
+   "line_share_in_zone": 0.693069306930693,
+   "zone_flow": {
+    "crossings": 10,
+    "flow_vehicles_per_hour": 1672.8624535315985,
+    "flow_per_lane_per_hour": 418.2156133828996
+   },
    "fundamental_relation": {
-    "measured_flow_per_hour": 1505.5762081784387,
-    "density_times_speed": 1369.5514991817886,
-    "relative_difference": 0.09932062363329558
-   }
+    "measured_flow_per_hour": 1672.8624535315985,
+    "density_times_speed": 1253.381692861193,
+    "relative_difference": 0.3346791827737836
+   },
+   "plausibility_issues": []
   },
   "windows": [
    {
     "start_seconds": "0.0",
     "end_seconds": "5.0",
     "duration_seconds": "5.0",
-    "crossings": "4",
-    "negative_to_positive": "2",
+    "crossings": "5",
+    "negative_to_positive": "3",
     "positive_to_negative": "2",
-    "mean_visible_tracked_vehicles": "6.8",
-    "peak_visible_tracked_vehicles": "9",
-    "event_rate_per_hour": "2880.0",
+    "mean_visible_tracked_vehicles": "8.216",
+    "peak_visible_tracked_vehicles": "11",
+    "event_rate_per_hour": "3600.0",
     "frame_count": "125",
-    "mean_speed_kmh": "133.07999999999998",
-    "space_mean_speed_kmh": "132.966526996006",
-    "mean_density_per_km": "13.696"
+    "mean_speed_kmh": "123.65599999999999",
+    "space_mean_speed_kmh": "118.87064758582129",
+    "mean_density_per_km": "13.888"
    },
    {
     "start_seconds": "5.0",
@@ -181,13 +211,13 @@
     "crossings": "1",
     "negative_to_positive": "1",
     "positive_to_negative": "0",
-    "mean_visible_tracked_vehicles": "6.4",
-    "peak_visible_tracked_vehicles": "8",
+    "mean_visible_tracked_vehicles": "9.344",
+    "peak_visible_tracked_vehicles": "10",
     "event_rate_per_hour": "720.0",
     "frame_count": "125",
-    "mean_speed_kmh": "119.1",
-    "space_mean_speed_kmh": "119.10000000000001",
-    "mean_density_per_km": "12.0"
+    "mean_speed_kmh": "119.4",
+    "space_mean_speed_kmh": "119.4",
+    "mean_density_per_km": "10.912"
    },
    {
     "start_seconds": "10.0",
@@ -196,13 +226,13 @@
     "crossings": "1",
     "negative_to_positive": "1",
     "positive_to_negative": "0",
-    "mean_visible_tracked_vehicles": "5.416",
-    "peak_visible_tracked_vehicles": "7",
+    "mean_visible_tracked_vehicles": "7.68",
+    "peak_visible_tracked_vehicles": "10",
     "event_rate_per_hour": "720.0",
     "frame_count": "125",
-    "mean_speed_kmh": "111.31",
-    "space_mean_speed_kmh": "111.31000000000002",
-    "mean_density_per_km": "10.656"
+    "mean_speed_kmh": "112.42",
+    "space_mean_speed_kmh": "112.41999999999999",
+    "mean_density_per_km": "9.152"
    },
    {
     "start_seconds": "15.0",
@@ -211,13 +241,13 @@
     "crossings": "3",
     "negative_to_positive": "2",
     "positive_to_negative": "1",
-    "mean_visible_tracked_vehicles": "5.752",
-    "peak_visible_tracked_vehicles": "9",
+    "mean_visible_tracked_vehicles": "7.952",
+    "peak_visible_tracked_vehicles": "10",
     "event_rate_per_hour": "2160.0",
     "frame_count": "125",
-    "mean_speed_kmh": "109.69666666666667",
-    "space_mean_speed_kmh": "102.06948342781803",
-    "mean_density_per_km": "11.744"
+    "mean_speed_kmh": "109.62333333333333",
+    "space_mean_speed_kmh": "101.80637521514463",
+    "mean_density_per_km": "11.776"
    },
    {
     "start_seconds": "20.0",
@@ -226,119 +256,126 @@
     "crossings": "0",
     "negative_to_positive": "0",
     "positive_to_negative": "0",
-    "mean_visible_tracked_vehicles": "3.5789473684210527",
-    "peak_visible_tracked_vehicles": "4",
+    "mean_visible_tracked_vehicles": "6.052631578947368",
+    "peak_visible_tracked_vehicles": "7",
     "event_rate_per_hour": "0.0",
     "frame_count": "38",
     "mean_speed_kmh": "",
     "space_mean_speed_kmh": "",
-    "mean_density_per_km": "7.368421052631579"
+    "mean_density_per_km": "7.157894736842105"
    }
   ],
   "track_speeds": [
-   85.69,
-   128.09,
-   133.86,
-   110.94,
-   118.53,
-   137.76,
-   122.7,
-   83.1,
-   83.6,
-   79.65,
-   91.32,
-   148.03,
-   86.7
+   127.74,
+   134.17,
+   84.76,
+   118.14,
+   111.69,
+   141.25,
+   83.61,
+   123.35,
+   60.62,
+   92.15,
+   148.48,
+   145.9
   ],
   "two_line": [
    {
+    "track": "2",
+    "vehicle_class": "car",
+    "distance_m": 38.726,
+    "seconds": 1.04,
+    "two_line_kmh": 134.05153846153846,
+    "window_kmh": 134.17
+   },
+   {
     "track": "3",
-    "vehicle_class": "car",
-    "distance_m": 37.22600065814215,
-    "seconds": 1.0,
-    "two_line_kmh": 134.01360236931174,
-    "window_kmh": 133.86
+    "vehicle_class": "truck",
+    "distance_m": 24.75206795401142,
+    "seconds": 1.04,
+    "two_line_kmh": 85.68023522542414,
+    "window_kmh": 84.76
    },
    {
-    "track": "12",
+    "track": "10",
     "vehicle_class": "car",
-    "distance_m": 38.52304070293517,
-    "seconds": 1.08,
-    "two_line_kmh": 128.41013567645055,
-    "window_kmh": 137.76
+    "distance_m": 40.051004993632795,
+    "seconds": 1.04,
+    "two_line_kmh": 138.63809420872892,
+    "window_kmh": 141.25
    },
    {
-    "track": "16",
+    "track": "19",
     "vehicle_class": "car",
-    "distance_m": 40.92000043988268,
+    "distance_m": 39.109011506301215,
+    "seconds": 1.12,
+    "two_line_kmh": 125.7075369845396,
+    "window_kmh": 123.35
+   },
+   {
+    "track": "6",
+    "vehicle_class": "car",
+    "distance_m": 38.737002904200004,
     "seconds": 1.16,
-    "two_line_kmh": 126.99310481342903,
-    "window_kmh": 122.7
+    "two_line_kmh": 120.21828487510348,
+    "window_kmh": 118.14
+   },
+   {
+    "track": "7",
+    "vehicle_class": "car",
+    "distance_m": 38.186164248324296,
+    "seconds": 1.2,
+    "two_line_kmh": 114.5584927449729,
+    "window_kmh": 111.69
+   },
+   {
+    "track": "73",
+    "vehicle_class": "car",
+    "distance_m": 39.14101564854956,
+    "seconds": 0.92,
+    "two_line_kmh": 153.1604960160635,
+    "window_kmh": 148.48
    },
    {
     "track": "11",
-    "vehicle_class": "car",
-    "distance_m": 37.95300032935473,
-    "seconds": 1.12,
-    "two_line_kmh": 121.9917867729259,
-    "window_kmh": 118.53
+    "vehicle_class": "truck",
+    "distance_m": 37.600085106286656,
+    "seconds": 1.6,
+    "two_line_kmh": 84.60019148914498,
+    "window_kmh": 83.61
    },
    {
-    "track": "5",
+    "track": "70",
     "vehicle_class": "car",
-    "distance_m": 37.67727901534291,
-    "seconds": 1.2,
-    "two_line_kmh": 113.03183704602874,
-    "window_kmh": 110.94
-   },
-   {
-    "track": "55",
-    "vehicle_class": "car",
-    "distance_m": 40.44801187944842,
-    "seconds": 0.96,
-    "two_line_kmh": 151.6800445479316,
-    "window_kmh": 148.03
-   },
-   {
-    "track": "29",
-    "vehicle_class": "bus",
-    "distance_m": 38.62216239414879,
-    "seconds": 1.64,
-    "two_line_kmh": 84.78035647496075,
-    "window_kmh": 83.1
-   },
-   {
-    "track": "47",
-    "vehicle_class": "car",
-    "distance_m": 37.876528946037276,
+    "distance_m": 37.648928284879496,
     "seconds": 1.4,
-    "two_line_kmh": 97.39678871838157,
-    "window_kmh": 91.32
+    "two_line_kmh": 96.81152987540442,
+    "window_kmh": 92.15
    }
   ]
  },
  "v2": {
-  "directory": "outputs/thesis-v2-final",
+  "directory": "outputs/thesis-v2-v8s",
   "summary": {
-   "tracked_ids": 2437,
+   "tracked_ids": 1919,
    "frames": 1275,
    "duration_seconds": 42.542500000000004,
-   "crossings": 456,
+   "crossings": 449,
    "by_direction": {
-    "negative_to_positive": 456
+    "negative_to_positive": 449
    },
    "source_video": "/Users/macbook/Desktop/traffic-cnn/data/video/vehicles-2.mp4",
    "source_sha256": "f1fb78b80c67f9185c91f7ce280e42e2c923810646172b7cf2fe90ea998e0062",
-   "mean_visible_tracked_vehicles": 63.346666666666664,
-   "peak_visible_tracked_vehicles": 95,
+   "mean_visible_tracked_vehicles": 54.26274509803922,
+   "peak_visible_tracked_vehicles": 74,
    "by_class": {
-    "car": 426,
-    "truck": 15,
-    "bus": 12,
-    "van": 3
+    "car": 417,
+    "bus": 3,
+    "truck": 19,
+    "van": 10
    },
-   "flow_vehicles_per_hour": 38587.29505788329,
-   "processing_fps": 15.377655128548273,
+   "flow_vehicles_per_hour": 37994.94623024034,
+   "processing_fps": 12.541449182166147,
    "line": [
     380.0,
     860.0,
@@ -349,10 +386,19 @@
     "negative_to_positive": "Դեպի կադրի ստորին եզր",
     "positive_to_negative": "Դեպի կադրի վերին եզր"
    },
-   "weights": "/Users/macbook/Desktop/traffic-cnn/runs/experiments/vehicle-hires-960/weights/best.pt",
+   "weights": "/Users/macbook/Desktop/traffic-cnn/runs/experiments/vehicle-road-yolov8s/weights/best.pt",
    "confidence": 0.3,
    "imgsz": 960,
+   "tiling": null,
    "source_fps": 29.97002997002997,
+   "time_scale": 1.0,
+   "time_fps": 29.97002997002997,
+   "motion": {
+    "samples": 63071,
+    "median_box_heights_per_frame": 0.11099007792638493,
+    "per_video_second": 3.326375961829718,
+    "per_real_second": 3.326375961829718
+   },
    "video_codec": "avc1",
    "interval_seconds": 5.0,
    "tracking": {
@@ -365,7 +411,18 @@
     "continuity_iou": 0.5,
     "class_vote": "instantaneous"
    },
-   "limitations": "One crossing per track ID. ID switches can duplicate counts; occlusion can cause misses. Flow extrapolates observed duration. Speed is not calibrated. Speed and density rely on the supplied road calibration (flat road, static camera); calibration error scales the speeds proportionally.",
+   "source_description": "vehicles-2.mp4",
+   "live_source": false,
+   "stopped_early": false,
+   "start_crossings": true,
+   "duplicate_guard": {
+    "enabled": true,
+    "overlap": 0.7,
+    "window_frames": 50,
+    "suppressed": 0,
+    "suppressed_all_lines": 0
+   },
+   "limitations": "One crossing per track ID; a second ID whose box coincides with an already counted vehicle is not counted. ID switches can duplicate counts; occlusion can cause misses. Flow extrapolates observed duration. Speed and density rely on the supplied road calibration (flat road, static camera); calibration error scales the speeds proportionally.",
    "lines": [
     {
      "line_id": 0,
@@ -375,11 +432,11 @@
       890.0,
       860.0
      ],
-     "crossings": 456,
+     "crossings": 449,
      "by_direction": {
-      "negative_to_positive": 456
+      "negative_to_positive": 449
      },
-     "flow_vehicles_per_hour": 38587.29505788329
+     "flow_vehicles_per_hour": 37994.94623024034
     }
    ],
    "calibration": {
@@ -428,84 +485,100 @@
    "speed": {
     "at_counting_line": {
      "count": 1,
-     "time_mean_kmh": 110.82,
-     "space_mean_kmh": 110.81999999999998,
-     "median_kmh": 110.82,
-     "p85_kmh": 110.82,
-     "min_kmh": 110.82,
-     "max_kmh": 110.82
+     "time_mean_kmh": 227.68,
+     "space_mean_kmh": 227.68,
+     "median_kmh": 227.68,
+     "p85_kmh": 227.68,
+     "min_kmh": 227.68,
+     "max_kmh": 227.68
     },
     "all_tracks": {
-     "count": 5,
-     "time_mean_kmh": 52.19791649180761,
-     "space_mean_kmh": 36.89071349342088,
-     "median_kmh": 45.503720314403736,
-     "p85_kmh": 79.12974343783631,
-     "min_kmh": 20.197850978624643,
-     "max_kmh": 110.81875168596437
+     "count": 1,
+     "time_mean_kmh": 227.67808748367378,
+     "space_mean_kmh": 227.6780874836738,
+     "median_kmh": 227.67808748367378,
+     "p85_kmh": 227.67808748367378,
+     "min_kmh": 227.67808748367378,
+     "max_kmh": 227.67808748367378
     },
-    "method": "Road-plane displacement over a 0.5–1.0 s window, median of recent estimates; flat road assumed."
+    "method": "Road-plane displacement over a 0.5–1.0 s window, median of recent estimates; flat road assumed.",
+    "implausible_measurement_share": 0.9733333333333334,
+    "raw_median_kmh": 688.2706015827451,
+    "crossings_with_speed_share": 0.0022271714922048997
    },
    "density": {
-    "mean_vehicles_in_zone": 4.7615686274509805,
+    "mean_vehicles_in_zone": 4.705882352941177,
     "peak_vehicles_in_zone": 9,
-    "mean_density_per_km": 39.679738562091444,
-    "mean_density_per_km_per_lane": 13.226579520697149,
+    "mean_density_per_km": 39.21568627450975,
+    "mean_density_per_km_per_lane": 13.071895424836583,
     "level_of_service": "C",
     "zone_length_m": 120.0,
     "lanes": 3
    },
+   "line_share_in_zone": 0.9504950495049505,
+   "zone_flow": {
+    "crossings": 449,
+    "flow_vehicles_per_hour": 37994.94623024034,
+    "flow_per_lane_per_hour": 12664.98207674678
+   },
    "fundamental_relation": {
-    "measured_flow_per_hour": 38587.29505788329,
-    "density_times_speed": 4397.308627450973,
-    "relative_difference": 7.775207365931812
-   }
+    "measured_flow_per_hour": 37994.94623024034,
+    "density_times_speed": 8928.62745098038,
+    "relative_difference": 3.2554072771922433
+   },
+   "plausibility_issues": [
+    "median_speed_above_160",
+    "speeds_above_250",
+    "flow_above_lane_capacity",
+    "flow_density_speed_mismatch"
+   ],
+   "plausibility_warning": "Implausible measurements (median_speed_above_160, speeds_above_250, flow_above_lane_capacity, flow_density_speed_mismatch): the video is probably accelerated (time-lapse), the tracker duplicates vehicles or the calibration (size, lane count) is wrong. Speed and flow are not physically valid."
   },
   "windows": [
    {
     "start_seconds": "0.0",
     "end_seconds": "5.0",
     "duration_seconds": "5.0",
-    "crossings": "59",
-    "negative_to_positive": "59",
+    "crossings": "56",
+    "negative_to_positive": "56",
     "positive_to_negative": "0",
-    "mean_visible_tracked_vehicles": "54.553333333333335",
-    "peak_visible_tracked_vehicles": "68",
-    "event_rate_per_hour": "42480.0",
+    "mean_visible_tracked_vehicles": "45.74",
+    "peak_visible_tracked_vehicles": "59",
+    "event_rate_per_hour": "40320.0",
     "frame_count": "150",
-    "mean_speed_kmh": "",
-    "space_mean_speed_kmh": "",
-    "mean_density_per_km": "47.27777777777775"
+    "mean_speed_kmh": "227.68",
+    "space_mean_speed_kmh": "227.68",
+    "mean_density_per_km": "44.8333333333333"
    },
    {
     "start_seconds": "5.0",
     "end_seconds": "10.0",
     "duration_seconds": "5.0",
-    "crossings": "61",
-    "negative_to_positive": "61",
+    "crossings": "62",
+    "negative_to_positive": "62",
     "positive_to_negative": "0",
-    "mean_visible_tracked_vehicles": "60.34",
-    "peak_visible_tracked_vehicles": "70",
-    "event_rate_per_hour": "43920.0",
+    "mean_visible_tracked_vehicles": "53.06666666666667",
+    "peak_visible_tracked_vehicles": "62",
+    "event_rate_per_hour": "44640.0",
     "frame_count": "150",
     "mean_speed_kmh": "",
     "space_mean_speed_kmh": "",
-    "mean_density_per_km": "44.38888888888889"
+    "mean_density_per_km": "44.83333333333334"
    },
    {
     "start_seconds": "10.0",
     "end_seconds": "15.0",
     "duration_seconds": "5.0",
-    "crossings": "59",
-    "negative_to_positive": "59",
+    "crossings": "54",
+    "negative_to_positive": "54",
     "positive_to_negative": "0",
-    "mean_visible_tracked_vehicles": "61.28",
-    "peak_visible_tracked_vehicles": "72",
-    "event_rate_per_hour": "42480.0",
+    "mean_visible_tracked_vehicles": "53.74666666666667",
+    "peak_visible_tracked_vehicles": "64",
+    "event_rate_per_hour": "38880.0",
     "frame_count": "150",
     "mean_speed_kmh": "",
     "space_mean_speed_kmh": "",
-    "mean_density_per_km": "41.61111111111111"
+    "mean_density_per_km": "40.44444444444448"
    },
    {
     "start_seconds": "15.0",
@@ -514,13 +587,13 @@
     "crossings": "57",
     "negative_to_positive": "57",
     "positive_to_negative": "0",
-    "mean_visible_tracked_vehicles": "62.806666666666665",
-    "peak_visible_tracked_vehicles": "78",
+    "mean_visible_tracked_vehicles": "54.68",
+    "peak_visible_tracked_vehicles": "66",
     "event_rate_per_hour": "41040.0",
     "frame_count": "150",
     "mean_speed_kmh": "",
     "space_mean_speed_kmh": "",
-    "mean_density_per_km": "39.11111111111111"
+    "mean_density_per_km": "39.0"
    },
    {
     "start_seconds": "20.0",
@@ -529,13 +602,13 @@
     "crossings": "40",
     "negative_to_positive": "40",
     "positive_to_negative": "0",
-    "mean_visible_tracked_vehicles": "70.79333333333334",
-    "peak_visible_tracked_vehicles": "88",
+    "mean_visible_tracked_vehicles": "59.74",
+    "peak_visible_tracked_vehicles": "74",
     "event_rate_per_hour": "28800.0",
     "frame_count": "150",
     "mean_speed_kmh": "",
     "space_mean_speed_kmh": "",
-    "mean_density_per_km": "31.555555555555554"
+    "mean_density_per_km": "31.055555555555554"
    },
    {
     "start_seconds": "25.0",
@@ -544,13 +617,13 @@
     "crossings": "59",
     "negative_to_positive": "59",
     "positive_to_negative": "0",
-    "mean_visible_tracked_vehicles": "71.62666666666667",
-    "peak_visible_tracked_vehicles": "95",
+    "mean_visible_tracked_vehicles": "59.62",
+    "peak_visible_tracked_vehicles": "72",
     "event_rate_per_hour": "42480.0",
     "frame_count": "150",
     "mean_speed_kmh": "",
     "space_mean_speed_kmh": "",
-    "mean_density_per_km": "42.722222222222214"
+    "mean_density_per_km": "42.44444444444443"
    },
    {
     "start_seconds": "30.0",
@@ -559,13 +632,13 @@
     "crossings": "49",
     "negative_to_positive": "49",
     "positive_to_negative": "0",
-    "mean_visible_tracked_vehicles": "62.691275167785236",
-    "peak_visible_tracked_vehicles": "76",
+    "mean_visible_tracked_vehicles": "54.033557046979865",
+    "peak_visible_tracked_vehicles": "66",
     "event_rate_per_hour": "35280.0",
     "frame_count": "149",
-    "mean_speed_kmh": "110.82",
-    "space_mean_speed_kmh": "110.81999999999998",
-    "mean_density_per_km": "35.067114093959745"
+    "mean_speed_kmh": "",
+    "space_mean_speed_kmh": "",
+    "mean_density_per_km": "34.89932885906042"
    },
    {
     "start_seconds": "35.0",
@@ -574,13 +647,13 @@
     "crossings": "51",
     "negative_to_positive": "51",
     "positive_to_negative": "0",
-    "mean_visible_tracked_vehicles": "58.52",
-    "peak_visible_tracked_vehicles": "77",
+    "mean_visible_tracked_vehicles": "50.6",
+    "peak_visible_tracked_vehicles": "62",
     "event_rate_per_hour": "36720.0",
     "frame_count": "150",
     "mean_speed_kmh": "",
     "space_mean_speed_kmh": "",
-    "mean_density_per_km": "37.38888888888891"
+    "mean_density_per_km": "37.555555555555564"
    },
    {
     "start_seconds": "40.0",
@@ -589,21 +662,17 @@
     "crossings": "21",
     "negative_to_positive": "21",
     "positive_to_negative": "0",
-    "mean_visible_tracked_vehicles": "71.55263157894737",
-    "peak_visible_tracked_vehicles": "82",
+    "mean_visible_tracked_vehicles": "59.93421052631579",
+    "peak_visible_tracked_vehicles": "66",
     "event_rate_per_hour": "29734.513274336237",
     "frame_count": "76",
     "mean_speed_kmh": "",
     "space_mean_speed_kmh": "",
-    "mean_density_per_km": "36.293859649122794"
+    "mean_density_per_km": "36.51315789473683"
    }
   ],
   "track_speeds": [
-   45.5,
-   26.47,
-   110.82,
-   58.0,
-   20.2
+   227.68
   ]
  }
 }
