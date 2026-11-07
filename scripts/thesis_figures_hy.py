@@ -58,17 +58,18 @@ def models():
     data = json.loads((ROOT / 'reports/road-model-comparison.json').read_text())
     names = {'vehicle-hires-960': 'vehicle-hires-960\n(YOLOv8n, VisDrone)',
              'vehicle-road-combined': 'vehicle-road-combined\n(YOLOv8n, VisDrone + MIO-TCD)',
-             'vehicle-road-yolov8s': 'vehicle-road-yolov8s\n(YOLOv8s, VisDrone + MIO-TCD)'}
+             'vehicle-road-yolov8s': 'vehicle-road-yolov8s\n(YOLOv8s, VisDrone + MIO-TCD)',
+             'vehicle-road-yolov8s-long': 'vehicle-road-yolov8s-long\n(YOLOv8s, +12 դարաշրջան)'}
     groups = [('visdrone@960', 'VisDrone թեստ, 960 պքս'), ('mio-tcd@640', 'MIO-TCD թեստ, 640 պքս')]
-    colors = ['#9FB3C8', '#5B8DB8', '#1F4E79']
+    colors = ['#C5D3E0', '#8FAECB', '#4F7FAA', '#1F4E79']
     fig, ax = plt.subplots(figsize=(10, 4.8))
-    bar = 0.26
+    bar = 0.2
     for j, (model, label) in enumerate(names.items()):
         values = [data[model][key]['metrics/mAP50(B)'] * 100 for key, _ in groups]
-        xs = [i + (j - 1) * bar for i in range(len(groups))]
+        xs = [i + (j - (len(names) - 1) / 2) * bar for i in range(len(groups))]
         bars = ax.bar(xs, values, bar, label=label, color=colors[j])
         for x, v in zip(xs, values):
-            ax.text(x, v + 1.2, f'{v:.1f}'.replace('.', ','), ha='center', fontsize=10)
+            ax.text(x, v + 1.2, f'{v:.1f}'.replace('.', ','), ha='center', fontsize=9)
     ax.set_xticks(range(len(groups)))
     ax.set_xticklabels([g[1] for g in groups], fontsize=11)
     ax.set_ylabel('mAP50, %', fontsize=11)

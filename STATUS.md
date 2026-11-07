@@ -27,12 +27,13 @@ Test mAP — на test-части собственного набора данн
 | vehicle-finetune-pilot | visdrone-pilot | 416 | 15 | 0.1384 | 0.0686 |
 | vehicle-hires-960 | visdrone-expanded-full | 960 | 15 | 0.4594 | 0.2859 |
 | vehicle-road-combined | combined-road | 640 | 8 | 0.4760 | 0.3228 |
-| **vehicle-road-yolov8s** (рекомендуемая) | combined-road | 640 | 8 | 0.5255 | 0.3610 |
+| vehicle-road-yolov8s | combined-road | 640 | 8 | 0.5255 | 0.3610 |
+| **vehicle-road-yolov8s-long** (рекомендуемая; продолжение vehicle-road-yolov8s, lr0 0.0005) | combined-road | 640 | 12 | 0.5565 | 0.3845 |
 | vehicle-scratch-pilot | visdrone-pilot | 416 | 15 | 0.0262 | 0.0087 |
 
 Все запуски: seed 42, Apple M4, 16 ГБ, MPS. Лучшая эпоха выбирается по validation. Часть операций MPS недетерминирована.
 
-Обученные веса трех основных моделей (vehicle-road-yolov8s, vehicle-road-combined, vehicle-hires-960) и демонстрационные видео скачиваются командой `python scripts/download_assets.py`.
+Обученные веса трех основных моделей (vehicle-road-yolov8s, vehicle-road-combined, vehicle-hires-960) и демонстрационные видео скачиваются командой `python scripts/download_assets.py`. Веса рекомендуемой vehicle-road-yolov8s-long пока только локальные (в релиз v1.0 не загружены).
 
 ## Проверки и материалы
 
@@ -42,7 +43,7 @@ Test mAP — на test-части собственного набора данн
 
 ## Что осталось
 
-- thesis/DIPLOMA.docx обновлён 5 ноября: текст на армянском (thesis/hy/*.md → scripts/build_thesis_hy.py), рекомендуемая модель vehicle-road-yolov8s, MIO-TCD, тайлинг, скорость, плотность/LOS, UA-DETRAC, проверка ускоренного видео. Русская версия от 10 октября — thesis/archive/. Презентация thesis/presentation/DEFENSE.pptx ещё описывает старую модель и требует обновления.
+- thesis/DIPLOMA.docx обновлён 7 ноября: текст на армянском (thesis/hy/*.md → scripts/build_thesis_hy.py), рекомендуемая модель vehicle-road-yolov8s-long, MIO-TCD, тайлинг, скорость, плотность/LOS, UA-DETRAC, проверка ускоренного видео. Русская версия от 10 октября — thesis/archive/. Презентация thesis/presentation/DEFENSE.pptx ещё описывает старую модель и требует обновления.
 - Титульные сведения и требования кафедры не предоставлены.
 - Разметка подсчета для демонстрационных роликов предварительная и требует независимой проверки человеком.
 

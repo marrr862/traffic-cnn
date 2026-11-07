@@ -15,7 +15,7 @@ python -m pip install -e '.[dev]'
 python scripts/download_assets.py
 ```
 
-Վերջին հրամանը ներբեռնում է երեք ուսուցանված մոդելները (vehicle-road-yolov8s, vehicle-road-combined, vehicle-hires-960) և երկու ցուցադրական տեսանյութերը՝ ստուգելով դրանց SHA-256 հեշերը։ Ուղիղ հոսքով YouTube-ից աշխատելու համար անհրաժեշտ է լրացուցիչ տեղադրել `pip install -e '.[live]'`։
+Վերջին հրամանը ներբեռնում է երեք ուսուցանված մոդելները (vehicle-road-yolov8s, vehicle-road-combined, vehicle-hires-960) և երկու ցուցադրական տեսանյութերը՝ ստուգելով դրանց SHA-256 հեշերը։ Առաջարկվող vehicle-road-yolov8s-long մոդելը դեռ ներառված չէ ներբեռնվող ֆայլերում. այն կարելի է ստանալ vehicle-road-yolov8s-ից լրացուցիչ ուսուցմամբ (Հավելված Ա)։ Ուղիղ հոսքով YouTube-ից աշխատելու համար անհրաժեշտ է լրացուցիչ տեղադրել `pip install -e '.[live]'`։
 
 ## 6.2 Միջերեսի գործարկում և տեսանյութի վերլուծություն
 
@@ -62,7 +62,7 @@ macOS-ում կարելի է պարզապես գործարկել `run_app.comman
 
 ```
 traffic-cnn analyze --video data/video/vehicles.mp4 \
-  --weights runs/experiments/vehicle-road-yolov8s/weights/best.pt \
+  --weights runs/experiments/vehicle-road-yolov8s-long/weights/best.pt \
   --output outputs/my-run --line 0 1296 3839 1296 \
   --extra-line 0 1700 3839 1700 \
   --calibration configs/calibration-vehicles.json \
@@ -99,10 +99,10 @@ python scripts/run_experiment.py --name my-camera \
 
 1. Վերլուծվել են երթևեկության հոսքի բնութագրերը (ինտենսիվություն, խտություն, ժամանակային և տարածական միջին արագություն, սպասարկման մակարդակ) և դրանց չափման եղանակները։ Որպես դետեկտոր ընտրվել է YOLOv8 փաթույթային նեյրոնային ցանցը, հետագծման համար՝ ByteTrack ալգորիթմը, իսկ մետրական չափումների համար՝ ճանապարհային հարթության հոմոգրաֆիկ տրամաչափումը։
 2. Երկու բաց աղբյուրներից պատրաստվել է հինգ դասի տրանսպորտային միջոցների կորպուս. VisDrone2019-DET (218 242 շրջանակ ուսուցման ընտրանքում) և MIO-TCD (30 000 պատկեր)։ Բոլոր փոխակերպումները ավտոմատացված են և վերարտադրելի, իսկ անորոշ դասի շրջանակները դիմակավորված են։
-3. Կատարվել է ինը վերարտադրելի ուսուցման փորձ։ Ցույց է տրվել, որ ուսուցման փոխանցումը սահմանափակ տվյալների պայմաններում անհրաժեշտ է (13,8% ընդդեմ 2,6% mAP50), մուտքի չափի մեծացումը 640-ից 960 պիքսել էապես բարելավում է փոքր օբյեկտների հայտնաբերումը (+11 կետ), իսկ թիրախային տիրույթի տվյալների ավելացումը վերացնում է տիրույթի տեղաշարժը (MIO-TCD-ում 15,1% → 83,7%)։ Առաջարկվող vehicle-road-yolov8s մոդելը ունի 48,0% mAP50 VisDrone-ում և 86,8% MIO-TCD-ում։
+3. Կատարվել է տասը վերարտադրելի ուսուցման փորձ։ Ցույց է տրվել, որ ուսուցման փոխանցումը սահմանափակ տվյալների պայմաններում անհրաժեշտ է (13,8% ընդդեմ 2,6% mAP50), մուտքի չափի մեծացումը 640-ից 960 պիքսել էապես բարելավում է փոքր օբյեկտների հայտնաբերումը (+11 կետ), իսկ թիրախային տիրույթի տվյալների ավելացումը վերացնում է տիրույթի տեղաշարժը (MIO-TCD-ում 15,1% → 83,7%)։ Ավելի մեծ YOLOv8s մոդելը և նրա ուսուցման երկարացումը ևս 12 դարաշրջանով բարելավել են արդյունքները երկու տիրույթներում. առաջարկվող vehicle-road-yolov8s-long մոդելը ունի 51,4% mAP50 VisDrone-ում և 90,2% MIO-TCD-ում։
 4. Իրականացվել է հաշվման գծերի հատման կանոն հիստերեզիսով, գծից արդեն անցած մեքենաների հաշվարկով և նույն մեքենայի կրկնակի ID-ների զտիչով, արագության գնահատում սահող պատուհանով, խտության և LOS-ի հաշվարկ, q = k·v ստուգում և ֆիզիկական հավաստիության ավտոմատ ստուգում։ Մշակվել է սալիկային հայտնաբերման ռեժիմ, որը փոքր օբյեկտների համար բարձրացնում է mAP50-ը մինչև 6,7 կետով։
 5. Մշակվել է հայերեն միջերես, հրամանային տող, ուղիղ հոսքի (RTSP, HLS, YouTube) աջակցություն, արդյունքների արտահանում CSV/JSON ձևաչափերով և հաշվարկի ստուգման գործիք։ Ծրագիրը ծածկված է 73 ավտոմատ թեստով։
-6. Անկախ UA-DETRAC տեսանյութում առաջարկվող մոդելը հայտնաբերել է մեքենաների 98,9%-ը և ճիշտ հաշվել բոլոր 5 հատումները։ Մայրուղու տեսանյութում վերջնական տարբերակը ճիշտ է հաշվել բոլոր 10 մեքենաները ճիշտ ուղղություններով և դասերով։ Արագության երկու անկախ եղանակները համընկնում են միջինը 2%-ի սահմաններում։ Հավաստիության ստուգումը ավտոմատ կերպով հայտնաբերել է արագացված տեսանյութը, որում առանց ստուգման կստացվեր ֆիզիկապես անհնար ինտենսիվություն։
+6. Անկախ UA-DETRAC տեսանյութում առաջարկվող մոդելը հայտնաբերել է մեքենաների 99,0%-ը և ճիշտ հաշվել բոլոր 5 հատումները։ Մայրուղու տեսանյութում վերջնական տարբերակը ճիշտ է հաշվել բոլոր 10 մեքենաները ճիշտ ուղղություններով (երկու բեռնատարները առաջարկվող մոդելը դասակարգել է որպես ավտոբուս)։ Արագության երկու անկախ եղանակները համընկնում են միջինը 2–3%-ի սահմաններում։ Հավաստիության ստուգումը ավտոմատ կերպով հայտնաբերել է արագացված տեսանյութը, որում առանց ստուգման կստացվեր ֆիզիկապես անհնար ինտենսիվություն։
 
 Ստացված արդյունքները ունեն որոշակի սահմանափակումներ. արտաքին ստուգման ծավալը փոքր է, արագության բացարձակ ճշտությունը չի ստուգվել անկախ չափիչով, իսկ բոլոր տեսանյութերը ցերեկային են։ Աշխատանքի զարգացման հիմնական ուղղություններն են.
 
@@ -157,19 +157,24 @@ python scripts/prepare_miotcd.py
 ```
 python scripts/run_experiment.py --name vehicle-road-yolov8s \
   --data configs/combined-road.yaml --epochs 8 --imgsz 640 --batch 16 --device mps
+python scripts/run_experiment.py --name vehicle-road-yolov8s-long \
+  --weights runs/experiments/vehicle-road-yolov8s/weights/best.pt \
+  --data configs/combined-road.yaml --epochs 12 --imgsz 640 --batch 16 \
+  --optimizer AdamW --lr0 0.0005 --device mps
 ```
 
 Գնահատում և հաշվետվություններ.
 
 ```
-python scripts/evaluate_road_models.py
+python scripts/evaluate_road_models.py --models vehicle-road-yolov8s-long
 python scripts/evaluate_tiled.py
 python scripts/download_detrac.py --sequence MVI_39031
-python scripts/evaluate_detrac.py --sequence MVI_39031 --device mps
+python scripts/evaluate_detrac.py --sequence MVI_39031 --device mps \
+  --models vehicle-road-yolov8s:960,vehicle-road-yolov8s-long:960
 python scripts/thesis_video_results.py --weights \
-  runs/experiments/vehicle-road-yolov8s/weights/best.pt --imgsz 960 --tag v8s
-python scripts/evaluate_counting.py --results outputs/thesis-v1-v8s \
-  --name thesis-v1-v8s --reference reports/video-reference.json --tolerance 6
+  runs/experiments/vehicle-road-yolov8s-long/weights/best.pt --imgsz 960 --tag v8s-long
+python scripts/evaluate_counting.py --results outputs/thesis-v1-v8s-long \
+  --name thesis-v1-v8s-long --reference reports/video-reference.json --tolerance 6
 python -m unittest discover -s tests -v
 ```
 
