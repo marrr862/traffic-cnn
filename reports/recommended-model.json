@@ -3,5 +3,5 @@
   "weights": "runs/experiments/vehicle-road-yolov8s-long/weights/best.pt",
   "inference_imgsz": 960,
   "previous": "vehicle-road-yolov8s",
-  "selection": "vehicle-road-yolov8s continued for 12 more epochs on VisDrone + MIO-TCD (AdamW, lr0 0.0005). Chosen on road-camera checks: MIO-TCD test mAP50 90.2% @640 / 87.9% @960 (vehicle-road-yolov8s: 86.8% / 83.3%), VisDrone test 51.4% @960 (48.0%), UA-DETRAC MVI_39031 5/5 counts with vehicle AP50 97.0% (96.4%), highway 10/10 (9/10). Same architecture and speed as vehicle-road-yolov8s; vehicle-road-combined (YOLOv8n) remains the option for weaker computers. The weights are local only: they are not yet in the v1.0 GitHub release used by scripts/download_assets.py."
+  "selection": "vehicle-road-yolov8s continued for 12 more epochs on VisDrone + MIO-TCD (AdamW, lr0 0.0005). Chosen on road-camera checks: MIO-TCD test mAP50 90.2% @640 / 87.9% @960 (vehicle-road-yolov8s: 86.8% / 83.3%), VisDrone test 51.4% @960 (48.0%), UA-DETRAC MVI_39031 5/5 counts with vehicle AP50 97.0% (96.4%), highway 10/10 (9/10). Same architecture and speed as vehicle-road-yolov8s; vehicle-road-combined (YOLOv8n) remains the option for weaker computers. The weights are in the v1.0 GitHub release (scripts/download_assets.py)."
 }

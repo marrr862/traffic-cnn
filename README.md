@@ -24,7 +24,7 @@ Python հավելվածը տեսանյութում հայտնաբերում է �
 | vehicle-road-yolov8s (YOLOv8s, VisDrone + MIO-TCD) | 48,0% | 86,8% | 96,4% / 5 / 5 | 9 / 10 |
 | **vehicle-road-yolov8s-long** (նույնը + 12 դարաշրջան, առաջարկվող) | **51,4%** | **90,2%** | 97,0% / 5 / 5 | 10 / 10 |
 
-Առաջարկվող մոդելը նշված է `reports/recommended-model.json`-ում (ճանապարհային տեսախցիկներ, 960 պքս)։ `vehicle-road-yolov8s-long`-ի կշիռները դեռ ներառված չեն `scripts/download_assets.py`-ում. դրանք ստացվում են `vehicle-road-yolov8s`-ից լրացուցիչ ուսուցմամբ (`--weights runs/experiments/vehicle-road-yolov8s/weights/best.pt --epochs 12 --optimizer AdamW --lr0 0.0005`)։ Թույլ համակարգչի դեպքում ընտրեք ավելի արագ `vehicle-road-combined`-ը (մոտ 15%-ով արագ)։ Անօդաչու սարքի (վերևից) պատկերների համար ավելի հարմար է `vehicle-hires-960`-ը։
+Առաջարկվող մոդելը նշված է `reports/recommended-model.json`-ում (ճանապարհային տեսախցիկներ, 960 պքս)։ Թույլ համակարգչի դեպքում ընտրեք ավելի արագ `vehicle-road-combined`-ը (մոտ 15%-ով արագ)։ Անօդաչու սարքի (վերևից) պատկերների համար ավելի հարմար է `vehicle-hires-960`-ը։
 
 ## Տեղադրում
 
@@ -39,7 +39,7 @@ python -m pip install -e '.[dev]'
 python scripts/download_assets.py
 ```
 
-`download_assets.py`-ը ներբեռնում է երեք ուսուցանված մոդելները (GitHub Release v1.0) `runs/experiments/<մոդել>/weights/best.pt` և երկու ցուցադրական տեսանյութերը (Roboflow Supervision) `data/video/` պանակ՝ ստուգելով SHA-256-ը։
+`download_assets.py`-ը ներբեռնում է չորս ուսուցանված մոդելները (GitHub Release v1.0) `runs/experiments/<մոդել>/weights/best.pt` և երկու ցուցադրական տեսանյութերը (Roboflow Supervision) `data/video/` պանակ՝ ստուգելով SHA-256-ը։
 
 ## Արագ մեկնարկ
 

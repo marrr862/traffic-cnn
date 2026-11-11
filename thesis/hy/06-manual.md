@@ -15,7 +15,7 @@ python -m pip install -e '.[dev]'
 python scripts/download_assets.py
 ```
 
-Վերջին հրամանը ներբեռնում է երեք ուսուցանված մոդելները (vehicle-road-yolov8s, vehicle-road-combined, vehicle-hires-960) և երկու ցուցադրական տեսանյութերը՝ ստուգելով դրանց SHA-256 հեշերը։ Առաջարկվող vehicle-road-yolov8s-long մոդելը դեռ ներառված չէ ներբեռնվող ֆայլերում. այն կարելի է ստանալ vehicle-road-yolov8s-ից լրացուցիչ ուսուցմամբ (Հավելված Ա)։ Ուղիղ հոսքով YouTube-ից աշխատելու համար անհրաժեշտ է լրացուցիչ տեղադրել `pip install -e '.[live]'`։
+Վերջին հրամանը ներբեռնում է չորս ուսուցանված մոդելները (vehicle-road-yolov8s-long, vehicle-road-yolov8s, vehicle-road-combined, vehicle-hires-960) և երկու ցուցադրական տեսանյութերը՝ ստուգելով դրանց SHA-256 հեշերը։ Ուղիղ հոսքով YouTube-ից աշխատելու համար անհրաժեշտ է լրացուցիչ տեղադրել `pip install -e '.[live]'`։
 
 ## 6.2 Միջերեսի գործարկում և տեսանյութի վերլուծություն
 

@@ -33,7 +33,7 @@ Test mAP — на test-части собственного набора данн
 
 Все запуски: seed 42, Apple M4, 16 ГБ, MPS. Лучшая эпоха выбирается по validation. Часть операций MPS недетерминирована.
 
-Обученные веса трех основных моделей (vehicle-road-yolov8s, vehicle-road-combined, vehicle-hires-960) и демонстрационные видео скачиваются командой `python scripts/download_assets.py`. Веса рекомендуемой vehicle-road-yolov8s-long пока только локальные (в релиз v1.0 не загружены).
+Обученные веса четырех основных моделей (vehicle-road-yolov8s-long, vehicle-road-yolov8s, vehicle-road-combined, vehicle-hires-960) и демонстрационные видео скачиваются командой `python scripts/download_assets.py` (релиз v1.0 на GitHub).
 
 ## Проверки и материалы
 
