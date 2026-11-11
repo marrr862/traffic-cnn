@@ -17,7 +17,7 @@ from traffic_cnn.geometry import validate_line, direction_labels as line_directi
 from traffic_cnn.evaluation import evaluate_run
 from traffic_cnn.reference_ui import annotation_tool
 from traffic_cnn.calibration import Calibration
-from traffic_cnn.traffic_state import LOS_DESCRIPTION
+from traffic_cnn.traffic_state import LOS_DESCRIPTION, vehicle_groups
 try:
     from streamlit_image_coordinates import streamlit_image_coordinates as image_coordinates
 except ImportError:  # fallback: show the frame without click support
@@ -443,6 +443,9 @@ with video_tab:
         left.dataframe(pd.DataFrame([{'Ուղղություն':direction_labels.get(k,k),'Հատումներ':v} for k,v in report['by_direction'].items()]),hide_index=True)
         right.write('**Տրանսպորտի դասեր**')
         right.dataframe(pd.DataFrame([{'Դաս':CLASS_LABELS.get(k,k),'Հատումներ':v} for k,v in report['by_class'].items()]),hide_index=True)
+        groups, heavy_share = vehicle_groups(report['by_class'])
+        if heavy_share is not None:
+            right.caption(f"Ծանր տրանսպորտ (բեռնատար + ավտոբուս)՝ {groups['heavy']} ({100*heavy_share:.0f}%), թեթև (մարդատար + ֆուրգոն)՝ {groups['light']}, մոտոցիկլ՝ {groups['motorcycle']}։ Բեռնատարն ու ավտոբուսը երբեմն շփոթվում են, ուստի ծանր տրանսպորտի ընդհանուր թիվն ավելի հուսալի է։")
         if len(report.get('lines',[])) > 1:
             st.write('**Հաշվման գծեր**')
             st.dataframe(pd.DataFrame([{'Գիծ':l['line_id'],'Կոորդինատներ':str([round(v) for v in l['coordinates']]),'Հատումներ':l['crossings'],'Մեքենա/ժամ':round(l['flow_vehicles_per_hour'])} for l in report['lines']]),hide_index=True)

@@ -266,6 +266,16 @@
     "truck": 2,
     "car": 8
   },
+  "observed_by_group": {
+    "light": 8,
+    "heavy": 2,
+    "motorcycle": 0
+  },
+  "reference_by_group": {
+    "light": 8,
+    "heavy": 2,
+    "motorcycle": 0
+  },
   "limitations": "Only one 21.52-second daylight video. Contact-sheet intervals are approximate; classes are visually assigned. This is not a ground-truth benchmark or an estimate of general counting accuracy.",
   "source_sha256": "ac81100d9310bd4e9c02bc0b13b6492781d009742ced347766b2601be3c44ad4",
   "line": [

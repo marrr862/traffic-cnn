@@ -4,6 +4,7 @@ import re
 from collections import Counter
 import numpy as np
 from lap import lapjv
+from .traffic_state import vehicle_groups
 
 def match_events(references,events,tolerance=6):
     """One-to-one interval assignment: prioritize matches, then class agreement."""
@@ -83,5 +84,7 @@ def evaluate_run(summary, reference, events, tolerance=6):
                 observed_total=len(events),reference_total=len(references),absolute_count_difference=abs(len(events)-len(references)),
                 by_direction=by_direction,observed_by_class=dict(Counter(e['vehicle_class'] for e in events)),
                 reference_by_class=dict(Counter(e['class'] for e in references)),
+                observed_by_group=vehicle_groups(Counter(e['vehicle_class'] for e in events))[0],
+                reference_by_group=vehicle_groups(Counter(e['class'] for e in references))[0],
                 limitations=reference.get('limitations','Reference annotation quality has not been established.'),
                 source_sha256=checksum,line=summary['line'],processing_fps=summary['processing_fps'])

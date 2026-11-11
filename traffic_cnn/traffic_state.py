@@ -19,6 +19,22 @@ def level_of_service(density_per_lane):
     return 'F'
 
 
+# HCM treats trucks and buses together as heavy vehicles. The detector separates them well on road
+# cameras (about 2% confusion on MIO-TCD) but not on unfamiliar vehicles such as a European box truck
+# seen head-on, so counts are also reported by group, where that confusion does not matter.
+VEHICLE_GROUPS = {'car': 'light', 'van': 'light', 'truck': 'heavy', 'bus': 'heavy', 'motorcycle': 'motorcycle'}
+
+
+def vehicle_groups(by_class):
+    """Counts per group (light, heavy, motorcycle; unknown class names go to other) and the heavy-vehicle share."""
+    groups = {'light': 0, 'heavy': 0, 'motorcycle': 0}
+    for name, count in by_class.items():
+        group = VEHICLE_GROUPS.get(name, 'other')
+        groups[group] = groups.get(group, 0) + count
+    total = sum(groups.values())
+    return groups, (groups['heavy'] / total if total else None)
+
+
 def density(vehicles_in_zone, length_m, lanes=None):
     """Vehicles per km (and per km per lane when the lane count is known)."""
     if length_m <= 0:

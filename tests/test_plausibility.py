@@ -1,7 +1,7 @@
 import unittest
 from traffic_cnn.calibration import Calibration, SpeedEstimator
 from traffic_cnn.counting import LineCounter
-from traffic_cnn.traffic_state import fundamental_check, plausibility_issues
+from traffic_cnn.traffic_state import fundamental_check, plausibility_issues, vehicle_groups
 
 QUAD = [[1252, 787], [2298, 803], [5039, 2159], [-550, 2159]]
 
@@ -24,6 +24,22 @@ class PlausibilityTests(unittest.TestCase):
 
     def test_no_flow_is_not_a_mismatch(self):
         self.assertEqual(plausibility_issues(None, 0, 0.0, 0, fundamental_check(0, 10, 50)), [])
+
+
+class VehicleGroupTests(unittest.TestCase):
+    def test_truck_and_bus_are_heavy(self):
+        groups, share = vehicle_groups({'car': 6, 'van': 2, 'truck': 1, 'bus': 1})
+        self.assertEqual(groups, {'light': 8, 'heavy': 2, 'motorcycle': 0})
+        self.assertAlmostEqual(share, 0.2)
+
+    def test_truck_bus_swap_keeps_groups(self):
+        self.assertEqual(vehicle_groups({'car': 8, 'truck': 2}), vehicle_groups({'car': 8, 'bus': 2}))
+
+    def test_empty_and_unknown_classes(self):
+        self.assertEqual(vehicle_groups({})[1], None)
+        groups, share = vehicle_groups({'tractor': 1, 'car': 1})
+        self.assertEqual(groups['other'], 1)
+        self.assertEqual(share, 0)
 
 
 class BoundedStateTests(unittest.TestCase):
