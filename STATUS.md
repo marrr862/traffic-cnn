@@ -43,7 +43,7 @@ Test mAP — на test-части собственного набора данн
 
 ## Что осталось
 
-- thesis/DIPLOMA.docx обновлён 7 ноября: текст на армянском (thesis/hy/*.md → scripts/build_thesis_hy.py), рекомендуемая модель vehicle-road-yolov8s-long, MIO-TCD, тайлинг, скорость, плотность/LOS, UA-DETRAC, проверка ускоренного видео. Русская версия от 10 октября — thesis/archive/. Презентация thesis/presentation/DEFENSE.pptx ещё описывает старую модель и требует обновления.
+- thesis/DIPLOMA.docx обновлён 7 ноября: текст на армянском (thesis/hy/*.md → scripts/build_thesis_hy.py), рекомендуемая модель vehicle-road-yolov8s-long, MIO-TCD, тайлинг, скорость, плотность/LOS, UA-DETRAC, проверка ускоренного видео. Русская версия от 10 октября — thesis/archive/. Презентация thesis/presentation/DEFENSE.pptx обновлена 11 ноября: 12 слайдов на армянском для доклада на 10 минут, текст выступления в заметках (scripts/build_defense_hy.js). Старая русская версия — thesis/archive/.
 - Титульные сведения и требования кафедры не предоставлены.
 - Разметка подсчета для демонстрационных роликов предварительная и требует независимой проверки человеком.
 
