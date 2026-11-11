@@ -12,7 +12,7 @@ from .tracklets import Tracklets
 from .flow import flow_windows
 from .geometry import validate_line, direction_labels
 from .calibration import Calibration, SpeedEstimator, speed_statistics
-from .traffic_state import density as zone_density, level_of_service, fundamental_check, plausibility_issues
+from .traffic_state import density as zone_density, level_of_service, fundamental_check, plausibility_issues, vehicle_groups
 from .heatmap import Heatmap, draw_trajectories
 from .motion import MotionMeter
 from .sources import is_live, resolve, describe, LatestFrameReader
@@ -298,6 +298,8 @@ def analyze(args):
                        source_video=str(args.video) if live else str(Path(args.video).resolve()),source_sha256=digest.hexdigest(),
                        mean_visible_tracked_vehicles=sum(s['visible_tracked_vehicles'] for s in frame_stats)/n,peak_visible_tracked_vehicles=max(s['visible_tracked_vehicles'] for s in frame_stats),
                        by_class=dict(Counter(e['vehicle_class'] for e in events)),
+                       by_group=vehicle_groups(Counter(e['vehicle_class'] for e in events))[0],
+                       heavy_vehicle_share=vehicle_groups(Counter(e['vehicle_class'] for e in events))[1],
                        flow_vehicles_per_hour=len(events)*3600/(n/time_fps),processing_fps=n/elapsed,
                        line=line,direction_labels=direction_labels(line),weights=str(Path(args.weights).resolve()),confidence=args.conf,imgsz=args.imgsz,tiling=(dict(tile=args.tile,overlap=args.tile_overlap,full_frame=True) if getattr(args,'tile',0) else None),source_fps=fps,time_scale=time_scale,time_fps=time_fps,motion=motion.summary(fps,time_fps),video_codec=video_codec,interval_seconds=interval,
                        tracking=dict(mode='baseline' if baseline else 'continuity',detector_threshold=low_threshold,initialization_threshold=high,agnostic_nms=getattr(args,'agnostic_nms',True) or not baseline,nms_iou=getattr(args,'nms_iou',0.5),continuity_max_gap=0 if baseline else tracklets.max_gap,continuity_iou=tracklets.overlap,class_vote='instantaneous' if baseline else 'confidence-weighted history'),

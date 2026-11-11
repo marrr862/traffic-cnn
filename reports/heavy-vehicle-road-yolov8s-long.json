@@ -1,0 +1,212 @@
+{
+  "weights": "runs/experiments/vehicle-road-yolov8s-long/weights/best.pt",
+  "protocol": "How much of the class error is truck/bus confusion, and what a merged \"heavy vehicle\" class would score.",
+  "visdrone": {
+    "images": 1610,
+    "imgsz": 960,
+    "five_classes": {
+      "mAP50": 0.4804,
+      "mAP50_95": 0.3055,
+      "AP50": {
+        "car": 0.7723,
+        "van": 0.3397,
+        "truck": 0.3925,
+        "bus": 0.5439,
+        "motorcycle": 0.3536
+      }
+    },
+    "truck_bus_merged": {
+      "mAP50": 0.5044,
+      "mAP50_95": 0.314,
+      "AP50": {
+        "car": 0.7723,
+        "van": 0.3397,
+        "heavy": 0.5521,
+        "motorcycle": 0.3536
+      }
+    },
+    "located_confusion": {
+      "car": {
+        "car": 21542,
+        "van": 884,
+        "truck": 90,
+        "bus": 46,
+        "motorcycle": 10,
+        "missed": 5502
+      },
+      "van": {
+        "car": 2372,
+        "van": 2062,
+        "truck": 114,
+        "bus": 92,
+        "motorcycle": 0,
+        "missed": 1131
+      },
+      "truck": {
+        "car": 201,
+        "van": 129,
+        "truck": 1106,
+        "bus": 170,
+        "motorcycle": 3,
+        "missed": 1050
+      },
+      "bus": {
+        "car": 90,
+        "van": 98,
+        "truck": 204,
+        "bus": 1540,
+        "motorcycle": 0,
+        "missed": 1008
+      },
+      "motorcycle": {
+        "car": 35,
+        "van": 1,
+        "truck": 2,
+        "bus": 0,
+        "motorcycle": 2152,
+        "missed": 3655
+      }
+    },
+    "located_share": {
+      "car": {
+        "car": 0.954,
+        "van": 0.039,
+        "truck": 0.004,
+        "bus": 0.002,
+        "motorcycle": 0.0
+      },
+      "van": {
+        "car": 0.511,
+        "van": 0.444,
+        "truck": 0.025,
+        "bus": 0.02,
+        "motorcycle": 0.0
+      },
+      "truck": {
+        "car": 0.125,
+        "van": 0.08,
+        "truck": 0.687,
+        "bus": 0.106,
+        "motorcycle": 0.002
+      },
+      "bus": {
+        "car": 0.047,
+        "van": 0.051,
+        "truck": 0.106,
+        "bus": 0.797,
+        "motorcycle": 0.0
+      },
+      "motorcycle": {
+        "car": 0.016,
+        "van": 0.0,
+        "truck": 0.001,
+        "bus": 0.0,
+        "motorcycle": 0.983
+      }
+    }
+  },
+  "mio-tcd": {
+    "images": 10958,
+    "imgsz": 640,
+    "five_classes": {
+      "mAP50": 0.8795,
+      "mAP50_95": 0.6851,
+      "AP50": {
+        "car": 0.9657,
+        "van": 0.6827,
+        "truck": 0.8926,
+        "bus": 0.9634,
+        "motorcycle": 0.8933
+      }
+    },
+    "truck_bus_merged": {
+      "mAP50": 0.8706,
+      "mAP50_95": 0.6608,
+      "AP50": {
+        "car": 0.9657,
+        "van": 0.6827,
+        "heavy": 0.9407,
+        "motorcycle": 0.8933
+      }
+    },
+    "located_confusion": {
+      "car": {
+        "car": 25800,
+        "van": 95,
+        "truck": 27,
+        "bus": 4,
+        "motorcycle": 1,
+        "missed": 1268
+      },
+      "van": {
+        "car": 277,
+        "van": 526,
+        "truck": 17,
+        "bus": 9,
+        "motorcycle": 0,
+        "missed": 38
+      },
+      "truck": {
+        "car": 38,
+        "van": 17,
+        "truck": 1258,
+        "bus": 23,
+        "motorcycle": 0,
+        "missed": 113
+      },
+      "bus": {
+        "car": 4,
+        "van": 13,
+        "truck": 16,
+        "bus": 1001,
+        "motorcycle": 0,
+        "missed": 25
+      },
+      "motorcycle": {
+        "car": 2,
+        "van": 0,
+        "truck": 0,
+        "bus": 0,
+        "motorcycle": 157,
+        "missed": 22
+      }
+    },
+    "located_share": {
+      "car": {
+        "car": 0.995,
+        "van": 0.004,
+        "truck": 0.001,
+        "bus": 0.0,
+        "motorcycle": 0.0
+      },
+      "van": {
+        "car": 0.334,
+        "van": 0.634,
+        "truck": 0.021,
+        "bus": 0.011,
+        "motorcycle": 0.0
+      },
+      "truck": {
+        "car": 0.028,
+        "van": 0.013,
+        "truck": 0.942,
+        "bus": 0.017,
+        "motorcycle": 0.0
+      },
+      "bus": {
+        "car": 0.004,
+        "van": 0.013,
+        "truck": 0.015,
+        "bus": 0.968,
+        "motorcycle": 0.0
+      },
+      "motorcycle": {
+        "car": 0.013,
+        "van": 0.0,
+        "truck": 0.0,
+        "bus": 0.0,
+        "motorcycle": 0.987
+      }
+    }
+  }
+}
