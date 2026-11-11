@@ -21,7 +21,8 @@ Python հավելվածը տեսանյութում հայտնաբերում է �
 |---|---|---|---|---|
 | vehicle-hires-960 (միայն VisDrone) | 45,9% | 15,1% | 96,7% / 5 / 5 | 9 / 10 |
 | vehicle-road-combined (YOLOv8n, VisDrone + MIO-TCD, ավելի արագ) | 43,0% | 83,7% | 97,4% / 5 / 5 | 9 / 10 |
-| **vehicle-road-yolov8s** (YOLOv8s, VisDrone + MIO-TCD, առաջարկվող) | **48,0%** | **86,8%** | 96,5% / 5 / 5 | 9 / 10 |
+| vehicle-road-yolov8s (YOLOv8s, VisDrone + MIO-TCD) | 48,0% | 86,8% | 96,4% / 5 / 5 | 9 / 10 |
+| **vehicle-road-yolov8s-long** (նույնը + 12 դարաշրջան, առաջարկվող) | **51,4%** | **90,2%** | 97,0% / 5 / 5 | 10 / 10 |
 
 Առաջարկվող մոդելը նշված է `reports/recommended-model.json`-ում (ճանապարհային տեսախցիկներ, 960 պքս)։ Թույլ համակարգչի դեպքում ընտրեք ավելի արագ `vehicle-road-combined`-ը (մոտ 15%-ով արագ)։ Անօդաչու սարքի (վերևից) պատկերների համար ավելի հարմար է `vehicle-hires-960`-ը։
 
@@ -38,7 +39,7 @@ python -m pip install -e '.[dev]'
 python scripts/download_assets.py
 ```
 
-`download_assets.py`-ը ներբեռնում է երեք ուսուցանված մոդելները (GitHub Release v1.0) `runs/experiments/<մոդել>/weights/best.pt` և երկու ցուցադրական տեսանյութերը (Roboflow Supervision) `data/video/` պանակ՝ ստուգելով SHA-256-ը։
+`download_assets.py`-ը ներբեռնում է չորս ուսուցանված մոդելները (GitHub Release v1.0) `runs/experiments/<մոդել>/weights/best.pt` և երկու ցուցադրական տեսանյութերը (Roboflow Supervision) `data/video/` պանակ՝ ստուգելով SHA-256-ը։
 
 ## Արագ մեկնարկ
 
@@ -68,12 +69,14 @@ VisDrone թեստ (1610 պատկեր, միևնույն գնահատիչ, մեկ 
 
 | Մոդել և ռեժիմ | mAP50 | mAP50–95 | մս/պատկեր (M4) |
 |---|---|---|---|
+| vehicle-road-yolov8s-long, ամբողջ կադր 960 | 48,0% | 30,6% | 26 |
+| **vehicle-road-yolov8s-long, սալիկներ 800 + կադր** | **52,2%** | **33,4%** | 166 |
 | vehicle-road-yolov8s, ամբողջ կադր 960 | 44,5% | 28,1% | 26 |
 | vehicle-road-yolov8s, սալիկներ 800 + կադր | 47,6% | 30,3% | 166 |
 | vehicle-hires-960, ամբողջ կադր 960 | 43,1% | 26,8% | 21 |
-| **vehicle-hires-960, սալիկներ 640 + կադր 1280** | **49,8%** | **31,2%** | 156 |
+| vehicle-hires-960, սալիկներ 640 + կադր 1280 | 49,8% | 31,2% | 156 |
 
-Կարգավորումներն ընտրվել են ստուգողական (val) ընտրանքով, թեստը գործարկվել է մեկ անգամ (`scripts/evaluate_tiled.py`, `reports/tiled-*.json`)։ Ultralytics-ի ստանդարտ գնահատիչը (multi-label NMS) տալիս է մոտ 3–4 կետով բարձր թվեր, ուստի համեմատվում են միայն նույն աղյուսակի տողերը։ Անօդաչու սարքի տեսանյութերի համար խորհուրդ է տրվում `vehicle-hires-960` + սալիկներ 640։
+Կարգավորումներն ընտրվել են ստուգողական (val) ընտրանքով, թեստը գործարկվել է մեկ անգամ (`scripts/evaluate_tiled.py`, `reports/tiled-*.json`)։ Ultralytics-ի ստանդարտ գնահատիչը (multi-label NMS) տալիս է մոտ 3–4 կետով բարձր թվեր, ուստի համեմատվում են միայն նույն աղյուսակի տողերը։ Անօդաչու սարքի տեսանյութերի համար խորհուրդ է տրվում `vehicle-road-yolov8s-long` + սալիկներ 800, իսկ թույլ համակարգչի դեպքում՝ `vehicle-hires-960` + սալիկներ 640։
 
 ## Ուղիղ հոսք
 

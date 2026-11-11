@@ -932,6 +932,129 @@
         "ignored_predictions": 22867,
         "protocol": "Class-agnostic vehicle; greedy IoU matching per image, 101-point precision envelope. Remove GT/predictions whose box centers lie inside published ignore rectangles. Custom protocol, not official UA-DETRAC or five-class VisDrone mAP."
       }
+    },
+    {
+      "name": "vehicle-road-yolov8s-long",
+      "imgsz": 960,
+      "counting": {
+        "reference_total": 5,
+        "predicted_total": 5,
+        "matched_events": 5,
+        "missed_events": 0,
+        "extra_events": 0,
+        "event_precision": 1.0,
+        "event_recall": 1.0,
+        "event_f1": 1.0,
+        "matched_pairs": [
+          {
+            "reference": {
+              "label": "published-track-1",
+              "class": "car",
+              "frame_interval": [
+                19,
+                22
+              ],
+              "direction": "positive_to_negative"
+            },
+            "predicted": {
+              "frame": "21",
+              "time_seconds": "0.84",
+              "track_id": "1",
+              "vehicle_class": "car",
+              "direction": "positive_to_negative",
+              "speed_kmh": ""
+            }
+          },
+          {
+            "reference": {
+              "label": "published-track-2",
+              "class": "car",
+              "frame_interval": [
+                46,
+                49
+              ],
+              "direction": "positive_to_negative"
+            },
+            "predicted": {
+              "frame": "49",
+              "time_seconds": "1.96",
+              "track_id": "26",
+              "vehicle_class": "car",
+              "direction": "positive_to_negative",
+              "speed_kmh": ""
+            }
+          },
+          {
+            "reference": {
+              "label": "published-track-3",
+              "class": "car",
+              "frame_interval": [
+                113,
+                116
+              ],
+              "direction": "positive_to_negative"
+            },
+            "predicted": {
+              "frame": "115",
+              "time_seconds": "4.6",
+              "track_id": "80",
+              "vehicle_class": "car",
+              "direction": "positive_to_negative",
+              "speed_kmh": ""
+            }
+          },
+          {
+            "reference": {
+              "label": "published-track-4",
+              "class": "van",
+              "frame_interval": [
+                202,
+                205
+              ],
+              "direction": "positive_to_negative"
+            },
+            "predicted": {
+              "frame": "207",
+              "time_seconds": "8.28",
+              "track_id": "126",
+              "vehicle_class": "van",
+              "direction": "positive_to_negative",
+              "speed_kmh": ""
+            }
+          },
+          {
+            "reference": {
+              "label": "published-track-10",
+              "class": "car",
+              "frame_interval": [
+                292,
+                294
+              ],
+              "direction": "positive_to_negative"
+            },
+            "predicted": {
+              "frame": "294",
+              "time_seconds": "11.76",
+              "track_id": "222",
+              "vehicle_class": "car",
+              "direction": "positive_to_negative",
+              "speed_kmh": ""
+            }
+          }
+        ],
+        "class_metrics": "Not evaluated: published others does not equal truck, taxonomy differs",
+        "processing_fps": 28.17084100203777
+      },
+      "detection": {
+        "vehicle_AP50": 0.96972053309938,
+        "vehicle_AP50_95": 0.7854883071874226,
+        "annotated_boxes": 523,
+        "predictions_above_0_3": 661,
+        "precision_at_0_3": 0.783661119515885,
+        "recall_at_0_3": 0.9904397705544933,
+        "ignored_predictions": 26117,
+        "protocol": "Class-agnostic vehicle; greedy IoU matching per image, 101-point precision envelope. Remove GT/predictions whose box centers lie inside published ignore rectangles. Custom protocol, not official UA-DETRAC or five-class VisDrone mAP."
+      }
     }
   ],
   "training_on_detrac": false,

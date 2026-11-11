@@ -1,4 +1,6 @@
-"""Build the thesis from prose and measured experiment files.
+"""LEGACY: Russian draft of Oct 10 (thesis/CHAPTERS.md). The current Armenian thesis is built by scripts/build_thesis_hy.py.
+
+Build the thesis from prose and measured experiment files.
 
 Run with the Codex bundled document Python runtime, then render and inspect.
 """
@@ -232,7 +234,7 @@ def main():
             run.font.size = Pt(10)
     doc.core_properties.title = 'Анализ движения транспорта по видеозаписям с использованием CNN'
     doc.core_properties.subject = 'Дипломная работа и экспериментальные результаты'
-    path = ROOT/'thesis/DIPLOMA.docx'
+    path = ROOT/'thesis/archive/DIPLOMA-ru.docx'  # legacy Russian draft; the current thesis is built by build_thesis_hy.py
     doc.save(path)
     print(path)
 

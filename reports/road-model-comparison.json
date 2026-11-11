@@ -109,5 +109,42 @@
       "matched": 9,
       "f1": 0.9473684210526315
     }
+  },
+  "vehicle-road-yolov8s-long": {
+    "visdrone@640": {
+      "metrics/precision(B)": 0.5518359005141009,
+      "metrics/recall(B)": 0.4404294024230772,
+      "metrics/mAP50(B)": 0.437103774644803,
+      "metrics/mAP50-95(B)": 0.26787556030439036,
+      "fitness": 0.26787556030439036
+    },
+    "mio-tcd@640": {
+      "metrics/precision(B)": 0.8592895096609207,
+      "metrics/recall(B)": 0.8598411398324088,
+      "metrics/mAP50(B)": 0.9016063111822812,
+      "metrics/mAP50-95(B)": 0.7019572021740348,
+      "fitness": 0.7019572021740348
+    },
+    "visdrone@960": {
+      "metrics/precision(B)": 0.6012329688823671,
+      "metrics/recall(B)": 0.5021135141851835,
+      "metrics/mAP50(B)": 0.5137666456468748,
+      "metrics/mAP50-95(B)": 0.32563331522814454,
+      "fitness": 0.32563331522814454
+    },
+    "mio-tcd@960": {
+      "metrics/precision(B)": 0.8340872427270855,
+      "metrics/recall(B)": 0.8326643820147579,
+      "metrics/mAP50(B)": 0.8791005357164895,
+      "metrics/mAP50-95(B)": 0.6654920068211115,
+      "fitness": 0.6654920068211115
+    },
+    "highway_counting": {
+      "imgsz": 960,
+      "reference": 10,
+      "predicted": 10,
+      "matched": 10,
+      "f1": 1.0
+    }
   }
 }

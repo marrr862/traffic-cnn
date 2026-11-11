@@ -27,12 +27,13 @@ Test mAP — на test-части собственного набора данн
 | vehicle-finetune-pilot | visdrone-pilot | 416 | 15 | 0.1384 | 0.0686 |
 | vehicle-hires-960 | visdrone-expanded-full | 960 | 15 | 0.4594 | 0.2859 |
 | vehicle-road-combined | combined-road | 640 | 8 | 0.4760 | 0.3228 |
-| **vehicle-road-yolov8s** (рекомендуемая) | combined-road | 640 | 8 | 0.5255 | 0.3610 |
+| vehicle-road-yolov8s | combined-road | 640 | 8 | 0.5255 | 0.3610 |
+| **vehicle-road-yolov8s-long** (рекомендуемая; продолжение vehicle-road-yolov8s, lr0 0.0005) | combined-road | 640 | 12 | 0.5565 | 0.3845 |
 | vehicle-scratch-pilot | visdrone-pilot | 416 | 15 | 0.0262 | 0.0087 |
 
 Все запуски: seed 42, Apple M4, 16 ГБ, MPS. Лучшая эпоха выбирается по validation. Часть операций MPS недетерминирована.
 
-Обученные веса трех основных моделей (vehicle-road-yolov8s, vehicle-road-combined, vehicle-hires-960) и демонстрационные видео скачиваются командой `python scripts/download_assets.py`.
+Обученные веса четырех основных моделей (vehicle-road-yolov8s-long, vehicle-road-yolov8s, vehicle-road-combined, vehicle-hires-960) и демонстрационные видео скачиваются командой `python scripts/download_assets.py` (релиз v1.0 на GitHub).
 
 ## Проверки и материалы
 
@@ -42,7 +43,7 @@ Test mAP — на test-части собственного набора данн
 
 ## Что осталось
 
-- thesis/DIPLOMA.docx и thesis/presentation/DEFENSE.pptx собраны 10 октября и описывают модель vehicle-finetune-full (test mAP50 0,34). Их нужно обновить под текущую рекомендуемую модель, MIO-TCD, тайлинг, скорость в км/ч и проверку на UA-DETRAC.
+- thesis/DIPLOMA.docx обновлён 7 ноября: текст на армянском (thesis/hy/*.md → scripts/build_thesis_hy.py), рекомендуемая модель vehicle-road-yolov8s-long, MIO-TCD, тайлинг, скорость, плотность/LOS, UA-DETRAC, проверка ускоренного видео. Русская версия от 10 октября — thesis/archive/. Презентация thesis/presentation/DEFENSE.pptx обновлена 11 ноября: 12 слайдов на армянском для доклада на 10 минут, текст выступления в заметках (scripts/build_defense_hy.js). Старая русская версия — thesis/archive/.
 - Титульные сведения и требования кафедры не предоставлены.
 - Разметка подсчета для демонстрационных роликов предварительная и требует независимой проверки человеком.
 

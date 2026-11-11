@@ -9,6 +9,7 @@ ROOT = Path(__file__).resolve().parents[1]
 RELEASE = 'https://github.com/marrr862/traffic-cnn/releases/download/v1.0/'
 VIDEOS = 'https://media.roboflow.com/supervision/video-examples/'
 MODELS = {
+    'vehicle-road-yolov8s-long': '2d184f99ca8f2d20e548b3ce717fd4c16a09e0c95cf38d793f5905005fe661db',
     'vehicle-road-yolov8s': '32288ed57a169467f4f205064dd5c1f32b24e176a4f6bc4c5104fed870a59d5f',
     'vehicle-road-combined': 'b0e8c74a91134b85523983c5dba322d0d5fd88e8f176684e2b4e639899a73055',
     'vehicle-hires-960': 'b7003b2a7f4541df9286b38b0f83099351b8bd0f24d812e5ff6bc8fdd9ba9894',
