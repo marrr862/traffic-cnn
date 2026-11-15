@@ -419,6 +419,11 @@ with video_tab:
             c.metric('Խտություն, մեքենա/կմ/գոտի',fmt(density['mean_density_per_km_per_lane']))
             los = density['level_of_service']
             d.metric('Սպասարկման մակարդակ (LOS)',los or '—',LOS_DESCRIPTION.get(los,''),delta_color='off')
+            if density.get('by_direction'):
+                parts = [f"{report['direction_labels'].get(k,k)}՝ {v['mean_pc_density_per_km_per_lane']:.1f} մ.ա./կմ/գոտի, {v['lanes']:g} գոտի, LOS {v['level_of_service']}"
+                         for k,v in density['by_direction'].items() if v.get('level_of_service')]
+                st.caption('LOS-ը հաշվարկվում է HCM-ի մեթոդով՝ ըստ երթևեկության ուղղությունների, բեռնատարն ու ավտոբուսը՝ որպես 2 մարդատար ավտոմեքենա (մ.ա.). '
+                           + '; '.join(parts) + f"։ Առանց ճշգրտման՝ LOS {density.get('level_of_service_unadjusted','—')}։ Սա ցուցանիշ է. HCM-ը գնահատում է 15 րոպեանոց միջակայքեր։")
             if report.get('plausibility_warning'):
                 reasons = {'median_speed_above_160':'մեդիան արագությունը > 160 կմ/ժ','speeds_above_250':'չափումների զգալի մասը > 250 կմ/ժ',
                            'flow_above_lane_capacity':'ինտենսիվությունը > 2400 մեքենա/ժամ/գոտի (գերազանցում է թողունակությունը)',

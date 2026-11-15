@@ -8,24 +8,45 @@ class LineCounter:
     away from the line by ``away_fraction`` of its height within ``confirm_frames``. It is not counted
     when a vehicle counted in the same direction disappeared nearby just before: that is most likely
     the same vehicle under a new tracker ID.
+
+    Two optional guards (off by default): ``jump_fraction`` ignores a side change made by a jump of
+    the point between neighbouring frames larger than that fraction of the box height (the tracker
+    moved the ID onto another vehicle); ``min_age`` counts a track only after it has been observed in
+    that many frames (a crossing made while younger is counted when it matures, from its first side).
     """
-    def __init__(self, a, b, margin=4, max_gap=30, start_fraction=0.5, away_fraction=0.25, confirm_frames=15):
-        if not all(isfinite(v) for v in (*a,*b,margin,max_gap,start_fraction,away_fraction,confirm_frames)):
+    def __init__(self, a, b, margin=4, max_gap=30, start_fraction=0.5, away_fraction=0.25, confirm_frames=15,
+                 jump_fraction=None, min_age=1, start_crossings=True):
+        if not all(isfinite(v) for v in (*a,*b,margin,max_gap,start_fraction,away_fraction,confirm_frames,min_age)):
             raise ValueError('Line and parameters must be finite')
         self.a, self.b = a, b
         self.length = hypot(b[0]-a[0], b[1]-a[1])
-        if self.length == 0 or margin < 0 or max_gap < 1 or start_fraction < 0 or away_fraction <= 0 or confirm_frames < 1:
+        if (self.length == 0 or margin < 0 or max_gap < 1 or start_fraction < 0 or away_fraction <= 0 or confirm_frames < 1
+                or min_age < 1 or (jump_fraction is not None and not jump_fraction > 0)):
             raise ValueError('Invalid line or parameters')
         self.margin, self.max_gap = margin, max_gap
         self.start_fraction, self.away_fraction, self.confirm_frames = start_fraction, away_fraction, confirm_frames
+        self.jump_fraction, self.min_age, self.start_crossings = jump_fraction, min_age, start_crossings
         self.previous, self.counted, self.directions, self.started = {}, set(), {}, {}
+        self.last, self.age = {}, {}
 
     def update(self, identity, point, frame, size=None):
         ax, ay = self.a
         dx, dy = self.b[0]-ax, self.b[1]-ay
         distance = (dx*(point[1]-ay)-dy*(point[0]-ax))/self.length
         side = 1 if distance > self.margin else -1 if distance < -self.margin else 0
-        if (identity not in self.previous and identity not in self.started and identity not in self.counted
+        last = self.last.get(identity)
+        self.last[identity] = (point, frame)
+        self.age[identity] = self.age.get(identity, 0)+1
+        if (self.jump_fraction and size and last is not None and frame-last[1] <= 2
+                and hypot(point[0]-last[0][0], point[1]-last[0][1]) > self.jump_fraction*size):
+            # The ID moved onto another vehicle: restart its side history from here instead of counting the jump.
+            self.started.pop(identity, None)
+            if side:
+                self.previous[identity] = (point, distance, side, frame)
+            else:
+                self.previous.pop(identity, None)
+            return None
+        if (self.start_crossings and identity not in self.previous and identity not in self.started and identity not in self.counted
                 and size and abs(distance) <= self.start_fraction*size and self._on_segment(point)):
             self.started[identity] = (frame, distance, point, size)
         if not side:
@@ -35,12 +56,16 @@ class LineCounter:
             if old is not None:
                 self.previous[identity] = (*old[:3], frame)
             return None
-        if identity in self.started:
+        young = self.age[identity] < self.min_age
+        if identity in self.started and not young:
             direction = self._started_crossing(identity, distance, side, frame)
             if direction:
                 self.previous[identity] = (point, distance, side, frame)
                 return direction
         old = self.previous.get(identity)
+        if young and old is not None:
+            self.previous[identity] = (*old[:3], frame)  # keep the first side until the track is old enough
+            return None
         self.previous[identity] = (point, distance, side, frame)
         if old is None or identity in self.counted or side == old[2] or frame-old[3] > self.max_gap:
             return None
@@ -84,6 +109,9 @@ class LineCounter:
             del self.previous[identity]
         for identity in [i for i,started in self.started.items() if frame-started[0] > self.confirm_frames]:
             del self.started[identity]
+        for identity in [i for i,(_,seen) in self.last.items() if frame-seen > self.max_gap]:
+            del self.last[identity]
+            self.age.pop(identity, None)
 
 
 def overlap_ratio(a, b):

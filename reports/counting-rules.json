@@ -1,0 +1,738 @@
+{
+ "chosen": {
+  "start_crossings": false,
+  "jump_fraction": null,
+  "min_age": 10
+ },
+ "chosen_label": "start off, jump off, min age 10",
+ "default": {
+  "start_crossings": true,
+  "jump_fraction": null,
+  "min_age": 1
+ },
+ "grid": [
+  {
+   "rules": {
+    "start_crossings": true,
+    "jump_fraction": null,
+    "min_age": 1
+   },
+   "development": {
+    "reference": 561,
+    "predicted": 671,
+    "matched": 534,
+    "precision": 0.7958271236959762,
+    "recall": 0.9518716577540107,
+    "f1": 0.8668831168831169,
+    "total_count_error": 0.19607843137254902,
+    "mape": 0.34007228015968555,
+    "class_accuracy": 0.9831460674157303
+   }
+  },
+  {
+   "rules": {
+    "start_crossings": true,
+    "jump_fraction": null,
+    "min_age": 3
+   },
+   "development": {
+    "reference": 561,
+    "predicted": 671,
+    "matched": 534,
+    "precision": 0.7958271236959762,
+    "recall": 0.9518716577540107,
+    "f1": 0.8668831168831169,
+    "total_count_error": 0.19607843137254902,
+    "mape": 0.34007228015968555,
+    "class_accuracy": 0.9831460674157303
+   }
+  },
+  {
+   "rules": {
+    "start_crossings": true,
+    "jump_fraction": null,
+    "min_age": 5
+   },
+   "development": {
+    "reference": 561,
+    "predicted": 669,
+    "matched": 534,
+    "precision": 0.7982062780269058,
+    "recall": 0.9518716577540107,
+    "f1": 0.8682926829268293,
+    "total_count_error": 0.1925133689839572,
+    "mape": 0.33730228327204165,
+    "class_accuracy": 0.9831460674157303
+   }
+  },
+  {
+   "rules": {
+    "start_crossings": true,
+    "jump_fraction": null,
+    "min_age": 10
+   },
+   "development": {
+    "reference": 561,
+    "predicted": 663,
+    "matched": 534,
+    "precision": 0.8054298642533937,
+    "recall": 0.9518716577540107,
+    "f1": 0.8725490196078431,
+    "total_count_error": 0.18181818181818182,
+    "mape": 0.2823003297719655,
+    "class_accuracy": 0.9831460674157303
+   }
+  },
+  {
+   "rules": {
+    "start_crossings": true,
+    "jump_fraction": 0.3,
+    "min_age": 1
+   },
+   "development": {
+    "reference": 561,
+    "predicted": 668,
+    "matched": 534,
+    "precision": 0.7994011976047904,
+    "recall": 0.9518716577540107,
+    "f1": 0.8689991863303499,
+    "total_count_error": 0.19073083778966132,
+    "mape": 0.3362327645554641,
+    "class_accuracy": 0.9831460674157303
+   }
+  },
+  {
+   "rules": {
+    "start_crossings": true,
+    "jump_fraction": 0.3,
+    "min_age": 3
+   },
+   "development": {
+    "reference": 561,
+    "predicted": 668,
+    "matched": 534,
+    "precision": 0.7994011976047904,
+    "recall": 0.9518716577540107,
+    "f1": 0.8689991863303499,
+    "total_count_error": 0.19073083778966132,
+    "mape": 0.3362327645554641,
+    "class_accuracy": 0.9831460674157303
+   }
+  },
+  {
+   "rules": {
+    "start_crossings": true,
+    "jump_fraction": 0.3,
+    "min_age": 5
+   },
+   "development": {
+    "reference": 561,
+    "predicted": 666,
+    "matched": 534,
+    "precision": 0.8018018018018018,
+    "recall": 0.9518716577540107,
+    "f1": 0.8704156479217604,
+    "total_count_error": 0.18716577540106952,
+    "mape": 0.3334627676678202,
+    "class_accuracy": 0.9831460674157303
+   }
+  },
+  {
+   "rules": {
+    "start_crossings": true,
+    "jump_fraction": 0.3,
+    "min_age": 10
+   },
+   "development": {
+    "reference": 561,
+    "predicted": 661,
+    "matched": 533,
+    "precision": 0.8063540090771558,
+    "recall": 0.9500891265597148,
+    "f1": 0.8723404255319149,
+    "total_count_error": 0.17825311942959002,
+    "mape": 0.2806050288276032,
+    "class_accuracy": 0.9831144465290806
+   }
+  },
+  {
+   "rules": {
+    "start_crossings": true,
+    "jump_fraction": 0.5,
+    "min_age": 1
+   },
+   "development": {
+    "reference": 561,
+    "predicted": 669,
+    "matched": 534,
+    "precision": 0.7982062780269058,
+    "recall": 0.9518716577540107,
+    "f1": 0.8682926829268293,
+    "total_count_error": 0.1925133689839572,
+    "mape": 0.33730228327204165,
+    "class_accuracy": 0.9831460674157303
+   }
+  },
+  {
+   "rules": {
+    "start_crossings": true,
+    "jump_fraction": 0.5,
+    "min_age": 3
+   },
+   "development": {
+    "reference": 561,
+    "predicted": 669,
+    "matched": 534,
+    "precision": 0.7982062780269058,
+    "recall": 0.9518716577540107,
+    "f1": 0.8682926829268293,
+    "total_count_error": 0.1925133689839572,
+    "mape": 0.33730228327204165,
+    "class_accuracy": 0.9831460674157303
+   }
+  },
+  {
+   "rules": {
+    "start_crossings": true,
+    "jump_fraction": 0.5,
+    "min_age": 5
+   },
+   "development": {
+    "reference": 561,
+    "predicted": 667,
+    "matched": 534,
+    "precision": 0.800599700149925,
+    "recall": 0.9518716577540107,
+    "f1": 0.8697068403908795,
+    "total_count_error": 0.1889483065953654,
+    "mape": 0.33453228638439775,
+    "class_accuracy": 0.9831460674157303
+   }
+  },
+  {
+   "rules": {
+    "start_crossings": true,
+    "jump_fraction": 0.5,
+    "min_age": 10
+   },
+   "development": {
+    "reference": 561,
+    "predicted": 663,
+    "matched": 534,
+    "precision": 0.8054298642533937,
+    "recall": 0.9518716577540107,
+    "f1": 0.8725490196078431,
+    "total_count_error": 0.18181818181818182,
+    "mape": 0.2823003297719655,
+    "class_accuracy": 0.9831460674157303
+   }
+  },
+  {
+   "rules": {
+    "start_crossings": true,
+    "jump_fraction": 0.75,
+    "min_age": 1
+   },
+   "development": {
+    "reference": 561,
+    "predicted": 671,
+    "matched": 534,
+    "precision": 0.7958271236959762,
+    "recall": 0.9518716577540107,
+    "f1": 0.8668831168831169,
+    "total_count_error": 0.19607843137254902,
+    "mape": 0.34007228015968555,
+    "class_accuracy": 0.9831460674157303
+   }
+  },
+  {
+   "rules": {
+    "start_crossings": true,
+    "jump_fraction": 0.75,
+    "min_age": 3
+   },
+   "development": {
+    "reference": 561,
+    "predicted": 671,
+    "matched": 534,
+    "precision": 0.7958271236959762,
+    "recall": 0.9518716577540107,
+    "f1": 0.8668831168831169,
+    "total_count_error": 0.19607843137254902,
+    "mape": 0.34007228015968555,
+    "class_accuracy": 0.9831460674157303
+   }
+  },
+  {
+   "rules": {
+    "start_crossings": true,
+    "jump_fraction": 0.75,
+    "min_age": 5
+   },
+   "development": {
+    "reference": 561,
+    "predicted": 669,
+    "matched": 534,
+    "precision": 0.7982062780269058,
+    "recall": 0.9518716577540107,
+    "f1": 0.8682926829268293,
+    "total_count_error": 0.1925133689839572,
+    "mape": 0.33730228327204165,
+    "class_accuracy": 0.9831460674157303
+   }
+  },
+  {
+   "rules": {
+    "start_crossings": true,
+    "jump_fraction": 0.75,
+    "min_age": 10
+   },
+   "development": {
+    "reference": 561,
+    "predicted": 663,
+    "matched": 534,
+    "precision": 0.8054298642533937,
+    "recall": 0.9518716577540107,
+    "f1": 0.8725490196078431,
+    "total_count_error": 0.18181818181818182,
+    "mape": 0.2823003297719655,
+    "class_accuracy": 0.9831460674157303
+   }
+  },
+  {
+   "rules": {
+    "start_crossings": false,
+    "jump_fraction": null,
+    "min_age": 1
+   },
+   "development": {
+    "reference": 561,
+    "predicted": 640,
+    "matched": 533,
+    "precision": 0.8328125,
+    "recall": 0.9500891265597148,
+    "f1": 0.88759367194005,
+    "total_count_error": 0.1408199643493761,
+    "mape": 0.2046679326359089,
+    "class_accuracy": 0.9831144465290806
+   }
+  },
+  {
+   "rules": {
+    "start_crossings": false,
+    "jump_fraction": null,
+    "min_age": 3
+   },
+   "development": {
+    "reference": 561,
+    "predicted": 640,
+    "matched": 533,
+    "precision": 0.8328125,
+    "recall": 0.9500891265597148,
+    "f1": 0.88759367194005,
+    "total_count_error": 0.1408199643493761,
+    "mape": 0.2046679326359089,
+    "class_accuracy": 0.9831144465290806
+   }
+  },
+  {
+   "rules": {
+    "start_crossings": false,
+    "jump_fraction": null,
+    "min_age": 5
+   },
+   "development": {
+    "reference": 561,
+    "predicted": 638,
+    "matched": 533,
+    "precision": 0.835423197492163,
+    "recall": 0.9500891265597148,
+    "f1": 0.8890742285237698,
+    "total_count_error": 0.13725490196078433,
+    "mape": 0.20189793574826498,
+    "class_accuracy": 0.9831144465290806
+   }
+  },
+  {
+   "rules": {
+    "start_crossings": false,
+    "jump_fraction": null,
+    "min_age": 10
+   },
+   "development": {
+    "reference": 561,
+    "predicted": 633,
+    "matched": 533,
+    "precision": 0.8420221169036335,
+    "recall": 0.9500891265597148,
+    "f1": 0.8927973199329984,
+    "total_count_error": 0.12834224598930483,
+    "mape": 0.1684646096991692,
+    "class_accuracy": 0.9831144465290806
+   }
+  },
+  {
+   "rules": {
+    "start_crossings": false,
+    "jump_fraction": 0.3,
+    "min_age": 1
+   },
+   "development": {
+    "reference": 561,
+    "predicted": 637,
+    "matched": 533,
+    "precision": 0.8367346938775511,
+    "recall": 0.9500891265597148,
+    "f1": 0.8898163606010017,
+    "total_count_error": 0.1354723707664884,
+    "mape": 0.20082841703168744,
+    "class_accuracy": 0.9831144465290806
+   }
+  },
+  {
+   "rules": {
+    "start_crossings": false,
+    "jump_fraction": 0.3,
+    "min_age": 3
+   },
+   "development": {
+    "reference": 561,
+    "predicted": 637,
+    "matched": 533,
+    "precision": 0.8367346938775511,
+    "recall": 0.9500891265597148,
+    "f1": 0.8898163606010017,
+    "total_count_error": 0.1354723707664884,
+    "mape": 0.20082841703168744,
+    "class_accuracy": 0.9831144465290806
+   }
+  },
+  {
+   "rules": {
+    "start_crossings": false,
+    "jump_fraction": 0.3,
+    "min_age": 5
+   },
+   "development": {
+    "reference": 561,
+    "predicted": 635,
+    "matched": 533,
+    "precision": 0.8393700787401575,
+    "recall": 0.9500891265597148,
+    "f1": 0.8913043478260869,
+    "total_count_error": 0.1319073083778966,
+    "mape": 0.19805842014404348,
+    "class_accuracy": 0.9831144465290806
+   }
+  },
+  {
+   "rules": {
+    "start_crossings": false,
+    "jump_fraction": 0.3,
+    "min_age": 10
+   },
+   "development": {
+    "reference": 561,
+    "predicted": 631,
+    "matched": 532,
+    "precision": 0.8431061806656102,
+    "recall": 0.948306595365419,
+    "f1": 0.8926174496644296,
+    "total_count_error": 0.12477718360071301,
+    "mape": 0.16676930875480694,
+    "class_accuracy": 0.9830827067669173
+   }
+  },
+  {
+   "rules": {
+    "start_crossings": false,
+    "jump_fraction": 0.5,
+    "min_age": 1
+   },
+   "development": {
+    "reference": 561,
+    "predicted": 638,
+    "matched": 533,
+    "precision": 0.835423197492163,
+    "recall": 0.9500891265597148,
+    "f1": 0.8890742285237698,
+    "total_count_error": 0.13725490196078433,
+    "mape": 0.20189793574826498,
+    "class_accuracy": 0.9831144465290806
+   }
+  },
+  {
+   "rules": {
+    "start_crossings": false,
+    "jump_fraction": 0.5,
+    "min_age": 3
+   },
+   "development": {
+    "reference": 561,
+    "predicted": 638,
+    "matched": 533,
+    "precision": 0.835423197492163,
+    "recall": 0.9500891265597148,
+    "f1": 0.8890742285237698,
+    "total_count_error": 0.13725490196078433,
+    "mape": 0.20189793574826498,
+    "class_accuracy": 0.9831144465290806
+   }
+  },
+  {
+   "rules": {
+    "start_crossings": false,
+    "jump_fraction": 0.5,
+    "min_age": 5
+   },
+   "development": {
+    "reference": 561,
+    "predicted": 636,
+    "matched": 533,
+    "precision": 0.8380503144654088,
+    "recall": 0.9500891265597148,
+    "f1": 0.8905597326649958,
+    "total_count_error": 0.13368983957219252,
+    "mape": 0.19912793886062102,
+    "class_accuracy": 0.9831144465290806
+   }
+  },
+  {
+   "rules": {
+    "start_crossings": false,
+    "jump_fraction": 0.5,
+    "min_age": 10
+   },
+   "development": {
+    "reference": 561,
+    "predicted": 633,
+    "matched": 533,
+    "precision": 0.8420221169036335,
+    "recall": 0.9500891265597148,
+    "f1": 0.8927973199329984,
+    "total_count_error": 0.12834224598930483,
+    "mape": 0.1684646096991692,
+    "class_accuracy": 0.9831144465290806
+   }
+  },
+  {
+   "rules": {
+    "start_crossings": false,
+    "jump_fraction": 0.75,
+    "min_age": 1
+   },
+   "development": {
+    "reference": 561,
+    "predicted": 640,
+    "matched": 533,
+    "precision": 0.8328125,
+    "recall": 0.9500891265597148,
+    "f1": 0.88759367194005,
+    "total_count_error": 0.1408199643493761,
+    "mape": 0.2046679326359089,
+    "class_accuracy": 0.9831144465290806
+   }
+  },
+  {
+   "rules": {
+    "start_crossings": false,
+    "jump_fraction": 0.75,
+    "min_age": 3
+   },
+   "development": {
+    "reference": 561,
+    "predicted": 640,
+    "matched": 533,
+    "precision": 0.8328125,
+    "recall": 0.9500891265597148,
+    "f1": 0.88759367194005,
+    "total_count_error": 0.1408199643493761,
+    "mape": 0.2046679326359089,
+    "class_accuracy": 0.9831144465290806
+   }
+  },
+  {
+   "rules": {
+    "start_crossings": false,
+    "jump_fraction": 0.75,
+    "min_age": 5
+   },
+   "development": {
+    "reference": 561,
+    "predicted": 638,
+    "matched": 533,
+    "precision": 0.835423197492163,
+    "recall": 0.9500891265597148,
+    "f1": 0.8890742285237698,
+    "total_count_error": 0.13725490196078433,
+    "mape": 0.20189793574826498,
+    "class_accuracy": 0.9831144465290806
+   }
+  },
+  {
+   "rules": {
+    "start_crossings": false,
+    "jump_fraction": 0.75,
+    "min_age": 10
+   },
+   "development": {
+    "reference": 561,
+    "predicted": 633,
+    "matched": 533,
+    "precision": 0.8420221169036335,
+    "recall": 0.9500891265597148,
+    "f1": 0.8927973199329984,
+    "total_count_error": 0.12834224598930483,
+    "mape": 0.1684646096991692,
+    "class_accuracy": 0.9831144465290806
+   }
+  }
+ ],
+ "evaluation": {
+  "bytetrack": {
+   "default": {
+    "reference": 388,
+    "predicted": 449,
+    "matched": 368,
+    "precision": 0.8195991091314031,
+    "recall": 0.9484536082474226,
+    "f1": 0.8793309438470729,
+    "total_count_error": 0.15721649484536082,
+    "mape": 0.3626245443630004,
+    "class_accuracy": 0.9755434782608695
+   },
+   "chosen": {
+    "reference": 388,
+    "predicted": 420,
+    "matched": 368,
+    "precision": 0.8761904761904762,
+    "recall": 0.9484536082474226,
+    "f1": 0.9108910891089109,
+    "total_count_error": 0.08247422680412371,
+    "mape": 0.14306204923202015,
+    "class_accuracy": 0.9809782608695652
+   }
+  },
+  "botsort": {
+   "default": {
+    "reference": 388,
+    "predicted": 449,
+    "matched": 368,
+    "precision": 0.8195991091314031,
+    "recall": 0.9484536082474226,
+    "f1": 0.8793309438470729,
+    "total_count_error": 0.15721649484536082,
+    "mape": 0.3084094159218657,
+    "class_accuracy": 0.9728260869565217
+   },
+   "chosen": {
+    "reference": 388,
+    "predicted": 424,
+    "matched": 369,
+    "precision": 0.8702830188679245,
+    "recall": 0.9510309278350515,
+    "f1": 0.9088669950738916,
+    "total_count_error": 0.09278350515463918,
+    "mape": 0.20458175961805725,
+    "class_accuracy": 0.978319783197832
+   }
+  },
+  "botsort-reid": {
+   "default": {
+    "reference": 388,
+    "predicted": 450,
+    "matched": 369,
+    "precision": 0.82,
+    "recall": 0.9510309278350515,
+    "f1": 0.8806682577565632,
+    "total_count_error": 0.15979381443298968,
+    "mape": 0.3123309845493167,
+    "class_accuracy": 0.978319783197832
+   },
+   "chosen": {
+    "reference": 388,
+    "predicted": 425,
+    "matched": 369,
+    "precision": 0.8682352941176471,
+    "recall": 0.9510309278350515,
+    "f1": 0.9077490774907749,
+    "total_count_error": 0.09536082474226804,
+    "mape": 0.2085033282455082,
+    "class_accuracy": 0.983739837398374
+   }
+  },
+  "ocsort": {
+   "default": {
+    "reference": 388,
+    "predicted": 446,
+    "matched": 367,
+    "precision": 0.8228699551569507,
+    "recall": 0.9458762886597938,
+    "f1": 0.8800959232613909,
+    "total_count_error": 0.14948453608247422,
+    "mape": 0.3104475996163962,
+    "class_accuracy": 0.9727520435967303
+   },
+   "chosen": {
+    "reference": 388,
+    "predicted": 420,
+    "matched": 368,
+    "precision": 0.8761904761904762,
+    "recall": 0.9484536082474226,
+    "f1": 0.9108910891089109,
+    "total_count_error": 0.08247422680412371,
+    "mape": 0.147796413900823,
+    "class_accuracy": 0.9782608695652174
+   }
+  },
+  "deepocsort": {
+   "default": {
+    "reference": 388,
+    "predicted": 448,
+    "matched": 368,
+    "precision": 0.8214285714285714,
+    "recall": 0.9484536082474226,
+    "f1": 0.8803827751196173,
+    "total_count_error": 0.15463917525773196,
+    "mape": 0.3128211806277481,
+    "class_accuracy": 0.9728260869565217
+   },
+   "chosen": {
+    "reference": 388,
+    "predicted": 422,
+    "matched": 369,
+    "precision": 0.8744075829383886,
+    "recall": 0.9510309278350515,
+    "f1": 0.9111111111111111,
+    "total_count_error": 0.08762886597938144,
+    "mape": 0.1501699949121749,
+    "class_accuracy": 0.978319783197832
+   }
+  },
+  "tracktrack": {
+   "default": {
+    "reference": 388,
+    "predicted": 445,
+    "matched": 366,
+    "precision": 0.8224719101123595,
+    "recall": 0.9432989690721649,
+    "f1": 0.8787515006002401,
+    "total_count_error": 0.14690721649484537,
+    "mape": 0.3046912344179345,
+    "class_accuracy": 0.9836065573770492
+   },
+   "chosen": {
+    "reference": 388,
+    "predicted": 423,
+    "matched": 367,
+    "precision": 0.8676122931442081,
+    "recall": 0.9458762886597938,
+    "f1": 0.905055487053021,
+    "total_count_error": 0.09020618556701031,
+    "mape": 0.15163385633323903,
+    "class_accuracy": 0.9836512261580381
+   }
+  }
+ },
+ "protocol": "Choose the counting rules on the UA-DETRAC development sequences and report them once on the evaluation sequences.\n\nThe detector and tracker are not run again: the saved tracks (tracks.csv of each analysis) are fed\nframe by frame through LineCounter and DuplicateGuard exactly as traffic_cnn.cli does, so many rule\nvariants can be compared in seconds. The default variant must reproduce the saved crossings.csv.\n\nDevelopment set: the odd-position test sequences (evaluate_detrac_counting.py --development).\nEvaluation set: the even-position ones, used only for the final report of the chosen rules.\nMotorcycles are left out of the comparison: UA-DETRAC does not annotate two-wheelers."
+}
