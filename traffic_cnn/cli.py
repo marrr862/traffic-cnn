@@ -12,7 +12,7 @@ from .tracklets import Tracklets
 from .flow import flow_windows
 from .geometry import validate_line, direction_labels
 from .calibration import Calibration, SpeedEstimator, speed_statistics
-from .traffic_state import density as zone_density, level_of_service, fundamental_check, plausibility_issues, vehicle_groups
+from .traffic_state import density as zone_density, level_of_service, fundamental_check, plausibility_issues, vehicle_groups, directional_los
 from .heatmap import Heatmap, draw_trajectories
 from .motion import MotionMeter
 from .sources import is_live, resolve, describe, LatestFrameReader
@@ -146,6 +146,7 @@ def analyze(args):
         class_votes = {}  # confidence-weighted class histogram per track, used for the reported classes
         events, counts, n = [], Counter(), 0
         zone_events = []  # crossings inside the calibrated zone: the q and v of q = k·v
+        zone_observations = []  # (frame, track) inside the zone, for density by travel direction
         start = perf_counter()
         last_preview = 0.0
         t_now = 0.0
@@ -204,6 +205,7 @@ def analyze(args):
                         kmh = speed.update(identity,point,n,t=t_now)
                         if calibration.contains(point):
                             in_zone += 1
+                            zone_observations.append((n,identity))
                             world = tuple(calibration.to_world(point)[0])
                     if kmh is not None:
                         labels.append((box,f'{kmh:.0f} km/h'))
@@ -367,6 +369,16 @@ def analyze(args):
                                       peak_vehicles_in_zone=max(s['vehicles_in_zone'] for s in frame_stats),
                                       mean_density_per_km=mean_k,mean_density_per_km_per_lane=mean_k_lane,
                                       level_of_service=level_of_service(mean_k_lane),zone_length_m=calibration.length_m,lanes=calibration.lanes)
+            # HCM-style LOS: heavy vehicles as passenger-car equivalents, each travel direction on its own lanes.
+            # The direction is the side of the counting line the vehicle moves towards over its whole track.
+            ax,ay,bx,by = line
+            heading = {identity:'negative_to_positive' if (bx-ax)*(m['last_point'][1]-m['first_point'][1])-(by-ay)*(m['last_point'][0]-m['first_point'][0]) > 0
+                       else 'positive_to_negative' for identity,m in movements.items()}
+            hcm = directional_los([(frame,heading[identity],voted.get(identity)) for frame,identity in zone_observations],n,calibration.length_m,calibration.lanes)
+            if hcm is not None:
+                summary['density'].update(level_of_service_unadjusted=summary['density']['level_of_service'],level_of_service=hcm['level_of_service'],
+                                          by_direction=hcm['by_direction'],heavy_vehicle_pce=hcm['heavy_vehicle_pce'],
+                                          los_method='HCM density thresholds in passenger cars per km per lane, per travel direction; an indication only (HCM grades 15-minute periods).')
             typical = summary['speed']['all_tracks']['median_kmh']
             summary['speed']['implausible_measurement_share'] = speed.rejected_share()
             summary['speed']['raw_median_kmh'] = speed.raw_median()

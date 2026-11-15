@@ -1,7 +1,30 @@
 {
-  "name": "vehicle-road-yolov8s-long",
-  "weights": "runs/experiments/vehicle-road-yolov8s-long/weights/best.pt",
-  "inference_imgsz": 960,
-  "previous": "vehicle-road-yolov8s",
-  "selection": "vehicle-road-yolov8s continued for 12 more epochs on VisDrone + MIO-TCD (AdamW, lr0 0.0005). Chosen on road-camera checks: MIO-TCD test mAP50 90.2% @640 / 87.9% @960 (vehicle-road-yolov8s: 86.8% / 83.3%), VisDrone test 51.4% @960 (48.0%), UA-DETRAC MVI_39031 5/5 counts with vehicle AP50 97.0% (96.4%), highway 10/10 (9/10). Same architecture and speed as vehicle-road-yolov8s; vehicle-road-combined (YOLOv8n) remains the option for weaker computers. The weights are in the v1.0 GitHub release (scripts/download_assets.py)."
+ "name": "vehicle-road-yolov8s-long",
+ "weights": "runs/experiments/vehicle-road-yolov8s-long/weights/best.pt",
+ "inference_imgsz": 960,
+ "previous": "vehicle-road-yolov8s",
+ "selection_rule": "Highest validation mAP50-95 among runs trained on combined-road.yaml (same validation split); test and external checks not used.",
+ "validation_ranking": [
+  {
+   "name": "vehicle-road-yolov8s-long",
+   "validation_mAP50": 0.6513024530617658,
+   "validation_mAP50_95": 0.4721086770735618
+  },
+  {
+   "name": "vehicle-road-yolov8s",
+   "validation_mAP50": 0.614963378983538,
+   "validation_mAP50_95": 0.44274271067033333
+  },
+  {
+   "name": "vehicle-road-combined",
+   "validation_mAP50": 0.5798440837753451,
+   "validation_mAP50_95": 0.41073112323510946
+  }
+ ],
+ "reported_test": {
+  "mAP50": 0.5565284102914854,
+  "mAP50_95": 0.38447234007732595,
+  "note": "Reported once after selection."
+ },
+ "selection": "Chosen on validation: vehicle-road-yolov8s-long 47.2%, vehicle-road-yolov8s 44.3%, vehicle-road-combined 41.1% mAP50-95 on the combined-road.yaml validation split. Weights: v1.0 GitHub release (scripts/download_assets.py)."
 }

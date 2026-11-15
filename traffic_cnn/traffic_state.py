@@ -35,6 +35,42 @@ def vehicle_groups(by_class):
     return groups, (groups['heavy'] / total if total else None)
 
 
+# HCM 6th ed. passenger-car equivalent of a heavy vehicle on level terrain (E_T); cars, vans and motorcycles count as 1.
+HEAVY_VEHICLE_PCE = 2.0
+
+
+def directional_los(observations, frames, length_m, lanes, min_share=0.1):
+    """HCM-style level of service per travel direction.
+
+    observations: (frame, direction, vehicle_class) for every vehicle seen inside the zone. Density is in
+    passenger cars per km per lane: heavy vehicles weigh HEAVY_VEHICLE_PCE, and each direction has its own
+    lanes (split evenly between the directions that carry at least min_share of the observations; a zone
+    on one carriageway gets all lanes for its single direction). Returns the per-direction results and the
+    worst grade. An indication only: HCM grades a 15-minute period, not a short video.
+    """
+    if frames <= 0 or length_m <= 0 or not lanes:
+        return None
+    totals, weights = {}, {}
+    for _, direction, vehicle_class in observations:
+        totals[direction] = totals.get(direction, 0) + 1
+        weights[direction] = weights.get(direction, 0.0) + (HEAVY_VEHICLE_PCE if VEHICLE_GROUPS.get(vehicle_class) == 'heavy' else 1.0)
+    seen = sum(totals.values())
+    if not seen:
+        return None
+    main = [d for d in totals if totals[d] >= min_share*seen]
+    lanes_each = lanes/len(main)
+    result = {}
+    for direction in sorted(totals):
+        if direction not in main:
+            result[direction] = dict(share=totals[direction]/seen, lanes=None, level_of_service=None)
+            continue
+        per_lane = weights[direction]/frames/(length_m/1000)/lanes_each
+        result[direction] = dict(share=totals[direction]/seen, lanes=lanes_each, mean_pc_density_per_km_per_lane=per_lane,
+                                 level_of_service=level_of_service(per_lane))
+    worst = max((r for r in result.values() if r['level_of_service']), key=lambda r: r['mean_pc_density_per_km_per_lane'])
+    return dict(by_direction=result, level_of_service=worst['level_of_service'], heavy_vehicle_pce=HEAVY_VEHICLE_PCE)
+
+
 def density(vehicles_in_zone, length_m, lanes=None):
     """Vehicles per km (and per km per lane when the lane count is known)."""
     if length_m <= 0:

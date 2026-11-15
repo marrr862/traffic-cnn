@@ -1,7 +1,7 @@
 import unittest
 import numpy as np
 from traffic_cnn.calibration import Calibration, SpeedEstimator, homography, point_in_polygon, speed_statistics
-from traffic_cnn.traffic_state import density, level_of_service, fundamental_check
+from traffic_cnn.traffic_state import density, level_of_service, fundamental_check, directional_los
 from traffic_cnn.flow import flow_windows
 
 QUAD = [[1252, 787], [2298, 803], [5039, 2159], [-550, 2159]]
@@ -67,6 +67,26 @@ class TrafficStateTests(unittest.TestCase):
         self.assertEqual(level_of_service(5), 'A')
         self.assertEqual(level_of_service(40), 'F')
         self.assertIsNone(level_of_service(None))
+
+    def test_directional_los_with_heavy_vehicles(self):
+        # 10 frames, 250 m zone, 4 lanes. Down: 2 cars every frame; up: 1 car + 1 truck (= 3 pc) every frame.
+        observations = [(f,'down','car') for f in range(10) for _ in range(2)] + [(f,'up',c) for f in range(10) for c in ('car','truck')]
+        result = directional_los(observations, 10, 250, 4)
+        self.assertEqual(result['by_direction']['down']['lanes'], 2)
+        self.assertAlmostEqual(result['by_direction']['down']['mean_pc_density_per_km_per_lane'], 4)  # 2 pc / 0.25 km / 2 lanes
+        self.assertAlmostEqual(result['by_direction']['up']['mean_pc_density_per_km_per_lane'], 6)
+        self.assertEqual(result['level_of_service'], 'A')
+        # Same vehicles on one carriageway grade worse than the unadjusted 4 vehicles / 0.25 km / 4 lanes = 4 per lane.
+        one_way = directional_los([(f,'down',c) for f in range(10) for c in ('car','truck','truck','bus')], 10, 250, 2)
+        self.assertAlmostEqual(one_way['by_direction']['down']['mean_pc_density_per_km_per_lane'], 14)
+        self.assertEqual(one_way['level_of_service'], 'C')
+
+    def test_directional_los_ignores_minor_direction(self):
+        observations = [(f,'down','car') for f in range(20)] + [(0,'up','car')]  # one stray track in the other direction
+        result = directional_los(observations, 20, 100, 3)
+        self.assertEqual(result['by_direction']['down']['lanes'], 3)
+        self.assertIsNone(result['by_direction']['up']['level_of_service'])
+        self.assertIsNone(directional_los([], 20, 100, 3))
 
     def test_speed_statistics(self):
         stats = speed_statistics([60, 120, None])
