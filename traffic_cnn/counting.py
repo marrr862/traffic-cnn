@@ -29,6 +29,11 @@ class LineCounter:
                 and size and abs(distance) <= self.start_fraction*size and self._on_segment(point)):
             self.started[identity] = (frame, distance, point, size)
         if not side:
+            # Inside the hysteresis band: keep the last side but refresh its time, so a slow or queued
+            # vehicle that lingers at the line for longer than max_gap is still counted when it leaves.
+            old = self.previous.get(identity)
+            if old is not None:
+                self.previous[identity] = (*old[:3], frame)
             return None
         if identity in self.started:
             direction = self._started_crossing(identity, distance, side, frame)

@@ -115,8 +115,9 @@ def analyze(args):
         track_table.writeheader()
         paths, last_seen, observed_ids = {}, {}, set()
         movements, frame_stats = {}, []
+        class_votes = {}  # confidence-weighted class histogram per track, used for the reported classes
         events, counts, n = [], Counter(), 0
-        zone_crossings = 0
+        zone_events = []  # crossings inside the calibrated zone: the q and v of q = k·v
         start = perf_counter()
         last_preview = 0.0
         t_now = 0.0
@@ -153,6 +154,7 @@ def analyze(args):
                 frame_boxes = {identity:box for identity,_,box,_,_ in observations}
                 for identity, raw, box, cls, confidence in observations:
                     visible += 1
+                    class_votes.setdefault(identity,Counter())[cls] += confidence
                     point = ((box[0]+box[2])/2,box[3])
                     movement = movements.setdefault(identity,dict(first_frame=n,last_frame=n,first_point=point,last_point=point,distance_pixels=0,vehicle_class=model.names[cls],observations=0))
                     if n-movement['last_frame'] <= tracklets.max_gap:
@@ -187,10 +189,10 @@ def analyze(args):
                             direction = None
                     if direction:
                         counts[direction] += 1
-                        if calibration is not None and calibration.contains(point):
-                            zone_crossings += 1
                         events.append(dict(frame=n,time_seconds=round(t_now,4),track_id=identity,
                                            vehicle_class=model.names[cls],direction=direction,speed_kmh='' if kmh is None else round(kmh,2)))
+                        if calibration is not None and calibration.contains(point):
+                            zone_events.append(events[-1])
                         events[-1]['line_id'] = 0
                         line_events.append(events[-1])
                     for index,extra in enumerate(extra_counters,start=1):
@@ -256,6 +258,16 @@ def analyze(args):
         if live:
             # Frames of a live source are taken as they arrive; use the measured rate for durations.
             fps = time_fps = n/max(t_now,1e-6)
+        # One class per vehicle: the confidence-weighted vote over its whole track, not the label of the
+        # crossing frame (a truck seen head-on at the line is often labelled bus for a few frames).
+        voted = {identity:model.names[votes.most_common(1)[0][0]] for identity,votes in class_votes.items()}
+        class_changes = sum(e['vehicle_class'] != voted.get(e['track_id'],e['vehicle_class']) for e in events)
+        for record in [*line_events,*duplicates]:
+            record['vehicle_class'] = voted.get(record['track_id'],record['vehicle_class'])
+        for identity,movement in movements.items():
+            movement['vehicle_class'] = voted.get(identity,movement['vehicle_class'])
+        for identity,trail in full_paths.items():
+            trail[0] = voted.get(identity,trail[0])
         if speed is not None:
             # A vehicle that enters close to the line has no speed yet at the crossing
             # moment; use the median speed of the whole track measured afterwards.
@@ -302,7 +314,7 @@ def analyze(args):
                        heavy_vehicle_share=vehicle_groups(Counter(e['vehicle_class'] for e in events))[1],
                        flow_vehicles_per_hour=len(events)*3600/(n/time_fps),processing_fps=n/elapsed,
                        line=line,direction_labels=direction_labels(line),weights=str(Path(args.weights).resolve()),confidence=args.conf,imgsz=args.imgsz,tiling=(dict(tile=args.tile,overlap=args.tile_overlap,full_frame=True) if getattr(args,'tile',0) else None),source_fps=fps,time_scale=time_scale,time_fps=time_fps,motion=motion.summary(fps,time_fps),video_codec=video_codec,interval_seconds=interval,
-                       tracking=dict(mode='baseline' if baseline else 'continuity',detector_threshold=low_threshold,initialization_threshold=high,agnostic_nms=getattr(args,'agnostic_nms',True) or not baseline,nms_iou=getattr(args,'nms_iou',0.5),continuity_max_gap=0 if baseline else tracklets.max_gap,continuity_iou=tracklets.overlap,class_vote='instantaneous' if baseline else 'confidence-weighted history'),
+                       tracking=dict(mode='baseline' if baseline else 'continuity',detector_threshold=low_threshold,initialization_threshold=high,agnostic_nms=getattr(args,'agnostic_nms',True) or not baseline,nms_iou=getattr(args,'nms_iou',0.5),continuity_max_gap=0 if baseline else tracklets.max_gap,continuity_iou=tracklets.overlap,class_vote='confidence-weighted over the whole track',class_vote_changed_crossings=class_changes),
                        source_description=describe(args.video),live_source=live,stopped_early=stop['requested'],
                        start_crossings=start_counting,
                        duplicate_guard=dict(enabled=guard_enabled,overlap=guards[0].overlap,window_frames=guards[0].window,
@@ -334,10 +346,13 @@ def analyze(args):
             # where density is measured, not from parts of the line outside it.
             summary['line_share_in_zone'] = calibration.segment_share(line)
             if summary['line_share_in_zone'] > 0:
-                zone_flow = zone_crossings*3600/(n/time_fps)
-                summary['zone_flow'] = dict(crossings=zone_crossings,flow_vehicles_per_hour=zone_flow,
-                                            flow_per_lane_per_hour=zone_flow/calibration.lanes if calibration.lanes else None)
-                summary['fundamental_relation'] = fundamental_check(zone_flow,mean_k,spot['space_mean_kmh'])
+                zone_flow = len(zone_events)*3600/(n/time_fps)
+                # v is the space-mean speed of the same zone crossings that give q (not of every crossing on the line).
+                zone_speed = speed_statistics([float(e['speed_kmh']) for e in zone_events if e['speed_kmh'] != ''])
+                summary['zone_flow'] = dict(crossings=len(zone_events),flow_vehicles_per_hour=zone_flow,
+                                            flow_per_lane_per_hour=zone_flow/calibration.lanes if calibration.lanes else None,
+                                            speed=zone_speed)
+                summary['fundamental_relation'] = fundamental_check(zone_flow,mean_k,zone_speed['space_mean_kmh'])
             else:
                 # The line does not cross the calibrated zone: its flow belongs to another road section.
                 summary['zone_flow'] = summary['fundamental_relation'] = None

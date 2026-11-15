@@ -1,0 +1,17 @@
+visdrone 0 1610
+visdrone 1000 1610
+visdrone {"five_classes": {"mAP50": 0.4804, "mAP50_95": 0.3055, "AP50": {"car": 0.7723, "van": 0.3397, "truck": 0.3925, "bus": 0.5439, "motorcycle": 0.3536}}, "truck_bus_merged": {"mAP50": 0.5044, "mAP50_95": 0.314, "AP50": {"car": 0.7723, "van": 0.3397, "heavy": 0.5521, "motorcycle": 0.3536}}}
+visdrone truck -> {'car': 0.125, 'van': 0.08, 'truck': 0.687, 'bus': 0.106, 'motorcycle': 0.002} | bus -> {'car': 0.047, 'van': 0.051, 'truck': 0.106, 'bus': 0.797, 'motorcycle': 0.0}
+mio-tcd 0 10958
+mio-tcd 1000 10958
+mio-tcd 2000 10958
+mio-tcd 3000 10958
+mio-tcd 4000 10958
+mio-tcd 5000 10958
+mio-tcd 6000 10958
+mio-tcd 7000 10958
+mio-tcd 8000 10958
+mio-tcd 9000 10958
+mio-tcd 10000 10958
+mio-tcd {"five_classes": {"mAP50": 0.8795, "mAP50_95": 0.6851, "AP50": {"car": 0.9657, "van": 0.6827, "truck": 0.8926, "bus": 0.9634, "motorcycle": 0.8933}}, "truck_bus_merged": {"mAP50": 0.8706, "mAP50_95": 0.6608, "AP50": {"car": 0.9657, "van": 0.6827, "heavy": 0.9407, "motorcycle": 0.8933}}}
+mio-tcd truck -> {'car': 0.028, 'van': 0.013, 'truck': 0.942, 'bus': 0.017, 'motorcycle': 0.0} | bus -> {'car': 0.004, 'van': 0.013, 'truck': 0.015, 'bus': 0.968, 'motorcycle': 0.0}

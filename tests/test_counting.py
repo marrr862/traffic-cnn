@@ -18,6 +18,12 @@ class CountingTests(unittest.TestCase):
         c = self.counter()
         c.update(1,(20,40),0)
         self.assertIsNone(c.update(1,(20,60),100))
+    def test_slow_vehicle_lingering_in_band_is_counted(self):
+        c = self.counter()
+        c.update(1,(20,40),0)
+        for frame in range(1,41):  # 40 frames inside the ±4 px band, longer than max_gap
+            self.assertIsNone(c.update(1,(20,50+(frame % 3)-1),frame))
+        self.assertEqual(c.update(1,(20,60),41),'negative_to_positive')
     def test_reverse(self):
         c = self.counter()
         c.update(2,(20,60),0)

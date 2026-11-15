@@ -10,7 +10,9 @@ class FlowTests(unittest.TestCase):
         self.assertEqual([w['crossings'] for w in windows], [1,0,2])
         self.assertEqual([w['frame_count'] for w in windows], [10,10,5])
         self.assertEqual(windows[-1]['duration_seconds'], 2.5)
-        self.assertEqual(windows[-1]['event_rate_per_hour'], 2880)
+        self.assertEqual([w['complete'] for w in windows], [True,True,False])
+        self.assertEqual(windows[0]['event_rate_per_hour'], 720)
+        self.assertIsNone(windows[-1]['event_rate_per_hour'])  # 2 crossings in 2.5 s are not 2880 veh/h
         self.assertEqual(windows[-1]['positive_to_negative'], 1)
         self.assertAlmostEqual(windows[0]['mean_visible_tracked_vehicles'], .9)
         self.assertEqual(windows[0]['peak_visible_tracked_vehicles'], 2)
