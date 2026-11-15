@@ -92,6 +92,24 @@ def reference_events(frames):
     return events
 
 
+def prefetch(remote, members):
+    """Fetch the byte span holding these members in one streaming request (frames of a sequence are
+    stored together), so reading them does not issue one small range request per few images."""
+    import urllib.request
+    infos = [remote.getinfo(m) for m in members]
+    start = min(i.header_offset for i in infos)
+    end = max(i.header_offset+30+len(i.orig_filename.encode())+len(i.extra)+i.compress_size for i in infos)+1024
+    source = remote.fp
+    request = urllib.request.Request(source.url, headers={'Range': f'bytes={start}-{min(end, source.size)-1}'})
+    with urllib.request.urlopen(request, timeout=120) as response:
+        if response.status != 206:
+            raise ValueError('Range request refused')
+        chunks = []
+        while block := response.read(8*1024*1024):
+            chunks.append(block)
+    source.cache = (start, b''.join(chunks))
+
+
 def prepare(sequence, remote):
     import cv2
     folder = ROOT/'data/ua-detrac'/sequence
@@ -107,6 +125,9 @@ def prepare(sequence, remote):
         members = sorted(n for n in remote.namelist() if n.startswith(f'UA-DETRAC/images/val/{sequence}__'))
         if not members:
             raise ValueError(f'{sequence} is not in the Zenodo archive')
+        missing = [m for m in members if not (folder/m.split('__')[-1]).exists()]
+        if missing:
+            prefetch(remote, missing)
         for member in members:
             name = member.split('__')[-1]
             path = folder/name
