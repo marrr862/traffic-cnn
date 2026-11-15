@@ -35,6 +35,39 @@ class CountingTests(unittest.TestCase):
     def test_invalid(self):
         with self.assertRaises(ValueError):
             LineCounter((0,0),(0,0))
+        with self.assertRaises(ValueError):
+            LineCounter((0,50),(100,50),min_age=0)
+        with self.assertRaises(ValueError):
+            LineCounter((0,50),(100,50),jump_fraction=0)
+
+class GuardTests(unittest.TestCase):
+    """Optional guards; line y=50, box height 40."""
+    def test_jump_onto_other_vehicle_is_not_a_crossing(self):
+        c = LineCounter((0,50),(100,50),jump_fraction=0.5)
+        c.update(1,(20,30),0,size=40)
+        self.assertIsNone(c.update(1,(20,75),1,size=40))  # 45 px > 0.5*40 in one frame: ID switched vehicles
+        for frame,y in enumerate([68,60,52],start=2):
+            self.assertIsNone(c.update(1,(20,y),frame,size=40))
+        self.assertEqual(c.update(1,(20,44),5,size=40),'positive_to_negative')  # the new vehicle really crosses later
+    def test_normal_motion_passes_jump_guard(self):
+        c = LineCounter((0,50),(100,50),jump_fraction=0.5)
+        for frame,y in enumerate([30,38,46]):
+            c.update(1,(20,y),frame,size=40)
+        self.assertEqual(c.update(1,(20,58),3,size=40),'negative_to_positive')
+    def test_young_track_counted_when_mature(self):
+        c = LineCounter((0,50),(100,50),min_age=3)
+        c.update(1,(20,40),0)
+        self.assertIsNone(c.update(1,(20,60),1))  # crossed while 2 frames old
+        self.assertEqual(c.update(1,(20,62),2),'negative_to_positive')
+    def test_short_lived_track_not_counted(self):
+        c = LineCounter((0,50),(100,50),min_age=5)
+        c.update(1,(20,40),0)
+        self.assertIsNone(c.update(1,(20,60),1))
+        self.assertNotIn(1,c.counted)
+    def test_defaults_unchanged(self):
+        c = LineCounter((0,50),(100,50))
+        c.update(1,(20,30),0,size=40)
+        self.assertEqual(c.update(1,(20,75),1,size=40),'negative_to_positive')
 
 if __name__ == '__main__':
     unittest.main()

@@ -226,8 +226,11 @@ def main():
     parser.add_argument('--imgsz', type=int, default=960)
     parser.add_argument('--device', default='mps')
     parser.add_argument('--prepare-only', action='store_true')
+    parser.add_argument('--development', action='store_true',
+                        help='Use the other 20 test sequences (odd positions), kept apart for tuning counting rules')
+    parser.add_argument('--report', default='detrac-counting', help='Report name: reports/<name>.json and the Markdown table')
     args = parser.parse_args()
-    sequences = args.sequences.split(',') if args.sequences else test_sequences()[::2]
+    sequences = args.sequences.split(',') if args.sequences else test_sequences()[1::2] if args.development else test_sequences()[::2]
     trackers = args.trackers.split(',')
     remote = None
     data = {}
@@ -248,8 +251,8 @@ def main():
     report = dict(weights=args.weights, imgsz=args.imgsz, sequences=sequences, trackers=trackers, per_sequence=results,
                   aggregate={t: aggregate(list(results[t].values())) for t in trackers},
                   protocol=__doc__.split('Protocol')[1].split('Usage')[0].strip())
-    (ROOT/'reports/detrac-counting.json').write_text(json.dumps(report, indent=1))
-    (ROOT/'reports/DETRAC_COUNTING.md').write_text(markdown(report))
+    (ROOT/'reports'/f'{args.report}.json').write_text(json.dumps(report, indent=1))
+    (ROOT/'reports'/f"{args.report.upper().replace('-', '_')}.md").write_text(markdown(report))
     print(markdown(report))
 
 

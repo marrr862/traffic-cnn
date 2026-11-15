@@ -115,11 +115,12 @@ def analyze(args):
         time_fps = fps/time_scale
         motion = MotionMeter()
         line = validate_line(args.line or [0,h*0.6,w-1,h*0.6],w,h)
-        counter = LineCounter(tuple(line[:2]),tuple(line[2:]))
-        extra_lines = [validate_line(l,w,h) for l in (getattr(args,'extra_line',None) or [])]
-        extra_counters = [LineCounter(tuple(l[:2]),tuple(l[2:])) for l in extra_lines]
-        guard_enabled = getattr(args,'duplicate_guard',True)
         start_counting = getattr(args,'start_crossings',True)
+        rules = dict(start_crossings=start_counting,jump_fraction=getattr(args,'jump_guard',None),min_age=getattr(args,'min_track_age',1))
+        counter = LineCounter(tuple(line[:2]),tuple(line[2:]),**rules)
+        extra_lines = [validate_line(l,w,h) for l in (getattr(args,'extra_line',None) or [])]
+        extra_counters = [LineCounter(tuple(l[:2]),tuple(l[2:]),**rules) for l in extra_lines]
+        guard_enabled = getattr(args,'duplicate_guard',True)
         guards = [DuplicateGuard() for _ in range(1+len(extra_lines))]
         duplicates = []
         line_events = []
@@ -211,7 +212,7 @@ def analyze(args):
                         labels.append((box,f'{kmh:.0f} km/h'))
                     track_table.writerow(dict(frame=n,time_seconds=round(t_now,4),track_id=identity,raw_track_id=raw,vehicle_class=model.names[cls],confidence=confidence,x=point[0],y=point[1],box_width=round(box[2]-box[0],1),box_height=round(box[3]-box[1],1),
                                               world_x_m='' if world[0] is None else round(world[0],3),world_y_m='' if world[1] is None else round(world[1],3),speed_kmh='' if kmh is None else round(kmh,2)))
-                    direction = counter.update(identity,point,n,size=box[3]-box[1] if start_counting else None)
+                    direction = counter.update(identity,point,n,size=box[3]-box[1])
                     if direction and guard_enabled:
                         original = guards[0].duplicate_of(identity,box,direction,n,frame_boxes)
                         if original is not None:
@@ -226,7 +227,7 @@ def analyze(args):
                         events[-1]['line_id'] = 0
                         line_events.append(events[-1])
                     for index,extra in enumerate(extra_counters,start=1):
-                        extra_direction = extra.update(identity,point,n,size=box[3]-box[1] if start_counting else None)
+                        extra_direction = extra.update(identity,point,n,size=box[3]-box[1])
                         if extra_direction and guard_enabled:
                             original = guards[index].duplicate_of(identity,box,extra_direction,n,frame_boxes)
                             if original is not None:
@@ -347,7 +348,7 @@ def analyze(args):
                        line=line,direction_labels=direction_labels(line),weights=str(Path(args.weights).resolve()),confidence=args.conf,imgsz=args.imgsz,tiling=(dict(tile=args.tile,overlap=args.tile_overlap,full_frame=True) if getattr(args,'tile',0) else None),source_fps=fps,time_scale=time_scale,time_fps=time_fps,motion=motion.summary(fps,time_fps),video_codec=video_codec,interval_seconds=interval,
                        tracking=dict(tracker=tracker_name,mode='baseline' if baseline else 'continuity',detector_threshold=low_threshold,initialization_threshold=high,agnostic_nms=getattr(args,'agnostic_nms',True) or not baseline,nms_iou=getattr(args,'nms_iou',0.5),continuity_max_gap=0 if baseline else tracklets.max_gap,continuity_iou=tracklets.overlap,class_vote='confidence-weighted over the whole track',class_vote_changed_crossings=class_changes),
                        source_description=describe(args.video),live_source=live,stopped_early=stop['requested'],
-                       start_crossings=start_counting,
+                       start_crossings=start_counting,counting_rules=rules,
                        duplicate_guard=dict(enabled=guard_enabled,overlap=guards[0].overlap,window_frames=guards[0].window,
                                             suppressed=sum(d['line_id']==0 for d in duplicates),suppressed_all_lines=len(duplicates)),
                        limitations='One crossing per track ID; a second ID whose box coincides with an already counted vehicle is not counted. ID switches can duplicate counts; occlusion can cause misses. Flow extrapolates observed duration.'+('' if calibration else ' Speed is not calibrated.'))
@@ -460,6 +461,8 @@ def main():
     tracking.add_argument('--continuity-tracking',action='store_false',dest='baseline_tracking',help='Experimental continuity and class voting; may worsen counting')
     video.set_defaults(baseline_tracking=True)
     video.add_argument('--no-start-crossings',action='store_false',dest='start_crossings',help='Do not count tracks first seen just past the line (vehicles that crossed before being detected)')
+    video.add_argument('--jump-guard',type=float,default=None,help='Ignore a line crossing made by a jump of the point between neighbouring frames larger than this fraction of the box height (ID moved onto another vehicle)')
+    video.add_argument('--min-track-age',type=int,default=1,help='Count a track only after it has been seen in this many frames')
     video.add_argument('--no-duplicate-guard',action='store_false',dest='duplicate_guard',help='Count every track ID that crosses, even when its box coincides with an already counted vehicle')
     args = parser.parse_args()
     try:
