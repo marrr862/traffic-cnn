@@ -115,8 +115,8 @@ def analyze(args):
         time_fps = fps/time_scale
         motion = MotionMeter()
         line = validate_line(args.line or [0,h*0.6,w-1,h*0.6],w,h)
-        start_counting = getattr(args,'start_crossings',True)
-        rules = dict(start_crossings=start_counting,jump_fraction=getattr(args,'jump_guard',None),min_age=getattr(args,'min_track_age',1))
+        start_counting = getattr(args,'start_crossings',False)
+        rules = dict(start_crossings=start_counting,jump_fraction=getattr(args,'jump_guard',None),min_age=getattr(args,'min_track_age',10))
         counter = LineCounter(tuple(line[:2]),tuple(line[2:]),**rules)
         extra_lines = [validate_line(l,w,h) for l in (getattr(args,'extra_line',None) or [])]
         extra_counters = [LineCounter(tuple(l[:2]),tuple(l[2:]),**rules) for l in extra_lines]
@@ -460,9 +460,13 @@ def main():
     tracking.add_argument('--baseline-tracking',action='store_true',dest='baseline_tracking',help='Standard ByteTrack settings (default)')
     tracking.add_argument('--continuity-tracking',action='store_false',dest='baseline_tracking',help='Experimental continuity and class voting; may worsen counting')
     video.set_defaults(baseline_tracking=True)
-    video.add_argument('--no-start-crossings',action='store_false',dest='start_crossings',help='Do not count tracks first seen just past the line (vehicles that crossed before being detected)')
+    # Defaults chosen on held-out UA-DETRAC sequences (scripts/tune_counting_rules.py, reports/COUNTING_RULES.md).
+    start = video.add_mutually_exclusive_group()
+    start.add_argument('--start-crossings',action='store_true',dest='start_crossings',help='Also count tracks first seen just past the line (vehicles that crossed before being detected); off by default: on UA-DETRAC it added far more false counts than it recovered')
+    start.add_argument('--no-start-crossings',action='store_false',dest='start_crossings',help='Do not count tracks first seen just past the line (default)')
+    video.set_defaults(start_crossings=False)
     video.add_argument('--jump-guard',type=float,default=None,help='Ignore a line crossing made by a jump of the point between neighbouring frames larger than this fraction of the box height (ID moved onto another vehicle)')
-    video.add_argument('--min-track-age',type=int,default=1,help='Count a track only after it has been seen in this many frames')
+    video.add_argument('--min-track-age',type=int,default=10,help='Count a track only after it has been seen in this many frames (default 10, 0.4 s at 25 fps)')
     video.add_argument('--no-duplicate-guard',action='store_false',dest='duplicate_guard',help='Count every track ID that crosses, even when its box coincides with an already counted vehicle')
     args = parser.parse_args()
     try:

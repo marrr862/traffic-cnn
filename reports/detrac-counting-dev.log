@@ -1,0 +1,51 @@
+prepared MVI_39051
+prepared MVI_39271
+prepared MVI_39361
+prepared MVI_39401
+prepared MVI_39511
+prepared MVI_40711
+prepared MVI_40714
+prepared MVI_40743
+prepared MVI_40762
+prepared MVI_40771
+prepared MVI_40773
+prepared MVI_40775
+prepared MVI_40793
+prepared MVI_40852
+prepared MVI_40854
+prepared MVI_40863
+prepared MVI_40891
+prepared MVI_40901
+prepared MVI_40903
+prepared MVI_40905
+bytetrack MVI_39051: {'reference': 0, 'predicted': 12, 'dropped_in_ignored_regions': 15, 'dropped_at_sequence_start': 0, 'matched': 0, 'class_agreement': 0, 'tracked_ids': 47, 'duplicates_suppressed': 0, 'processing_fps': 16.93936152476181, 'frames': 1120}
+bytetrack MVI_39271: {'reference': 45, 'predicted': 45, 'dropped_in_ignored_regions': 1, 'dropped_at_sequence_start': 0, 'matched': 42, 'class_agreement': 41, 'tracked_ids': 187, 'duplicates_suppressed': 0, 'processing_fps': 7.1044250329488134, 'frames': 1570}
+bytetrack MVI_39361: {'reference': 50, 'predicted': 45, 'dropped_in_ignored_regions': 13, 'dropped_at_sequence_start': 0, 'matched': 44, 'class_agreement': 44, 'tracked_ids': 536, 'duplicates_suppressed': 0, 'processing_fps': 4.187871731041416, 'frames': 2030}
+bytetrack MVI_39401: {'reference': 94, 'predicted': 116, 'dropped_in_ignored_regions': 2, 'dropped_at_sequence_start': 2, 'matched': 93, 'class_agreement': 92, 'tracked_ids': 440, 'duplicates_suppressed': 1, 'processing_fps': 24.608336630760782, 'frames': 1385}
+bytetrack MVI_39511: {'reference': 9, 'predicted': 11, 'dropped_in_ignored_regions': 12, 'dropped_at_sequence_start': 1, 'matched': 9, 'class_agreement': 9, 'tracked_ids': 117, 'duplicates_suppressed': 0, 'processing_fps': 31.54982495815355, 'frames': 380}
+bytetrack MVI_40711: {'reference': 23, 'predicted': 36, 'dropped_in_ignored_regions': 0, 'dropped_at_sequence_start': 0, 'matched': 23, 'class_agreement': 23, 'tracked_ids': 334, 'duplicates_suppressed': 0, 'processing_fps': 23.911056973133757, 'frames': 1030}
+bytetrack MVI_40714: {'reference': 30, 'predicted': 33, 'dropped_in_ignored_regions': 0, 'dropped_at_sequence_start': 1, 'matched': 27, 'class_agreement': 27, 'tracked_ids': 326, 'duplicates_suppressed': 1, 'processing_fps': 24.233909058168248, 'frames': 1180}
+bytetrack MVI_40743: {'reference': 28, 'predicted': 33, 'dropped_in_ignored_regions': 0, 'dropped_at_sequence_start': 0, 'matched': 26, 'class_agreement': 26, 'tracked_ids': 229, 'duplicates_suppressed': 0, 'processing_fps': 25.280692426405654, 'frames': 1630}
+bytetrack MVI_40762: {'reference': 0, 'predicted': 0, 'dropped_in_ignored_regions': 0, 'dropped_at_sequence_start': 0, 'matched': 0, 'class_agreement': 0, 'tracked_ids': 263, 'duplicates_suppressed': 0, 'processing_fps': 23.80633251086335, 'frames': 1825}
+bytetrack MVI_40771: {'reference': 55, 'predicted': 60, 'dropped_in_ignored_regions': 0, 'dropped_at_sequence_start': 1, 'matched': 54, 'class_agreement': 53, 'tracked_ids': 255, 'duplicates_suppressed': 1, 'processing_fps': 24.005104783339004, 'frames': 1720}
+bytetrack MVI_40773: {'reference': 16, 'predicted': 16, 'dropped_in_ignored_regions': 0, 'dropped_at_sequence_start': 0, 'matched': 16, 'class_agreement': 16, 'tracked_ids': 96, 'duplicates_suppressed': 0, 'processing_fps': 23.688387677489498, 'frames': 985}
+bytetrack MVI_40775: {'reference': 35, 'predicted': 39, 'dropped_in_ignored_regions': 0, 'dropped_at_sequence_start': 1, 'matched': 34, 'class_agreement': 31, 'tracked_ids': 152, 'duplicates_suppressed': 2, 'processing_fps': 23.50537131215793, 'frames': 975}
+bytetrack MVI_40793: {'reference': 54, 'predicted': 70, 'dropped_in_ignored_regions': 0, 'dropped_at_sequence_start': 0, 'matched': 52, 'class_agreement': 51, 'tracked_ids': 348, 'duplicates_suppressed': 0, 'processing_fps': 25.262913053421446, 'frames': 1960}
+bytetrack MVI_40852: {'reference': 32, 'predicted': 60, 'dropped_in_ignored_regions': 0, 'dropped_at_sequence_start': 1, 'matched': 31, 'class_agreement': 31, 'tracked_ids': 477, 'duplicates_suppressed': 0, 'processing_fps': 24.660186869174925, 'frames': 1150}
+bytetrack MVI_40854: {'reference': 65, 'predicted': 78, 'dropped_in_ignored_regions': 0, 'dropped_at_sequence_start': 0, 'matched': 62, 'class_agreement': 61, 'tracked_ids': 576, 'duplicates_suppressed': 1, 'processing_fps': 24.241440036640057, 'frames': 1195}
+bytetrack MVI_40863: {'reference': 3, 'predicted': 7, 'dropped_in_ignored_regions': 0, 'dropped_at_sequence_start': 0, 'matched': 3, 'class_agreement': 3, 'tracked_ids': 279, 'duplicates_suppressed': 0, 'processing_fps': 25.551787976447322, 'frames': 1670}
+bytetrack MVI_40891: {'reference': 6, 'predicted': 6, 'dropped_in_ignored_regions': 3, 'dropped_at_sequence_start': 0, 'matched': 6, 'class_agreement': 6, 'tracked_ids': 477, 'duplicates_suppressed': 0, 'processing_fps': 25.231099296791946, 'frames': 1545}
+bytetrack MVI_40901: {'reference': 2, 'predicted': 8, 'dropped_in_ignored_regions': 0, 'dropped_at_sequence_start': 0, 'matched': 1, 'class_agreement': 1, 'tracked_ids': 261, 'duplicates_suppressed': 0, 'processing_fps': 23.795413734780247, 'frames': 1335}
+bytetrack MVI_40903: {'reference': 14, 'predicted': 16, 'dropped_in_ignored_regions': 0, 'dropped_at_sequence_start': 0, 'matched': 11, 'class_agreement': 10, 'tracked_ids': 357, 'duplicates_suppressed': 1, 'processing_fps': 24.539424779304152, 'frames': 1060}
+bytetrack MVI_40905: {'reference': 0, 'predicted': 12, 'dropped_in_ignored_regions': 0, 'dropped_at_sequence_start': 0, 'matched': 0, 'class_agreement': 0, 'tracked_ids': 679, 'duplicates_suppressed': 0, 'processing_fps': 23.266532403241275, 'frames': 1710}
+# Подсчёт на UA-DETRAC и сравнение трекеров
+
+Модель runs/experiments/vehicle-road-yolov8s-long/weights/best.pt, вход 960 px; 20 тестовых последовательностей (27455 кадров). Протокол — в начале scripts/evaluate_detrac_counting.py.
+
+| Трекер | Эталон | Найдено | Совпало | Precision | Recall | F1 | Ошибка общего счёта | MAPE по сценам | Точность класса | Кадр/с |
+|---|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|
+| bytetrack | 561 | 703 | 534 | 0.760 | 0.952 | 0.845 | +25.3% | 43.8% | 98.3% | 16.1 |
+
+Ограничения: эталон выведен из опубликованных траекторий, а не из отдельной ручной разметки пересечений; класс «others» UA-DETRAC сопоставлен с truck; модель на UA-DETRAC не обучалась; один прогон на трекер.
+
+EXIT 0
