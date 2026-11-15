@@ -15,7 +15,7 @@ def flow_windows(events, frames, fps, interval_seconds=10):
         start = index * interval_seconds
         end = min(duration, start + interval_seconds)
         windows.append(dict(start_seconds=start, end_seconds=end, duration_seconds=end-start,
-                            crossings=0, negative_to_positive=0, positive_to_negative=0,
+                            complete=end-start >= interval_seconds*(1-1e-9), crossings=0, negative_to_positive=0, positive_to_negative=0,
                             mean_visible_tracked_vehicles=0, peak_visible_tracked_vehicles=0,
                             event_rate_per_hour=0, frame_count=0))
     density_sums = [0.0] * len(windows)
@@ -54,7 +54,9 @@ def flow_windows(events, frames, fps, interval_seconds=10):
     for i, window in enumerate(windows):
         count = window['frame_count']
         window['mean_visible_tracked_vehicles'] = window['mean_visible_tracked_vehicles']/count if count else 0
-        window['event_rate_per_hour'] = window['crossings'] * 3600 / window['duration_seconds']
+        # A shorter tail window (end of the video) would turn one or two crossings into thousands
+        # of vehicles per hour: its counts are kept, but no hourly rate is extrapolated from it.
+        window['event_rate_per_hour'] = window['crossings'] * 3600 / window['duration_seconds'] if window['complete'] else None
         if calibrated or any(speeds):
             window['mean_speed_kmh'] = sum(speeds[i])/len(speeds[i]) if speeds[i] else None
             window['space_mean_speed_kmh'] = len(speeds[i])/sum(1/s for s in speeds[i]) if speeds[i] else None
