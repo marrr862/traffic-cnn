@@ -17,6 +17,27 @@ from .heatmap import Heatmap, draw_trajectories
 from .motion import MotionMeter
 from .sources import is_live, resolve, describe, LatestFrameReader
 
+TRACKERS = ('bytetrack','botsort','botsort-reid','ocsort','deepocsort','fasttrack','tracktrack')
+
+
+def tracker_settings(name, high, low):
+    """Ultralytics defaults for the tracker, with the same detection thresholds and buffer for every tracker.
+
+    Camera-motion compensation is off (fixed traffic cameras); botsort-reid and deepocsort use appearance
+    features taken from the detector itself (model: auto), so no extra ReID network is needed.
+    """
+    import yaml
+    import ultralytics
+    if name not in TRACKERS:
+        raise ValueError(f'Unknown tracker {name}; choose one of {", ".join(TRACKERS)}')
+    settings = yaml.safe_load((Path(ultralytics.__file__).parent/'cfg/trackers'/f"{name.removesuffix('-reid')}.yaml").read_text())
+    settings.update(track_high_thresh=high,track_low_thresh=low,new_track_thresh=high,track_buffer=30)
+    if 'gmc_method' in settings:
+        settings['gmc_method'] = 'none'
+    if 'with_reid' in settings:
+        settings['with_reid'] = name.endswith('-reid') or name == 'deepocsort'  # Deep OC-SORT is OC-SORT plus appearance
+    return settings
+
 
 def analyze(args):
     import cv2
@@ -53,7 +74,12 @@ def analyze(args):
     low_threshold = min(0.1,args.conf/2)
     high = args.conf
     low = low_threshold
-    tracker_config.write_text(f'tracker_type: bytetrack\ntrack_high_thresh: {high}\ntrack_low_thresh: {low}\nnew_track_thresh: {high}\ntrack_buffer: 30\nmatch_thresh: 0.8\nfuse_score: true\n')
+    tracker_name = getattr(args,'tracker','bytetrack')
+    if tracker_name == 'bytetrack':
+        tracker_config.write_text(f'tracker_type: bytetrack\ntrack_high_thresh: {high}\ntrack_low_thresh: {low}\nnew_track_thresh: {high}\ntrack_buffer: 30\nmatch_thresh: 0.8\nfuse_score: true\n')
+    else:
+        import yaml
+        tracker_config.write_text(yaml.safe_dump(tracker_settings(tracker_name,high,low),sort_keys=False))
     ids = [i for i, name in model.names.items() if name in args.classes.split(',')]
     tiled = None
     if getattr(args,'tile',0):
@@ -102,14 +128,16 @@ def analyze(args):
         heat = Heatmap(w,h)
         full_paths, first_frame_image = {}, None
         tracklets = Tracklets()
-        video_codec = 'avc1'
-        writer = cv2.VideoWriter(str(out/'annotated.mp4'),cv2.VideoWriter_fourcc(*video_codec),fps,(w,h))
-        if not writer.isOpened():
-            writer.release()
-            video_codec = 'mp4v'
+        render = getattr(args,'render',True)  # off for batch evaluation: tables only, no annotated video
+        video_codec = 'avc1' if render else None
+        if render:
             writer = cv2.VideoWriter(str(out/'annotated.mp4'),cv2.VideoWriter_fourcc(*video_codec),fps,(w,h))
-        if not writer.isOpened():
-            raise ValueError('Cannot create output video')
+            if not writer.isOpened():
+                writer.release()
+                video_codec = 'mp4v'
+                writer = cv2.VideoWriter(str(out/'annotated.mp4'),cv2.VideoWriter_fourcc(*video_codec),fps,(w,h))
+            if not writer.isOpened():
+                raise ValueError('Cannot create output video')
         track_handle = (out/'tracks.csv').open('w',newline='')
         track_table = csv.DictWriter(track_handle,fieldnames=['frame','time_seconds','track_id','raw_track_id','vehicle_class','confidence','x','y','box_width','box_height','world_x_m','world_y_m','speed_kmh'])
         track_table.writeheader()
@@ -218,28 +246,29 @@ def analyze(args):
                 if speed is not None:
                     speed.forget(t_now)
                 motion.forget(n)
-            display = result.plot()
-            for trail in paths.values():
-                if len(trail) > 1:
-                    cv2.polylines(display,[np.array(trail,dtype=np.int32)],False,(0,150,255),2)
-            scale = max(1.0,w/1280)
-            if calibration is not None:
-                cv2.polylines(display,[np.array(calibration.image_points,dtype=np.int32)],True,(255,255,0),max(1,int(2*scale)))
-            for box,text in labels:
-                origin = (int(box[0]),min(h-5,int(box[3]+28*scale)))
-                cv2.putText(display,text,origin,cv2.FONT_HERSHEY_SIMPLEX,0.8*scale,(0,0,0),int(5*scale))
-                cv2.putText(display,text,origin,cv2.FONT_HERSHEY_SIMPLEX,0.8*scale,(255,255,255),int(2*scale))
-            cv2.line(display,tuple(map(int,line[:2])),tuple(map(int,line[2:])),(0,255,255),max(2,int(2*scale)))
-            for index,extra in enumerate(extra_lines,start=1):
-                cv2.line(display,tuple(map(int,extra[:2])),tuple(map(int,extra[2:])),(255,0,255),max(2,int(2*scale)))
-            hud = f'Crossings: {len(events)}'
-            if calibration is not None:
-                hud += f' | In zone: {in_zone}'
-            cv2.putText(display,hud,(15,int(40*scale)),cv2.FONT_HERSHEY_SIMPLEX,1.0*scale,(0,0,0),int(6*scale))
-            cv2.putText(display,hud,(15,int(40*scale)),cv2.FONT_HERSHEY_SIMPLEX,1.0*scale,(0,255,255),int(2*scale))
-            writer.write(display)
+            if render:
+                display = result.plot()
+                for trail in paths.values():
+                    if len(trail) > 1:
+                        cv2.polylines(display,[np.array(trail,dtype=np.int32)],False,(0,150,255),2)
+                scale = max(1.0,w/1280)
+                if calibration is not None:
+                    cv2.polylines(display,[np.array(calibration.image_points,dtype=np.int32)],True,(255,255,0),max(1,int(2*scale)))
+                for box,text in labels:
+                    origin = (int(box[0]),min(h-5,int(box[3]+28*scale)))
+                    cv2.putText(display,text,origin,cv2.FONT_HERSHEY_SIMPLEX,0.8*scale,(0,0,0),int(5*scale))
+                    cv2.putText(display,text,origin,cv2.FONT_HERSHEY_SIMPLEX,0.8*scale,(255,255,255),int(2*scale))
+                cv2.line(display,tuple(map(int,line[:2])),tuple(map(int,line[2:])),(0,255,255),max(2,int(2*scale)))
+                for index,extra in enumerate(extra_lines,start=1):
+                    cv2.line(display,tuple(map(int,extra[:2])),tuple(map(int,extra[2:])),(255,0,255),max(2,int(2*scale)))
+                hud = f'Crossings: {len(events)}'
+                if calibration is not None:
+                    hud += f' | In zone: {in_zone}'
+                cv2.putText(display,hud,(15,int(40*scale)),cv2.FONT_HERSHEY_SIMPLEX,1.0*scale,(0,0,0),int(6*scale))
+                cv2.putText(display,hud,(15,int(40*scale)),cv2.FONT_HERSHEY_SIMPLEX,1.0*scale,(0,255,255),int(2*scale))
+                writer.write(display)
             n += 1
-            if perf_counter()-last_preview >= 0.5:
+            if render and perf_counter()-last_preview >= 0.5:
                 # Live preview for the interface (small JPEG, replaced atomically)
                 last_preview = perf_counter()
                 small = cv2.resize(display,(960,round(h*960/w))) if w > 960 else display
@@ -314,7 +343,7 @@ def analyze(args):
                        heavy_vehicle_share=vehicle_groups(Counter(e['vehicle_class'] for e in events))[1],
                        flow_vehicles_per_hour=len(events)*3600/(n/time_fps),processing_fps=n/elapsed,
                        line=line,direction_labels=direction_labels(line),weights=str(Path(args.weights).resolve()),confidence=args.conf,imgsz=args.imgsz,tiling=(dict(tile=args.tile,overlap=args.tile_overlap,full_frame=True) if getattr(args,'tile',0) else None),source_fps=fps,time_scale=time_scale,time_fps=time_fps,motion=motion.summary(fps,time_fps),video_codec=video_codec,interval_seconds=interval,
-                       tracking=dict(mode='baseline' if baseline else 'continuity',detector_threshold=low_threshold,initialization_threshold=high,agnostic_nms=getattr(args,'agnostic_nms',True) or not baseline,nms_iou=getattr(args,'nms_iou',0.5),continuity_max_gap=0 if baseline else tracklets.max_gap,continuity_iou=tracklets.overlap,class_vote='confidence-weighted over the whole track',class_vote_changed_crossings=class_changes),
+                       tracking=dict(tracker=tracker_name,mode='baseline' if baseline else 'continuity',detector_threshold=low_threshold,initialization_threshold=high,agnostic_nms=getattr(args,'agnostic_nms',True) or not baseline,nms_iou=getattr(args,'nms_iou',0.5),continuity_max_gap=0 if baseline else tracklets.max_gap,continuity_iou=tracklets.overlap,class_vote='confidence-weighted over the whole track',class_vote_changed_crossings=class_changes),
                        source_description=describe(args.video),live_source=live,stopped_early=stop['requested'],
                        start_crossings=start_counting,
                        duplicate_guard=dict(enabled=guard_enabled,overlap=guards[0].overlap,window_frames=guards[0].window,
@@ -412,6 +441,8 @@ def main():
     video.add_argument('--tile',type=int,default=0,help='Tiled detection: tile size in pixels (e.g. 640) for small vehicles in drone or 4K frames; 0 = off')
     video.add_argument('--tile-overlap',type=float,default=0.2,help='Overlap between neighbouring tiles (0-0.5)')
     video.add_argument('--calibration',help='JSON road calibration: four image points and road rectangle size in metres')
+    video.add_argument('--no-render',action='store_false',dest='render',help='Do not draw or write annotated.mp4 (faster batch evaluation; tables and summary are unchanged)')
+    video.add_argument('--tracker',choices=TRACKERS,default='bytetrack',help='Multi-object tracker (same detection thresholds for all; default ByteTrack)')
     tracking = video.add_mutually_exclusive_group()
     tracking.add_argument('--baseline-tracking',action='store_true',dest='baseline_tracking',help='Standard ByteTrack settings (default)')
     tracking.add_argument('--continuity-tracking',action='store_false',dest='baseline_tracking',help='Experimental continuity and class voting; may worsen counting')
