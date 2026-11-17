@@ -41,8 +41,9 @@ def run(args):
     elapsed = perf_counter()-start
     best = Path(model.trainer.best)
     if resume:
-        # Ultralytics logs cumulative training time per epoch; the resumed session alone would undercount it.
-        elapsed = float(list(csv.DictReader((best.parent.parent/'results.csv').open()))[-1]['time'])
+        # The time column restarts with every resumed session, and interrupted runs also include
+        # stalls (sleep, swapping), so no honest training time can be reported for them.
+        elapsed = None
     detector = YOLO(str(best))
     # Validation threshold defaults to the library evaluation setting, independent of video confidence.
     validation = detector.val(data=str(data),split='val',imgsz=args.imgsz,batch=args.batch,
@@ -64,7 +65,7 @@ def run(args):
                                for i,c in enumerate(test.box.ap_class_index)},
               'test_speed_ms':test.speed,'versions':{'python':platform.python_version(),'torch':torch.__version__,
                                                      'ultralytics':ultralytics.__version__},
-              'resumed':resume,'platform':platform.platform(), 'mps_determinism_note':'Some scatter/index operations are nondeterministic even with seed=42.', 'training_directory':str(best.parent.parent)}
+              'resumed':resume,'training_time_note':'Not recorded: the run was interrupted and resumed.' if resume else None,'platform':platform.platform(), 'mps_determinism_note':'Some scatter/index operations are nondeterministic even with seed=42.', 'training_directory':str(best.parent.parent)}
     temporary = ROOT/f'reports/{args.name}.tmp'
     temporary.write_text(json.dumps(result,indent=2))
     temporary.replace(ROOT/f'reports/{args.name}.json')
