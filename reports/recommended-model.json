@@ -11,9 +11,19 @@
    "validation_mAP50_95": 0.4721086770735618
   },
   {
+   "name": "vehicle-road-yolo26s",
+   "validation_mAP50": 0.6342937019469097,
+   "validation_mAP50_95": 0.45529004584113153
+  },
+  {
    "name": "vehicle-road-yolov8s",
    "validation_mAP50": 0.614963378983538,
    "validation_mAP50_95": 0.44274271067033333
+  },
+  {
+   "name": "vehicle-road-yolo11s",
+   "validation_mAP50": 0.6128133554691848,
+   "validation_mAP50_95": 0.44045196872026643
   },
   {
    "name": "vehicle-road-combined",
@@ -26,5 +36,5 @@
   "mAP50_95": 0.38447234007732595,
   "note": "Reported once after selection."
  },
- "selection": "Chosen on validation: vehicle-road-yolov8s-long 47.2%, vehicle-road-yolov8s 44.3%, vehicle-road-combined 41.1% mAP50-95 on the combined-road.yaml validation split. Weights: v1.0 GitHub release (scripts/download_assets.py)."
+ "selection": "Chosen on validation: vehicle-road-yolov8s-long 47.2%, vehicle-road-yolo26s 45.5%, vehicle-road-yolov8s 44.3%, vehicle-road-yolo11s 44.0%, vehicle-road-combined 41.1% mAP50-95 on the combined-road.yaml validation split. Weights: v1.0 GitHub release (scripts/download_assets.py)."
 }

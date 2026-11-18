@@ -28,18 +28,22 @@ Test mAP — на test-части собственного набора данн
 | vehicle-hires-960 | visdrone-expanded-full | 960 | 15 | 0.4594 | 0.2859 |
 | vehicle-road-combined | combined-road | 640 | 8 | 0.4760 | 0.3228 |
 | vehicle-road-yolov8s | combined-road | 640 | 8 | 0.5255 | 0.3610 |
+| vehicle-road-yolo11s (YOLO11s, тот же рецепт) | combined-road | 640 | 8 | 0.5285 | 0.3631 |
+| vehicle-road-yolo26s (YOLO26s, тот же рецепт) | combined-road | 640 | 8 | 0.5421 | 0.3716 |
 | **vehicle-road-yolov8s-long** (рекомендуемая; продолжение vehicle-road-yolov8s, lr0 0.0005) | combined-road | 640 | 12 | 0.5565 | 0.3845 |
 | vehicle-scratch-pilot | visdrone-pilot | 416 | 15 | 0.0262 | 0.0087 |
 
 Все запуски: seed 42, Apple M4, 16 ГБ, MPS. Лучшая эпоха выбирается по validation. Часть операций MPS недетерминирована.
 
+Сравнение архитектур YOLOv8s / YOLO11s / YOLO26s при одинаковом рецепте и подсчёт на UA-DETRAC — reports/MODEL_COMPARISON.md: YOLO26s лучшая из 8-эпоховых (val mAP50–95 45,5%, F1 подсчёта 0,883), но рекомендуемой по правилу выбора на validation остаётся vehicle-road-yolov8s-long (47,2%).
+
 Обученные веса четырех основных моделей (vehicle-road-yolov8s-long, vehicle-road-yolov8s, vehicle-road-combined, vehicle-hires-960) и демонстрационные видео скачиваются командой `python scripts/download_assets.py` (релиз v1.0 на GitHub).
 
 ## Проверки и материалы
 
-76 автоматических проверок (`python -m unittest discover -s tests`) охватывают геометрию, калибровку, смену ID, соседние машины, тайлинг, преобразование разметки, сопоставление событий, источники видео, интерфейс и обработку видео. Проверки, требующие локальных весов или результатов, пропускаются при их отсутствии. Точность CNN определяется отдельными экспериментами.
+87 автоматических проверок (`python -m pytest tests`) охватывают геометрию, калибровку, смену ID, соседние машины, тайлинг, преобразование разметки, сопоставление событий, источники видео, интерфейс и обработку видео. Проверки, требующие локальных весов или результатов, пропускаются при их отсутствии. Точность CNN определяется отдельными экспериментами.
 
-Интерфейс: http://127.0.0.1:8501. Запуск: run_app.command. Инструкции: README.md, QUICKSTART.md. Метрики: reports/EXPERIMENT_REPORT.md, reports/DETRAC_RESULTS.md, reports/RESOLUTION_RESULTS.md. Текст: thesis/DIPLOMA.docx. Презентация: thesis/presentation/DEFENSE.pptx. Материал выступления: thesis/DEFENSE_NOTES.md.
+Интерфейс: http://127.0.0.1:8501. Запуск: run_app.command. Инструкции: README.md, QUICKSTART.md. Метрики: reports/EXPERIMENT_REPORT.md, reports/DETRAC_RESULTS.md, reports/DETRAC_COUNTING.md, reports/COUNTING_RULES.md, reports/MODEL_COMPARISON.md, reports/RESOLUTION_RESULTS.md. Текст: thesis/DIPLOMA.docx. Презентация: thesis/presentation/DEFENSE.pptx. Материал выступления: thesis/DEFENSE_NOTES.md.
 
 ## Что осталось
 

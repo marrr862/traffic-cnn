@@ -155,7 +155,7 @@ def prepare(sequence, remote):
 
 
 def run(sequence, video, tracker, args):
-    output = ROOT/'outputs/detrac-eval'/tracker/sequence
+    output = ROOT/args.outputs/tracker/sequence
     if not (output/'summary.json').exists():
         if output.exists():
             for item in output.iterdir():
@@ -228,6 +228,8 @@ def main():
     parser.add_argument('--prepare-only', action='store_true')
     parser.add_argument('--development', action='store_true',
                         help='Use the other 20 test sequences (odd positions), kept apart for tuning counting rules')
+    parser.add_argument('--outputs', default='outputs/detrac-eval',
+                        help='Directory for per-run outputs; use a separate one per model, since finished runs are reused')
     parser.add_argument('--report', default='detrac-counting', help='Report name: reports/<name>.json and the Markdown table')
     args = parser.parse_args()
     sequences = args.sequences.split(',') if args.sequences else test_sequences()[1::2] if args.development else test_sequences()[::2]

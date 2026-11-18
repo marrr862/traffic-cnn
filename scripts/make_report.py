@@ -22,7 +22,7 @@ def main():
                   '|---|---:|---|---:|---:|---:|---:|---:|'])
     for r in runs:
         m=r['test']
-        lines.append(f"| {r['name']} | {r.get('epochs_completed',r['epochs_requested'])} | {r['initialization']} | {m['metrics/precision(B)']:.4f} | {m['metrics/recall(B)']:.4f} | {m['metrics/mAP50(B)']:.4f} | {m['metrics/mAP50-95(B)']:.4f} | {r['training_seconds']/60:.2f} |")
+        lines.append(f"| {r['name']} | {r.get('epochs_completed',r['epochs_requested'])} | {r['initialization']} | {m['metrics/precision(B)']:.4f} | {m['metrics/recall(B)']:.4f} | {m['metrics/mAP50(B)']:.4f} | {m['metrics/mAP50-95(B)']:.4f} | {(format(r['training_seconds']/60,'.2f') if r.get('training_seconds') is not None else '—')} |")
     lines.extend(['']+[f"Веса {r['name']}: `{r['best_weights']}`." for r in runs]+[''])
     if any(r.get('elapsed_time_note') for r in runs):
         lines.extend(['Длительность основного запуска включает длительные перерывы. Это время завершения процесса, а не непрерывная вычислительная производительность; прямое сравнение с pilot некорректно.',''])
