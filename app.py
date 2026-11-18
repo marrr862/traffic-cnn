@@ -331,7 +331,9 @@ with video_tab:
 
     st.subheader('3. Հայտնաբերում և հետագծում')
     threshold = st.slider('Վստահության շեմ',0.05,0.95,0.30,0.05,help='Նոր մեքենայի հետագծի սկզբնավորման շեմը։ Արդեն հետագծվող մեքենաները կարող են պահպանվել վստահության ժամանակավոր նվազման դեպքում։')
-    devices = ['mps','cpu','cuda'] if sys.platform == 'darwin' else ['cuda','cpu','mps']
+    import torch
+    # Only devices this machine has, so a CPU-only server does not default to CUDA.
+    devices = [d for d in ('mps','cuda') if (torch.backends.mps.is_available() if d == 'mps' else torch.cuda.is_available())] + ['cpu']
     device = st.selectbox('Սարք',devices)
     tracking_mode = st.selectbox('Հետագծում',['Ստանդարտ (ByteTrack)','Փորձարարական (շարունակականություն)'])
     mode = 'baseline' if tracking_mode.startswith('Ստանդարտ') else 'continuity'
