@@ -172,9 +172,9 @@ footer a { color: var(--marking); }
     </div>
     <div class="counter">
       <div><span class="num">90,2<small>%</small></span><span><span lang="hy">mAP50 ճանապարհային տեսախցիկներում (MIO-TCD)</span><span lang="en">mAP50 on road cameras (MIO-TCD)</span></span></div>
-      <div><span class="num">99,0<small>%</small></span><span><span lang="hy">հայտնաբերված մեքենաներ անկախ UA-DETRAC տեսանյութում</span><span lang="en">vehicles found on an unseen UA-DETRAC clip</span></span></div>
-      <div><span class="num">10/10</span><span><span lang="hy">ճիշտ հատում մայրուղու տեսանյութում</span><span lang="en">correct crossings on the highway video</span></span></div>
-      <div><span class="num">2,8<small>%</small></span><span><span lang="hy">արագության երկու անկախ եղանակների տարբերություն</span><span lang="en">gap between two independent speed methods</span></span></div>
+      <div><span class="num">0,911</span><span><span lang="hy">հաշվարկի F1 UA-DETRAC-ի 20 անկախ տեսանյութում</span><span lang="en">counting F1 on 20 unseen UA-DETRAC videos</span></span></div>
+      <div><span class="num">94,8<small>%</small></span><span><span lang="hy">գտնված հատումներ, քանակի սխալ +8%</span><span lang="en">of crossings found, count error +8%</span></span></div>
+      <div><span class="num">3,0<small>%</small></span><span><span lang="hy">արագության երկու անկախ եղանակների տարբերություն</span><span lang="en">gap between two independent speed methods</span></span></div>
     </div>
   </div>
 </header>
@@ -226,7 +226,7 @@ footer a { color: var(--marking); }
       </div>
       <div>
         <div class="head">
-          <div class="eyebrow"><span lang="hy">10 ուսուցման փորձ</span><span lang="en">10 training experiments</span></div>
+          <div class="eyebrow"><span lang="hy">12 ուսուցման փորձ</span><span lang="en">12 training experiments</span></div>
           <h2><span lang="hy">Ինչն է իրականում օգնում</span><span lang="en">What actually helps</span></h2>
         </div>
         <div class="lessons">
@@ -234,6 +234,7 @@ footer a { color: var(--marking); }
           <div class="lesson"><span class="num">34,7 → 45,9%</span><p><span lang="hy"><b>Մուտք 960 պքս։</b> Փոքր մեքենաները պահպանում են մանրամասները։</span><span lang="en"><b>960 px input.</b> Small vehicles keep their detail.</span></p></div>
           <div class="lesson"><span class="num">15,1 → 83,7%</span><p><span lang="hy"><b>Ճանապարհային տվյալներ։</b> MIO-TCD-ի ավելացումը վերացնում է տիրույթի տեղաշարժը։</span><span lang="en"><b>Road data.</b> Adding MIO-TCD removes the domain gap.</span></p></div>
           <div class="lesson"><span class="num">43,0 → 51,4%</span><p><span lang="hy"><b>YOLOv8s և երկար ուսուցում։</b> Ավելի մեծ մոդել և ևս 12 դարաշրջան։</span><span lang="en"><b>YOLOv8s and longer training.</b> A larger model plus 12 more epochs.</span></p></div>
+          <div class="lesson"><span class="num">45,5%</span><p><span lang="hy"><b>YOLO26s։</b> Հավասար 8 դարաշրջանով լավագույնն է (val mAP50–95), բայց ընտրության կանոնով մնում է YOLOv8s-long-ը (47,2%)։</span><span lang="en"><b>YOLO26s.</b> Best at an equal 8-epoch budget (val mAP50–95), but the selection rule keeps YOLOv8s-long (47.2%).</span></p></div>
           <div class="lesson"><span class="num">±0,1</span><p><span lang="hy"><b>Պարզ ընդլայնում։</b> Էական օգուտ չի տվել։</span><span lang="en"><b>Simple augmentation.</b> No real gain.</span></p></div>
         </div>
       </div>
@@ -250,9 +251,9 @@ footer a { color: var(--marking); }
         <article class="check">
           <img src="img/detrac.jpg" width="960" height="540" alt="UA-DETRAC test scene with detected cars crossing the counting line" loading="lazy">
           <div class="body">
-            <span class="num">5 / 5</span>
-            <h3><span lang="hy">Անկախ տեսարան UA-DETRAC</span><span lang="en">Unseen UA-DETRAC scene</span></h3>
-            <p><span lang="hy">Տեսանյութը ուսուցման մեջ չի օգտագործվել. մոդելը հայտնաբերել է մեքենաների 99,0%-ը (AP50 97,0%) և ճիշտ հաշվել բոլոր հատումները։</span><span lang="en">The clip was never used in training: the model found 99.0% of vehicles (AP50 97.0%) and counted every crossing correctly.</span></p>
+            <span class="num">F1 0,911</span>
+            <h3><span lang="hy">UA-DETRAC՝ 40 անկախ տեսանյութ</span><span lang="en">UA-DETRAC: 40 unseen videos</span></h3>
+            <p><span lang="hy">20 տեսանյութով ընտրվել են հաշվման կանոնները, մյուս 20-ում (28 885 կադր) ծրագիրը գտնում է հատումների 94,8%-ը, քանակի սխալը +8,2% է։ Վեց հետագծիչների F1-ը տարբերվում է 0,011-ից պակաս։</span><span lang="en">Counting rules were chosen on 20 videos; on the other 20 (28,885 frames) the tool finds 94.8% of crossings with a +8.2% count error. Six trackers differ by less than 0.011 F1.</span></p>
           </div>
         </article>
         <article class="check warn">
@@ -260,7 +261,7 @@ footer a { color: var(--marking); }
           <div class="body">
             <span class="num">709 <span style="font-size:.5em">km/h</span></span>
             <h3><span lang="hy">Արագացված տեսանյութը բացահայտվում է</span><span lang="en">Time-lapse video is flagged</span></h3>
-            <p><span lang="hy">449 հատում 42 վայրկյանում և 37 995 մեքենա/ժամ. ծրագիրը նկատում է, որ դա ֆիզիկապես անհնար է, և նախազգուշացնում։</span><span lang="en">449 crossings in 42 seconds, 37,995 veh/h: the tool notices this is physically impossible and warns the user.</span></p>
+            <p><span lang="hy">448 հատում 42 վայրկյանում և 37 910 մեքենա/ժամ. ծրագիրը նկատում է, որ դա ֆիզիկապես անհնար է, և նախազգուշացնում։</span><span lang="en">448 crossings in 42 seconds, 37,910 veh/h: the tool notices this is physically impossible and warns the user.</span></p>
           </div>
         </article>
       </div>
@@ -276,10 +277,10 @@ footer a { color: var(--marking); }
       </div>
       <img class="wide-img" src="img/calibration.jpg" width="1600" height="450" alt="Two calibrated road zones with counting lines" loading="lazy">
       <div class="metrics">
-        <div><span class="num">1673</span><span><span lang="hy">մեքենա/ժամ ինտենսիվություն</span><span lang="en">veh/h flow</span></span></div>
-        <div><span class="num">112,8</span><span><span lang="hy">կմ/ժ տարածական միջին արագություն</span><span lang="en">km/h space-mean speed</span></span></div>
-        <div><span class="num">2,8</span><span><span lang="hy">մեքենա/կմ/գոտի · LOS A</span><span lang="en">veh/km/lane · LOS A</span></span></div>
-        <div><span class="num">+32%</span><span><span lang="hy">q-ի և k·v-ի տարբերություն 21,5 վ դիտարկման դեպքում</span><span lang="en">q vs k·v over a 21.5 s clip</span></span></div>
+        <div><span class="num">1506</span><span><span lang="hy">մեքենա/ժամ ինտենսիվություն</span><span lang="en">veh/h flow</span></span></div>
+        <div><span class="num">117,5</span><span><span lang="hy">կմ/ժ տարածական միջին արագություն</span><span lang="en">km/h space-mean speed</span></span></div>
+        <div><span class="num">5,1</span><span><span lang="hy">pc/կմ/գոտի ըստ ուղղության · LOS A</span><span lang="en">pc/km/lane per direction · LOS A</span></span></div>
+        <div><span class="num">+14%</span><span><span lang="hy">q-ի և k·v-ի տարբերություն 21,5 վ դիտարկման դեպքում</span><span lang="en">q vs k·v over a 21.5 s clip</span></span></div>
       </div>
     </div>
   </section>
@@ -299,7 +300,8 @@ footer a { color: var(--marking); }
           <li><span lang="hy">Նշագրված տեսանյութ, ջերմային քարտեզ, հետագծեր</span><span lang="en">Annotated video, heatmap, trajectories</span></li>
           <li><span lang="hy">CSV և JSON արտահանում, հոսքը ըստ միջակայքերի</span><span lang="en">CSV and JSON export, flow per interval</span></li>
           <li><span lang="hy">Հաշվարկի ստուգում էտալոնային նշագրմամբ</span><span lang="en">Counting check against a reference annotation</span></li>
-          <li><span lang="hy">76 ավտոմատ թեստ</span><span lang="en">76 automated tests</span></li>
+          <li><span lang="hy">Վեց հետագծիչ՝ ByteTrack, BoT-SORT, OC-SORT, Deep OC-SORT, TrackTrack</span><span lang="en">Six trackers: ByteTrack, BoT-SORT, OC-SORT, Deep OC-SORT, TrackTrack</span></li>
+          <li><span lang="hy">87 ավտոմատ թեստ</span><span lang="en">87 automated tests</span></li>
         </ul>
       </div>
     </div>
@@ -332,7 +334,7 @@ streamlit run app.py   <span class="c"># http://127.0.0.1:8501</span></pre>
       </div>
       <ul class="limits">
         <li><span lang="hy">Բոլոր տեսանյութերը ցերեկային են. գիշերը և վատ եղանակին ճշտությունը չի գնահատվել</span><span lang="en">All clips are daytime; night and bad weather are untested</span></li>
-        <li><span lang="hy">Արտաքին ստուգում՝ 12 վայրկյան և 5 հատում</span><span lang="en">External check covers 12 seconds and 5 crossings</span></li>
+        <li><span lang="hy">UA-DETRAC-ի էտալոնը ստացված է հրապարակված հետագծերից, մոտոցիկլները նշագրված չեն</span><span lang="en">The UA-DETRAC reference comes from published trajectories, and motorcycles are not annotated</span></li>
         <li><span lang="hy">Արագությունը չի համեմատվել ռադարի հետ</span><span lang="en">Speed is not compared against a radar</span></li>
         <li><span lang="hy">van-ը հաճախ շփոթվում է car-ի հետ, իսկ եվրոպական բեռնատարները երբեմն նշվում են որպես ավտոբուս (ծանր տրանսպորտի ընդհանուր քանակը ճիշտ է)</span><span lang="en">Vans are often labelled as cars, and European box trucks sometimes as buses (the heavy-vehicle total stays correct)</span></li>
       </ul>
