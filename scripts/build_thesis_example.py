@@ -1,4 +1,4 @@
-"""Build thesis/DIPLOMA_EXAMPLE.docx: the Armenian thesis restructured to the department sample.
+"""Build thesis/DIPLOM.docx: the Armenian thesis restructured to the department sample.
 
 Structure (as in the sample coursework): contents, introduction, problem statement,
 chapter 1 (theory), chapter 2 (analysis), chapter 3 (practical part), chapter 4 (economics),
@@ -25,7 +25,7 @@ from docx.shared import Cm, Pt, RGBColor
 ROOT = Path(__file__).resolve().parents[1]
 OLD = ROOT / 'thesis/hy'
 NEW = ROOT / 'thesis/example'
-OUTPUT = ROOT / 'thesis/DIPLOMA_EXAMPLE.docx'
+OUTPUT = ROOT / 'thesis/DIPLOM.docx'
 MD_OUTPUT = ROOT / 'thesis/example/DIPLOMA_EXAMPLE.md'
 TOC_PAGES = ROOT / 'thesis/example/toc_pages.json'  # page numbers for the pre-filled contents
 TEXT = ''
@@ -86,12 +86,12 @@ CHAPTERS = [
     ('ԳԼՈՒԽ 2. ՏՎՅԱԼՆԵՐԻ ՊԱՏՐԱՍՏՈՒՄԸ ԵՎ CNN-Ի ՈՒՍՈՒՑՄԱՆ ՓՈՐՁԵՐԻ ՎԵՐԼՈՒԾՈՒԹՅՈՒՆԸ', [
         ('2.1. ՈՒՍՈՒՑՄԱՆ ՏՎՅԱԼՆԵՐԻ ՊԱՏՐԱՍՏՈՒՄԸ', ['d2.1', 'd2.2', 'd2.3', 'd2.4']),
         ('2.2. ՍՏՈՒԳՄԱՆ ՏՎՅԱԼՆԵՐԸ ԵՎ ԳՆԱՀԱՏՄԱՆ ՄԵԹՈԴԻԿԱՆ', ['d2.5', 'd2.6', 'm4.1', 'm4.2', 'm4.3', 'm4.4', 'm4.5']),
-        ('2.3. CNN-Ի ՈՒՍՈՒՑՄԱՆ ՓՈՐՁԵՐԸ ԵՎ ՄՈԴԵԼՆԵՐԻ ՀԱՄԵՄԱՏՈՒԹՅՈՒՆԸ', ['r5.1', 'r5.2', 'r5.3']),
+        ('2.3. CNN-Ի ՈՒՍՈՒՑՄԱՆ ՓՈՐՁԵՐԸ ԵՎ ՄՈԴԵԼՆԵՐԻ ՀԱՄԵՄԱՏՈՒԹՅՈՒՆԸ', ['r5.1', 'r5.2', 'r5.3', 'r5.10']),
     ]),
     ('ԳԼՈՒԽ 3. ԾՐԱԳՐԱՅԻՆ ՄԻՋՈՑԻ ՆԱԽԱԳԾՈՒՄԸ ԵՎ ՓՈՐՁԱՐԿՈՒՄԸ', [
         ('3.1. ԾՐԱԳՐԻ ՃԱՐՏԱՐԱՊԵՏՈՒԹՅՈՒՆԸ ԵՎ ԱԼԳՈՐԻԹՄՆԵՐԸ', ['i3.1', 'i3.2', 'i3.3', 'i3.4', 'i3.5', 'i3.6', 'i3.7', 'i3.8', 'i3.9']),
         ('3.2. ՕԳՏԱԳՈՐԾՈՂԻ ՄԻՋԵՐԵՍԸ ԵՎ ԾՐԱԳՐԻ ՍՏՈՒԳՈՒՄԸ', ['i3.10', 'u6.1', 'u6.2', 'u6.3', 'u6.4', 'i3.11']),
-        ('3.3. ՏԵՍԱՆՅՈՒԹԵՐԻ ՎԵՐԼՈՒԾՈՒԹՅԱՆ ԱՐԴՅՈՒՆՔՆԵՐԸ', ['r5.4', 'r5.5', 'r5.6', 'r5.7', 'r5.8', 'r5.9']),
+        ('3.3. ՏԵՍԱՆՅՈՒԹԵՐԻ ՎԵՐԼՈՒԾՈՒԹՅԱՆ ԱՐԴՅՈՒՆՔՆԵՐԸ', ['r5.4', 'r5.5', 'r5.9', 'r5.6', 'r5.7', 'r5.8', 'r5.11']),
     ]),
 ]
 
@@ -559,7 +559,9 @@ def main():
     page_break(doc)
     render(doc, text)
     doc.save(OUTPUT)
-    leftovers = re.findall(r'\b[Աա]ղյուսակ \d+\.\d{2}|Նկ\. \d+\.90', text)
+    captions = set(re.findall(r'^Աղյուսակ (\d+\.\d+) ', text, flags=re.M))
+    leftovers = [f'աղյուսակ {n}' for n in re.findall(r'[Աա]ղյուսակ (\d+\.\d+)', text) if n not in captions]
+    leftovers += re.findall(r'Նկ\. \d+\.90', text)
     print(f'Saved {OUTPUT.relative_to(ROOT)}; glossary terms: {len(USED)}; unresolved: {leftovers}')
 
 

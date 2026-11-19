@@ -1,0 +1,22 @@
+{
+ "tracker": "bytetrack",
+ "rules": {
+  "start_crossings": true,
+  "jump_fraction": null,
+  "min_age": 1
+ },
+ "sequences": "evaluation (20)",
+ "predicted": 491,
+ "matched": 368,
+ "extra": 123,
+ "by_cause": {
+  "motorcycle": 42,
+  "no_reference_vehicle": 34,
+  "start_rule": 25,
+  "near_unmatched_reference": 17,
+  "duplicate": 2,
+  "short_track": 2,
+  "track_under_1s": 1
+ },
+ "protocol": "ByteTrack, the 20 evaluation sequences, the original rules (start-crossing rule on, no minimum\ntrack age); the saved tracks are replayed exactly as scripts/tune_counting_rules.py does, so the\ntotals match reports/DETRAC_COUNTING.md. Each unmatched predicted crossing gets the first label\nthat applies: motorcycle (not annotated in UA-DETRAC); start_rule (the track was never seen on the\nnear side of the line, so only the start-crossing rule counted it); short_track (under 10\nframes); duplicate (a matched crossing in the same direction within 25 frames and about one box\nwidth); near_unmatched_reference (an unmatched reference crossing of the same direction lies\nwithin 50 frames: the same vehicle counted outside the 6-frame tolerance); track_under_1s;\nno_reference_vehicle (no reference crossing nearby: an unannotated vehicle or a false track)."
+}
