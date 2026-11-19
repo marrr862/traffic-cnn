@@ -10,6 +10,7 @@ in thesis/example/*.md. Tables, figures and section references are renumbered au
 
     python3 scripts/build_thesis_example.py
 """
+import copy
 import json
 import re
 from pathlib import Path
@@ -31,7 +32,8 @@ TOC_PAGES = ROOT / 'thesis/example/toc_pages.json'  # page numbers for the pre-f
 TEXT = ''
 FONT = 'Sylfaen'
 MONO = 'Courier New'
-FIRST_PAGE = 3  # pages 1-2: title page and assignment sheet (department forms)
+FORMS = ROOT / 'thesis/example/forms.docx'  # department title page and assignment sheet, filled in by the author
+FIRST_PAGE = 5  # pages 1-4: the forms
 
 # ---------------------------------------------------------------- assembling the text
 
@@ -549,6 +551,35 @@ def toc(doc):
             p.add_run()._r.append(node)
 
 
+def prepend_forms(path):
+    """Put the department forms in front of the thesis, in their own section without page numbers."""
+    from docxcompose.composer import Composer
+    forms = Document(FORMS)
+    body = forms.element.body
+    layout = copy.deepcopy(body.find(qn('w:sectPr')))
+    for tag in ('w:pgNumType', 'w:headerReference', 'w:footerReference', 'w:titlePg'):
+        for element in layout.findall(qn(tag)):
+            layout.remove(element)
+    p, ppr = OxmlElement('w:p'), OxmlElement('w:pPr')
+    ppr.append(layout)
+    p.append(ppr)
+    body.find(qn('w:sectPr')).addprevious(p)
+    composer = Composer(forms)
+    composer.append(Document(path))
+    # the last section is the thesis: our margins and page numbers from FIRST_PAGE
+    section = composer.doc.sections[-1]
+    section.page_width, section.page_height = Cm(21), Cm(29.7)
+    section.left_margin, section.right_margin = Cm(3), Cm(1.5)
+    section.top_margin, section.bottom_margin = Cm(2), Cm(2)
+    sect = section._sectPr
+    for element in sect.findall(qn('w:pgNumType')):
+        sect.remove(element)
+    pg = OxmlElement('w:pgNumType')
+    pg.set(qn('w:start'), str(FIRST_PAGE))
+    sect.append(pg)
+    composer.save(path)
+
+
 def main():
     global TEXT
     text = TEXT = assemble()
@@ -559,6 +590,8 @@ def main():
     page_break(doc)
     render(doc, text)
     doc.save(OUTPUT)
+    if FORMS.exists():
+        prepend_forms(OUTPUT)
     captions = set(re.findall(r'^Աղյուսակ (\d+\.\d+) ', text, flags=re.M))
     leftovers = [f'աղյուսակ {n}' for n in re.findall(r'[Աա]ղյուսակ (\d+\.\d+)', text) if n not in captions]
     leftovers += re.findall(r'Նկ\. \d+\.90', text)
