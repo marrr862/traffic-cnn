@@ -3,7 +3,9 @@ import csv
 import json
 import math
 import hashlib
+import shutil
 import signal
+import subprocess
 from collections import Counter, deque
 from pathlib import Path
 from time import perf_counter
@@ -415,8 +417,30 @@ def analyze(args):
         cap.release()
         if writer is not None:
             writer.release()
+            if video_codec == 'mp4v':
+                browser_playable(out)
         if track_handle is not None:
             track_handle.close()
+
+
+def browser_playable(out):
+    """Re-encode an mp4v video to H.264 with ffmpeg when available (OpenCV wheels on Linux lack an H.264 encoder)."""
+    ffmpeg = shutil.which('ffmpeg')
+    video = out/'annotated.mp4'
+    if not ffmpeg or not video.is_file():
+        return
+    temporary = out/'annotated.h264.mp4'
+    result = subprocess.run([ffmpeg,'-y','-loglevel','error','-i',str(video),'-c:v','libx264','-pix_fmt','yuv420p',
+                             '-preset','veryfast','-movflags','+faststart',str(temporary)])
+    if result.returncode != 0 or not temporary.is_file():
+        temporary.unlink(missing_ok=True)
+        return
+    temporary.replace(video)
+    summary_path = out/'summary.json'
+    if summary_path.is_file():
+        summary = json.loads(summary_path.read_text())
+        summary['video_codec'] = 'avc1'
+        summary_path.write_text(json.dumps(summary,indent=2))
 
 
 def main():
