@@ -76,9 +76,10 @@ function table(slide, rows, x, y, w, colW, fontSize = 14) {
     { x: 0.7, y: 1.4, w: 5.9, h: 2.9, fontSize: 28, bold: true, color: COL.white, valign: 'top' });
   text(s, [
     { text: 'Ուսանող՝ Ղազարյան Մարիամ Սարգիսի', options: { breakLine: true } },
-    { text: 'Գիտական ղեկավար՝ ______________________', options: { breakLine: true } },
+    { text: 'Գիտական ղեկավար՝ Խաչատրյան Տիգրան Բագրատի, տ.գ.թ., ավագ դասախոս', options: { breakLine: true } },
+    { text: 'Հայաստանի ազգային պոլիտեխնիկական համալսարան', options: { breakLine: true } },
     { text: 'Երևան 2026' },
-  ], { x: 0.7, y: 4.9, w: 5.9, h: 1.4, fontSize: 16, color: 'D5DCE0', paraSpaceAfter: 6, valign: 'top' });
+  ], { x: 0.7, y: 4.5, w: 5.9, h: 2.4, fontSize: 15, color: 'D5DCE0', paraSpaceAfter: 6, valign: 'top' });
   notes(s, 1);
 }
 
