@@ -1,0 +1,1076 @@
+<!doctype html>
+<html lang="hy">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta charset="utf-8">
+<title>Traffic CNN Results</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<meta name="description" content="Երթևեկության հոսքի վերլուծության ծրագրային միջոցի բոլոր արդյունքները">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Overpass:wght@400;600;800&family=Overpass+Mono:wght@400;600&family=Noto+Sans+Armenian:wght@400;600;700&display=swap">
+<style>
+/* Layout: one reading column with a sticky section index; asphalt header band; lane-line dividers. */
+:root {
+  --asphalt: #1f2a31; --marking: #f2b705; --teal: #14807a; --red: #c2412d;
+  --bg: #fbfcfc; --surface: #eef2f3; --fg: #1b252b; --muted: #56636b; --line: #d7dfe2; --row: #f6f8f9;
+  --hero-fg: #f4f7f8; --hero-muted: #b9c5cb;
+  --display: "Overpass", "Noto Sans Armenian", "Arial", sans-serif;
+  --body: "Noto Sans Armenian", "Overpass", "Segoe UI", "Arial", sans-serif;
+  --mono: "Overpass Mono", "SFMono-Regular", "Menlo", monospace;
+}
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
+  --bg: #131b20; --surface: #1c262d; --fg: #e6edf0; --muted: #9fb0b8; --line: #2e3b44; --row: #172128; --teal: #3fb3aa; --red: #e5735f; color-scheme: dark } }
+:root[data-theme="dark"] {
+  --bg: #131b20; --surface: #1c262d; --fg: #e6edf0; --muted: #9fb0b8; --line: #2e3b44; --row: #172128; --teal: #3fb3aa; --red: #e5735f; color-scheme: dark }
+* { box-sizing: border-box; }
+img, video { max-width: 100%; height: auto; }
+body { margin: 0; background: var(--bg); color: var(--fg); font-family: var(--body); font-size: 16.5px; line-height: 1.65; }
+.wrap { max-width: 1180px; margin: 0 auto; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
+h1, h2, h3 { font-family: var(--display); line-height: 1.2; text-wrap: balance; margin: 0; }
+a { color: var(--teal); text-underline-offset: 3px; }
+a:focus-visible { outline: 3px solid var(--marking); outline-offset: 2px; }
+header.hero { background: var(--asphalt); color: var(--hero-fg); }
+header.hero .wrap { padding-block: 22px 40px; display: grid; gap: 26px; }
+.top { display: flex; justify-content: space-between; align-items: center; gap: 12px; flex-wrap: wrap; font-family: var(--display); }
+.brand { font-weight: 800; letter-spacing: .02em; }
+.brand span { color: var(--marking); }
+.top a { color: var(--hero-muted); }
+.eyebrow { font-family: var(--mono); font-size: .8rem; letter-spacing: .12em; text-transform: uppercase; color: var(--marking); }
+header h1 { font-size: clamp(1.7rem, 3.6vw, 2.6rem); font-weight: 800; max-width: 30ch; }
+header p { color: var(--hero-muted); max-width: 70ch; margin: 0; }
+.stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 18px 22px; border-top: 2px dashed #4a5a64; padding-top: 22px; }
+.stats div { display: grid; gap: 2px; min-width: 0; }
+.stats b { font-family: var(--display); font-size: clamp(1.5rem, 2.8vw, 2.1rem); font-variant-numeric: tabular-nums; }
+.stats span { color: var(--hero-muted); font-size: .88rem; line-height: 1.4; }
+.layout { display: grid; grid-template-columns: 250px minmax(0, 1fr); gap: 40px; padding-block: 36px 64px; }
+nav.toc { position: sticky; top: calc(env(safe-area-inset-top, 0px) + 16px); align-self: start; font-size: .9rem; }
+nav.toc ol { list-style: none; padding: 0; margin: 0; display: grid; gap: 6px; border-left: 2px dashed var(--line); }
+nav.toc a { display: block; padding: 2px 0 2px 12px; color: var(--muted); text-decoration: none; line-height: 1.35; }
+nav.toc a:hover { color: var(--fg); }
+nav.toc .num { font-family: var(--mono); color: var(--teal); margin-right: 4px; }
+main { min-width: 0; }
+section { padding-block: 26px; scroll-margin-top: 16px; }
+section + section { border-top: 2px dashed var(--line); }
+section h2 { font-size: clamp(1.3rem, 2.4vw, 1.7rem); font-weight: 800; margin-bottom: 14px; }
+section h2 .num { color: var(--teal); font-family: var(--mono); font-weight: 600; margin-right: 8px; }
+main p { margin: 0 0 12px; max-width: 75ch; }
+main ul { margin: 0 0 12px; padding-left: 22px; max-width: 75ch; }
+code { font-family: var(--mono); font-size: .88em; background: var(--surface); padding: 1px 5px; border-radius: 4px; }
+.videos { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+figure { margin: 0 0 16px; }
+figure video, figure img { display: block; width: 100%; border-radius: 8px; border: 1px solid var(--line); background: #000; }
+figure img { background: #fff; }
+figcaption { font-size: .86rem; color: var(--muted); margin-top: 8px; line-height: 1.45; }
+.table { margin: 6px 0 18px; }
+.table .cap { font-weight: 700; font-size: .92rem; margin-bottom: 6px; }
+.scroll { overflow-x: auto; border: 1px solid var(--line); border-radius: 8px; }
+table { border-collapse: collapse; width: 100%; font-size: .88rem; font-variant-numeric: tabular-nums; }
+th, td { padding: 7px 10px; text-align: left; border-bottom: 1px solid var(--line); vertical-align: top; }
+th { background: var(--asphalt); color: #f4f7f8; font-weight: 600; white-space: nowrap; }
+td.n, th.n { text-align: right; white-space: nowrap; }
+tr:nth-child(even) td { background: var(--row); }
+tr.best td { font-weight: 700; }
+.note { font-size: .84rem; color: var(--muted); }
+footer { background: var(--asphalt); color: var(--hero-muted); font-size: .9rem; }
+footer .wrap { padding-block: 24px; display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
+footer a { color: var(--marking); }
+@media (max-width: 900px) {
+  .layout { grid-template-columns: 1fr; gap: 10px; }
+  nav.toc { position: static; }
+  .stats { grid-template-columns: 1fr 1fr; }
+  .videos { grid-template-columns: 1fr; }
+}
+</style>
+<header class="hero"><div class="wrap">
+<div class="top"><div class="brand">TRAFFIC<span>·</span>CNN</div><a href="index.html">← Նախագծի էջ</a></div>
+<div class="eyebrow">Ավարտական աշխատանք · արդյունքներ</div>
+<h1>Երթևեկության հոսքի վերլուծության ծրագրային միջոցի մշակում՝ փաթույթային նեյրոնային ցանցերի կիրառմամբ</h1>
+<p>Ղազարյան Մարիամ Սարգիսի · գիտական ղեկավար՝ Խաչատրյան Տիգրան Բագրատի, տ.գ.թ., ավագ դասախոս · ՀԱՊՀ, 2026։ Էջի աղյուսակները և նկարները վերցված են ատենախոսության 5-րդ գլխից։</p>
+<div class="stats"><div><b>90,2%</b><span>mAP50 ճանապարհային տեսախցիկներում (MIO-TCD թեստ)</span></div><div><b>51,4%</b><span>mAP50 անօդաչու սարքի պատկերներում (VisDrone թեստ, 960 պքս)</span></div><div><b>0,911</b><span>հաշվարկի F1 UA-DETRAC-ի 20 անկախ տեսանյութում</span></div><div><b>94,8%</b><span>գտնված հատումներ, ընդհանուր քանակի սխալ +8,2%</span></div><div><b>12</b><span>ուսուցման փորձ, 3 YOLO ճարտարապետություն</span></div><div><b>6</b><span>հետագծման ալգորիթմ, F1-ի տարբերություն &lt; 0,011</span></div><div><b>3,0%</b><span>արագության երկու անկախ եղանակների միջին տարբերություն</span></div><div><b>87</b><span>ավտոմատ թեստ</span></div></div>
+</div></header>
+<div class="wrap layout">
+<nav class="toc" aria-label="Բաժիններ"><ol><li><a href="#video"><span class="num">▶</span>Տեսանյութեր</a></li><li><a href="#s5-1"><span class="num">5.1</span>Ուսուցման փորձերը</a></li><li><a href="#s5-2"><span class="num">5.2</span>Մոդելների համեմատությունը տարբեր տիրույթներում</a></li><li><a href="#s5-3"><span class="num">5.3</span>Մուտքի չափը և սալիկային հայտնաբերումը</a></li><li><a href="#s5-4"><span class="num">5.4</span>Հաշվարկի ստուգումը մայրուղու տեսանյութում</a></li><li><a href="#s5-5"><span class="num">5.5</span>Արտաքին ստուգում UA-DETRAC հավաքածուով</a></li><li><a href="#s5-6"><span class="num">5.6</span>Արագություն, խտություն և հոսքի հավասարում</a></li><li><a href="#s5-7"><span class="num">5.7</span>Արագացված տեսանյութի հայտնաբերումը</a></li><li><a href="#s5-8"><span class="num">5.8</span>Արագագործություն</a></li><li><a href="#s5-9"><span class="num">5.9</span>Հաշվարկի ստուգում UA-DETRAC-ի 20 հաջորդականությամբ և հետագծիչների համեմատություն</a></li><li><a href="#s5-10"><span class="num">5.10</span>Ճարտարապետությունների համեմատություն՝ YOLOv8s, YOLO11s, YOLO26s</a></li><li><a href="#s5-11"><span class="num">5.11</span>Արդյունքների կիրառելիության սահմանները</a></li><li><a href="#s5-12"><span class="num">5.12</span>Գլխի եզրակացություններ</a></li></ol></nav>
+<main>
+<section id="video"><h2>Ծրագրի աշխատանքը տեսանյութերում</h2>
+<div class="videos">
+<figure><video src="media/highway.mp4" poster="media/highway-poster.jpg" controls muted loop playsinline preload="metadata" width="1280" height="720"></video>
+<figcaption>Մայրուղի, 4K, 21,5 վ. դեղին՝ հաշվման գիծ, մանուշակագույն՝ լրացուցիչ գիծ (արագության ստուգում), երկնագույն՝ տրամաչափված գոտի 25 × 250 մ, մեքենաների տակ՝ արագությունը կմ/ժ (5.4, 5.6 բաժիններ)</figcaption></figure>
+<figure><video src="media/timelapse.mp4" poster="media/timelapse-poster.jpg" controls muted loop playsinline preload="metadata" width="1280" height="720"></video>
+<figcaption>Արագացված քաղաքային տեսանյութ (առաջին 12 վ). 448 հատում 42 վայրկյանում և 709 կմ/ժ մեդիան արագություն. ծրագիրը նախազգուշացնում է, որ տեսանյութը արագացված է (5.7 բաժին)</figcaption></figure>
+</div></section>
+<section id="s5-1"><h2><span class="num">5.1</span>Ուսուցման փորձերը</h2><p>Կատարվել է տասներկու ուսուցման փորձ, որոնք կազմում են հաջորդական հետազոտություն. յուրաքանչյուր հաջորդ փորձ փոփոխում է մեկ գործոն կամ ստուգում նախորդի արդյունքում առաջացած վարկածը (աղյուսակ 5.1)։ Բոլոր փորձերում օգտագործվել է AdamW օպտիմալացուցիչ, seed 42, և լավագույն դարաշրջանն ընտրվել է val ընտրանքով։</p>
+<div class="table">
+<div class="cap">Աղյուսակ 5.1. Ուսուցման փորձերը և թեստային արդյունքները (յուրաքանչյուր փորձի սեփական թեստային ընտրանքում)</div>
+<div class="scroll"><table><thead><tr>
+<th>Փորձ</th>
+<th>Սկզբնական կշիռներ</th>
+<th>Տվյալներ</th>
+<th class=n>Մուտք, պքս</th>
+<th class=n>Դարաշրջան</th>
+<th class=n>Ժամանակ, ր</th>
+<th class=n>Test mAP50</th>
+<th class=n>Test mAP50–95</th>
+</tr></thead><tbody>
+<tr>
+<td>vehicle-scratch-pilot</td>
+<td>պատահական (YOLOv8n)</td>
+<td>VisDrone, 1024 պատկեր</td>
+<td class=n>416</td>
+<td class=n>15</td>
+<td class=n>7,8</td>
+<td class=n>2,6%</td>
+<td class=n>0,9%</td>
+</tr>
+<tr>
+<td>vehicle-finetune-pilot</td>
+<td>COCO (YOLOv8n)</td>
+<td>VisDrone, 1024 պատկեր</td>
+<td class=n>416</td>
+<td class=n>15</td>
+<td class=n>8,8</td>
+<td class=n>13,8%</td>
+<td class=n>6,9%</td>
+</tr>
+<tr>
+<td>vehicle-finetune-full</td>
+<td>COCO (YOLOv8n)</td>
+<td>VisDrone, ամբողջ</td>
+<td class=n>640</td>
+<td class=n>10</td>
+<td class=n>69,1</td>
+<td class=n>34,4%</td>
+<td class=n>20,3%</td>
+</tr>
+<tr>
+<td>vehicle-augmentation-control</td>
+<td>finetune-full</td>
+<td>VisDrone, 2048/դարաշրջան</td>
+<td class=n>640</td>
+<td class=n>3</td>
+<td class=n>4,9</td>
+<td class=n>33,9%</td>
+<td class=n>19,8%</td>
+</tr>
+<tr>
+<td>vehicle-augmentation-expanded</td>
+<td>finetune-full</td>
+<td>VisDrone + ընդլայնում, 2048/դարաշրջան</td>
+<td class=n>640</td>
+<td class=n>3</td>
+<td class=n>5,8</td>
+<td class=n>33,6%</td>
+<td class=n>19,7%</td>
+</tr>
+<tr>
+<td>vehicle-expanded-full</td>
+<td>finetune-full</td>
+<td>VisDrone + ընդլայնում, 7493</td>
+<td class=n>640</td>
+<td class=n>3</td>
+<td class=n>18,0</td>
+<td class=n>34,7%</td>
+<td class=n>20,5%</td>
+</tr>
+<tr>
+<td>vehicle-hires-960</td>
+<td>expanded-full</td>
+<td>VisDrone + ընդլայնում, 7493</td>
+<td class=n>960</td>
+<td class=n>15</td>
+<td class=n>220,6</td>
+<td class=n>45,9%</td>
+<td class=n>28,6%</td>
+</tr>
+<tr>
+<td>vehicle-road-combined</td>
+<td>hires-960 (YOLOv8n)</td>
+<td>VisDrone + MIO-TCD</td>
+<td class=n>640</td>
+<td class=n>8</td>
+<td class=n>241,3</td>
+<td class=n>47,6%¹</td>
+<td class=n>32,3%¹</td>
+</tr>
+<tr>
+<td>vehicle-road-yolov8s</td>
+<td>COCO (YOLOv8s)</td>
+<td>VisDrone + MIO-TCD</td>
+<td class=n>640</td>
+<td class=n>8</td>
+<td class=n>611,4</td>
+<td class=n>52,6%¹</td>
+<td class=n>36,1%¹</td>
+</tr>
+<tr>
+<td>vehicle-road-yolo11s</td>
+<td>COCO (YOLO11s)</td>
+<td>VisDrone + MIO-TCD</td>
+<td class=n>640</td>
+<td class=n>8</td>
+<td class=n>—³</td>
+<td class=n>52,9%¹</td>
+<td class=n>36,3%¹</td>
+</tr>
+<tr>
+<td>vehicle-road-yolo26s</td>
+<td>COCO (YOLO26s)</td>
+<td>VisDrone + MIO-TCD</td>
+<td class=n>640</td>
+<td class=n>8</td>
+<td class=n>—³</td>
+<td class=n>54,2%¹</td>
+<td class=n>37,2%¹</td>
+</tr>
+<tr class=best>
+<td>vehicle-road-yolov8s-long</td>
+<td>road-yolov8s (YOLOv8s)</td>
+<td>VisDrone + MIO-TCD</td>
+<td class=n>640</td>
+<td class=n>12</td>
+<td class=n>977,5²</td>
+<td class=n>55,7%¹</td>
+<td class=n>38,5%¹</td>
+</tr>
+</tbody></table></div></div>
+<p class="note">¹ Միավորված VisDrone + MIO-TCD թեստային ընտրանքում. ուղղակիորեն համեմատելի չէ միայն VisDrone-ով գնահատված տողերի հետ։ Համեմատելի արդյունքները տրված են աղյուսակ 5.2-ում։</p>
+<p class="note">³ Ուսուցումը ընդհատվել և շարունակվել է պահպանված վիճակից (հիշողության պակաս, համակարգչի քնի ռեժիմ), ուստի ընդհանուր ժամանակը չափված չէ։ Այս երկու փորձերը համեմատվում են 5.10 բաժնում։</p>
+<p class="note">² Ուսուցման մի մասը կատարվել է մարտկոցով և էներգախնայողության ռեժիմում, ուստի ժամանակը մոտ 15%-ով ավելի մեծ է, քան նույն դարաշրջանների համար սովորական։</p>
+<p>Արդյունքներից կարելի է անել հետևյալ եզրակացությունները։</p>
+<p><strong>Ուսուցման փոխանցումը կարևոր է։</strong> Նույն 1024 պատկերով և 15 դարաշրջանով զրոյից ուսուցանված մոդելը գրեթե չի սովորել (mAP50 2,6%, recall 3,8%), իսկ COCO կշիռներից սկսած մոդելը հասել է 13,8%-ի։ Սահմանափակ տվյալների և ժամանակի պայմաններում փոխանցմամբ ուսուցումը միակ գործնական եղանակն է։</p>
+<p><strong>Տվյալների ծավալը։</strong> Ամբողջ train-ի (6469 պատկեր) և 640 պքս մուտքի օգտագործումը mAP50-ը բարձրացրել է մինչև 34,4%։ Այս փոփոխությունը միաժամանակ ներառում է տվյալների ծավալը և մուտքի չափը, ուստի ազդեցությունը չի կարելի վերագրել միայն մեկ գործոնի։</p>
+<p><strong>Ընդլայնումը։</strong> Հավասար բյուջեով (3 դարաշրջան, 2048 օրինակ դարաշրջանում) ընդլայնված տվյալներով մոդելը val mAP50–95-ում գերազանցել է ստուգիչ մոդելին ընդամենը 0,12 տոկոսային կետով, իսկ թեստում՝ զիջել 0,1 կետով։ Այս տարբերությունը չափման աղմուկի սահմաններում է. մեր կիրառած պարզ ընդլայնումը (արտապատկերում, պայծառություն, լղոզում) լրացուցիչ օգուտ չի տալիս, քանի որ Ultralytics-ն արդեն կիրառում է նմանատիպ ձևափոխություններ ուսուցման ժամանակ։</p>
+<p><strong>Մուտքի չափը։</strong> Ամենամեծ աճը տվել է մուտքի չափի մեծացումը 640-ից 960 պիքսել (34,7% → 45,9%)։ VisDrone-ում մեքենաները շատ փոքր են, և ավելի մեծ մուտքը պահպանում է դրանց մանրամասները (5.3 բաժին)։</p>
+<p><strong>Երկարացված ուսուցումը։</strong> vehicle-road-yolov8s մոդելի val ցուցանիշը 8-րդ դարաշրջանում դեռ աճում էր, ինչը նշանակում էր, որ մոդելը լիովին չէր սովորել։ Ուստի նրա լավագույն կշիռներից ուսուցումը շարունակվել է ևս 12 դարաշրջան՝ նույն տվյալներով և ավելի փոքր ուսուցման արագությամբ (lr0 = 0,0005)։ Առաջին դարաշրջանում val mAP50-ը ժամանակավորապես նվազել է (61,5% → 57,2%) ուսուցման արագության նախնական աճի (warm-up) պատճառով, որից հետո աճել է յուրաքանչյուր դարաշրջանից հետո՝ մինչև 65,2%։ Val mAP50–95-ը 44,3%-ից հասել է 47,2%-ի, առանց գերուսուցման նշանների։ Թեստում mAP50-ը աճել է 3,1 կետով (52,6% → 55,7%), ընդ որում բարելավվել են բոլոր հինգ դասերը։ Ճարտարապետությունը և արագությունը չեն փոխվել, այսինքն՝ արդյունքի բարելավումը ստացվել է միայն լրացուցիչ ուսուցման ժամանակի հաշվին։</p></section><section id="s5-2"><h2><span class="num">5.2</span>Մոդելների համեմատությունը տարբեր տիրույթներում</h2><p>Վերջին չորս մոդելները գնահատվել են առանձին VisDrone և MIO-TCD թեստային ընտրանքներում, երկու մուտքի չափերով, ինչպես նաև մայրուղու տեսանյութում (աղյուսակ 5.2, նկար 5.1)։</p>
+<div class="table">
+<div class="cap">Աղյուսակ 5.2. Մոդելների համեմատությունը տիրույթներով (mAP50 / mAP50–95, %)</div>
+<div class="scroll"><table><thead><tr>
+<th>Մոդել</th>
+<th class=n>VisDrone 640</th>
+<th class=n>VisDrone 960</th>
+<th class=n>MIO-TCD 640</th>
+<th class=n>MIO-TCD 960</th>
+</tr></thead><tbody>
+<tr>
+<td>vehicle-hires-960 (YOLOv8n, միայն VisDrone)</td>
+<td class=n>35,6 / 21,1</td>
+<td class=n>45,9 / 28,6</td>
+<td class=n>15,1 / 9,4</td>
+<td class=n>8,0 / 4,7</td>
+</tr>
+<tr>
+<td>vehicle-road-combined (YOLOv8n, VisDrone + MIO-TCD)</td>
+<td class=n>34,7 / 20,4</td>
+<td class=n>43,0 / 26,6</td>
+<td class=n>83,7 / 63,8</td>
+<td class=n>79,6 / 58,0</td>
+</tr>
+<tr>
+<td>vehicle-road-yolov8s (YOLOv8s, VisDrone + MIO-TCD)</td>
+<td class=n>40,4 / 24,5</td>
+<td class=n>48,0 / 30,3</td>
+<td class=n>86,8 / 66,8</td>
+<td class=n>83,3 / 62,1</td>
+</tr>
+<tr class=best>
+<td>vehicle-road-yolov8s-long (YOLOv8s, +12 դարաշրջան)</td>
+<td class=n>43,7 / 26,8</td>
+<td class=n>51,4 / 32,6</td>
+<td class=n>90,2 / 70,2</td>
+<td class=n>87,9 / 66,6</td>
+</tr>
+</tbody></table></div></div>
+<figure><img src="img/r/thesis-models-hy.png" width="1400" height="694" alt="Նկար 5.1. Մոդելների mAP50-ը VisDrone և MIO-TCD թեստային ընտրանքներում" loading="lazy"><figcaption>Նկար 5.1. Մոդելների mAP50-ը VisDrone և MIO-TCD թեստային ընտրանքներում</figcaption></figure>
+<p>Արդյունքները ցույց են տալիս <strong>տիրույթի տեղաշարժի</strong> ուժեղ ազդեցությունը։ Միայն VisDrone-ով ուսուցանված մոդելը, որը լավագույնն էր անօդաչու սարքի պատկերներում, ճանապարհային տեսախցիկների MIO-TCD պատկերներում ունի ընդամենը 15,1% mAP50։ MIO-TCD տվյալների ավելացումը այն բարձրացնում է մինչև 83,7%, իսկ VisDrone-ում կորուստը փոքր է (45,9% → 43,0%)։ Ավելի մեծ YOLOv8s մոդելը բարելավում է արդյունքները երկու տիրույթներում էլ (VisDrone 48,0%, MIO-TCD 86,8%), այսինքն՝ YOLOv8n-ի հզորությունը բավարար չէր երկու տիրույթները միաժամանակ լավ սովորելու համար։ Նույն մոդելի երկարացված ուսուցումը բոլոր չորս սյունակներում ավելացնում է ևս 3,3–4,6 կետ (VisDrone 51,4%, MIO-TCD 90,2%)։</p>
+<p>Ուշագրավ է, որ MIO-TCD-ում 640 պքս մուտքը տալիս է ավելի լավ արդյունք, քան 960-ը, իսկ VisDrone-ում՝ հակառակը։ MIO-TCD-ի պատկերները փոքր են (մոտ 720×480), և դրանց մեծացումը մինչև 960 չի ավելացնում տեղեկություն, բայց փոխում է օբյեկտների մասշտաբը ուսուցման ժամանակվա համեմատ։ Ուստի ծրագրում մուտքի չափը կարգավորելի է, իսկ բարձր լուծաչափի տեսանյութերի (Full HD, 4K) համար առաջարկվում է 960 պքս։</p>
+<p>Ամփոփ համեմատության հիման վրա որպես հիմնական առաջարկվել է <strong>vehicle-road-yolov8s-long</strong> մոդելը (<code>reports/recommended-model.json</code>)։ Այն ունի նույն արագությունը, ինչ vehicle-road-yolov8s-ը, քանի որ ճարտարապետությունը նույնն է։ Թույլ համակարգիչների համար vehicle-road-combined-ը (YOLOv8n) մոտ 15%-ով ավելի արագ է, իսկ անօդաչու սարքի տեսանյութերի համար՝ vehicle-hires-960-ը սալիկային ռեժիմով։</p>
+<p>Առաջարկվող մոդելի արդյունքներն ըստ դասերի ներկայացված են աղյուսակ 5.3-ում։</p>
+<div class="table">
+<div class="cap">Աղյուսակ 5.3. vehicle-road-yolov8s-long մոդելի արդյունքները ըստ դասերի (միավորված թեստ, 640 պքս, փակագծերում՝ vehicle-road-yolov8s)</div>
+<div class="scroll"><table><thead><tr>
+<th>Դաս</th>
+<th class=n>Precision</th>
+<th class=n>Recall</th>
+<th class=n>mAP50</th>
+<th class=n>mAP50–95</th>
+</tr></thead><tbody>
+<tr>
+<td>car</td>
+<td class=n>80,7%</td>
+<td class=n>81,3%</td>
+<td class=n>84,3% (82,7%)</td>
+<td class=n>58,7% (57,3%)</td>
+</tr>
+<tr>
+<td>van</td>
+<td class=n>47,8%</td>
+<td class=n>41,5%</td>
+<td class=n>41,9% (38,3%)</td>
+<td class=n>28,6% (26,3%)</td>
+</tr>
+<tr>
+<td>truck</td>
+<td class=n>63,8%</td>
+<td class=n>54,3%</td>
+<td class=n>57,4% (52,9%)</td>
+<td class=n>41,5% (37,8%)</td>
+</tr>
+<tr>
+<td>bus</td>
+<td class=n>77,1%</td>
+<td class=n>60,9%</td>
+<td class=n>66,3% (64,3%)</td>
+<td class=n>51,8% (49,3%)</td>
+</tr>
+<tr>
+<td>motorcycle</td>
+<td class=n>54,7%</td>
+<td class=n>26,3%</td>
+<td class=n>28,5% (24,6%)</td>
+<td class=n>11,6% (9,8%)</td>
+</tr>
+</tbody></table></div></div>
+<p>Լավագույն արդյունքը մարդատար ավտոմեքենաների համար է, որոնք կազմում են տվյալների մեծ մասը։ Ամենացածրը motorcycle դասն է. VisDrone-ում մոտոցիկլները շատ փոքր են (հաճախ 10 պիքսելից պակաս) և հեշտ շփոթվում են հեծանիվների հետ։ Van դասի ցածր արդյունքը բացատրվում է դրա անորոշ սահմանով car և truck դասերի հետ. նույն մեքենան տարբեր հավաքածուներում կարող է նշագրված լինել տարբեր կերպ։ Երթևեկության ընդհանուր հաշվարկի համար դասերի շփոթությունը չի փոխում մեքենաների քանակը, քանի որ NMS-ը և հաշվարկը կատարվում են առանց դասերի տարբերակման։</p>
+<p><strong>Բեռնատարի և ավտոբուսի շփոթումը։</strong> Դասերի սխալները ավելի մանրամասն ուսումնասիրելու համար յուրաքանչյուր թեստային շրջանակ համապատասխանեցվել է մոդելի ամենավստահ հայտնաբերմանը (IoU ≥ 0,5, վստահություն ≥ 0,25) առանց դասի հաշվառման, և հաշվվել է, թե որ դասն է տվել մոդելը (<code>scripts/evaluate_heavy.py</code>)։ MIO-TCD-ում (ճանապարհային տեսախցիկներ) բեռնատարների 94,2%-ը ճիշտ է դասակարգվել, և միայն 1,7%-ը՝ որպես ավտոբուս, իսկ ավտոբուսների 1,5%-ը՝ որպես բեռնատար։ VisDrone-ում (վերևից) այդ շփոթումը մոտ 10,6% է երկու ուղղությամբ։ Ամենամեծ շփոթումը van և car դասերի միջև է. MIO-TCD-ում van-երի 33%-ը, իսկ VisDrone-ում 51%-ը դասակարգվել են որպես car։ Եթե truck և bus դասերը միավորվեն մեկ «ծանր տրանսպորտ» դասի մեջ, դրա AP50-ը MIO-TCD-ում կազմում է 94,1%, VisDrone-ում՝ 55,2%։ Քանի որ HCM-ը բեռնատարներն ու ավտոբուսները դիտարկում է միասին՝ որպես ծանր տրանսպորտ, ծրագիրը հաշվետվությունում բացի հինգ դասից տալիս է նաև խմբերը (թեթև՝ car + van, ծանր՝ truck + bus, մոտոցիկլ) և ծանր տրանսպորտի բաժինը։</p>
+<figure><img src="img/r/vehicle-road-yolov8s-long-results.png" width="1400" height="700" alt="Նկար 5.2. vehicle-road-yolov8s-long մոդելի ուսուցման կորերը (կորուստներ և val ցուցանիշներ ըստ դարաշրջանների)" loading="lazy"><figcaption>Նկար 5.2. vehicle-road-yolov8s-long մոդելի ուսուցման կորերը (կորուստներ և val ցուցանիշներ ըստ դարաշրջանների)</figcaption></figure></section><section id="s5-3"><h2><span class="num">5.3</span>Մուտքի չափը և սալիկային հայտնաբերումը</h2><p>Մուտքի չափի ազդեցությունը առանձին ստուգվել է նույն vehicle-expanded-full կշիռներով՝ առանց նոր ուսուցման (աղյուսակ 5.4)։ 960 պքս մուտքը val ընտրանքում mAP50-ը բարձրացրել է 7,2 կետով, ինչի հիման վրա հաջորդ մոդելը (vehicle-hires-960) ուսուցանվել է 960 պքս-ով։</p>
+<div class="table">
+<div class="cap">Աղյուսակ 5.4. Մուտքի չափի ազդեցությունը (vehicle-expanded-full, VisDrone)</div>
+<div class="scroll"><table><thead><tr>
+<th>Մուտք, պքս</th>
+<th class=n>Val mAP50</th>
+<th class=n>Val mAP50–95</th>
+<th class=n>Test mAP50</th>
+<th class=n>Test mAP50–95</th>
+</tr></thead><tbody>
+<tr>
+<td>640</td>
+<td class=n>37,3%</td>
+<td class=n>22,9%</td>
+<td class=n>34,7%</td>
+<td class=n>20,5%</td>
+</tr>
+<tr>
+<td>960</td>
+<td class=n>44,4%</td>
+<td class=n>28,0%</td>
+<td class=n>42,3%</td>
+<td class=n>25,9%</td>
+</tr>
+</tbody></table></div></div>
+<p>Սալիկային հայտնաբերման պարամետրերը (սալիկի չափը, ամբողջ կադրի անցման չափը) ընտրվել են val ընտրանքով, իսկ թեստը գործարկվել է մեկ անգամ։ Արդյունքները՝ սեփական գնահատիչով (4.2 բաժին), ներկայացված են աղյուսակ 5.5-ում։</p>
+<div class="table">
+<div class="cap">Աղյուսակ 5.5. Սալիկային հայտնաբերում (VisDrone թեստ, 1610 պատկեր)</div>
+<div class="scroll"><table><thead><tr>
+<th>Մոդել և ռեժիմ</th>
+<th class=n>mAP50</th>
+<th class=n>mAP50–95</th>
+<th class=n>Ժամանակ, մվ/պատկեր</th>
+</tr></thead><tbody>
+<tr>
+<td>vehicle-road-yolov8s-long, ամբողջ կադր 960</td>
+<td class=n>48,0%</td>
+<td class=n>30,6%</td>
+<td class=n>26¹</td>
+</tr>
+<tr class=best>
+<td>vehicle-road-yolov8s-long, սալիկներ 800 + կադր 960</td>
+<td class=n>52,2%</td>
+<td class=n>33,4%</td>
+<td class=n>166¹</td>
+</tr>
+<tr>
+<td>vehicle-road-yolov8s, ամբողջ կադր 960</td>
+<td class=n>44,5%</td>
+<td class=n>28,1%</td>
+<td class=n>26</td>
+</tr>
+<tr>
+<td>vehicle-road-yolov8s, սալիկներ 800 + կադր 960</td>
+<td class=n>47,6%</td>
+<td class=n>30,3%</td>
+<td class=n>166</td>
+</tr>
+<tr>
+<td>vehicle-hires-960, ամբողջ կադր 960</td>
+<td class=n>43,1%</td>
+<td class=n>26,8%</td>
+<td class=n>21</td>
+</tr>
+<tr>
+<td>vehicle-hires-960, սալիկներ 640 + կադր 1280</td>
+<td class=n>49,8%</td>
+<td class=n>31,2%</td>
+<td class=n>156</td>
+</tr>
+</tbody></table></div></div>
+<p class="note">¹ Ճարտարապետությունը նույնն է, ինչ vehicle-road-yolov8s-ինը, ուստի ժամանակը նույնն է. չափման պահին համակարգիչը ծանրաբեռնված էր (34 և 178 մվ)։</p>
+<p>Սալիկային ռեժիմը mAP50-ը բարձրացնում է 3,1–6,7 կետով, ընդ որում ամենամեծ աճը փոքր օբյեկտների դասերի համար է (motorcycle 28,9% → 37,3%, van 26,6% → 37,1%, vehicle-hires-960)։ Գինը մշակման ժամանակի 6–7 անգամ աճն է։ Երկարացված ուսուցմամբ vehicle-road-yolov8s-long մոդելը սալիկներով տալիս է ամենաբարձր արդյունքը (52,2%)՝ գերազանցելով միայն VisDrone-ով ուսուցանված vehicle-hires-960-ը, թեև վերջինս ավելի արագ է։ Ուստի ճանապարհային տեսախցիկների համար, որտեղ մեքենաները բավականաչափ մեծ են, սալիկային ռեժիմը անհրաժեշտ չէ, իսկ անօդաչու սարքի տեսանյութերի համար առաջարկվում է vehicle-road-yolov8s-long + 800 պքս սալիկներ, կամ, թույլ համակարգչի դեպքում, vehicle-hires-960 + 640 պքս սալիկներ։</p></section><section id="s5-4"><h2><span class="num">5.4</span>Հաշվարկի ստուգումը մայրուղու տեսանյութում</h2><p>Տեսանյութ 1-ում (մայրուղի, 4K, 21,52 վ) հաշվման գիծը տեղադրված է y = 1296 պիքսել բարձրության վրա ամբողջ լայնությամբ։ Նախնական էտալոնը պարունակում է 10 հատում (2.6 բաժին)։ Աղյուսակ 5.6-ում ներկայացված են մշակման ընթացքում տարբեր մոդելներով և ծրագրի տարբերակներով ստացված արդյունքները։</p>
+<div class="table">
+<div class="cap">Աղյուսակ 5.6. Հաշվարկը տեսանյութ 1-ում (էտալոն՝ 10 հատում, 8 car, 2 truck)</div>
+<div class="scroll"><table><thead><tr>
+<th>Մոդել, մուտք</th>
+<th>Ծրագրի տարբերակ</th>
+<th class=n>Հաշվված</th>
+<th class=n>Համընկած</th>
+<th class=n>Բաց թողնված</th>
+<th class=n>Ավելորդ</th>
+<th>Դասեր</th>
+</tr></thead><tbody>
+<tr>
+<td>vehicle-scratch-pilot, 416</td>
+<td>սկզբնական</td>
+<td class=n>11</td>
+<td class=n>10</td>
+<td class=n>0</td>
+<td class=n>1</td>
+<td>11 car</td>
+</tr>
+<tr>
+<td>vehicle-finetune-pilot, 416</td>
+<td>սկզբնական</td>
+<td class=n>10</td>
+<td class=n>9</td>
+<td class=n>1</td>
+<td class=n>1</td>
+<td>8 car, 1 truck, 1 bus</td>
+</tr>
+<tr>
+<td>vehicle-finetune-full, 640</td>
+<td>սկզբնական</td>
+<td class=n>10</td>
+<td class=n>9</td>
+<td class=n>1</td>
+<td class=n>1</td>
+<td>7 car, 2 van, 1 bus</td>
+</tr>
+<tr>
+<td>vehicle-finetune-full, 640</td>
+<td>շարունակականության ռեժիմ</td>
+<td class=n>9</td>
+<td class=n>8</td>
+<td class=n>2</td>
+<td class=n>1</td>
+<td>8 car, 1 bus</td>
+</tr>
+<tr>
+<td>vehicle-hires-960, 960</td>
+<td>class-agnostic NMS</td>
+<td class=n>9</td>
+<td class=n>9</td>
+<td class=n>1</td>
+<td class=n>0</td>
+<td>8 car, 1 bus</td>
+</tr>
+<tr>
+<td>vehicle-road-combined, 960</td>
+<td>class-agnostic NMS</td>
+<td class=n>9</td>
+<td class=n>9</td>
+<td class=n>1</td>
+<td class=n>0</td>
+<td>8 car, 1 truck</td>
+</tr>
+<tr>
+<td>vehicle-road-yolov8s, 960</td>
+<td>class-agnostic NMS</td>
+<td class=n>9</td>
+<td class=n>9</td>
+<td class=n>1</td>
+<td class=n>0</td>
+<td>8 car, 1 truck</td>
+</tr>
+<tr>
+<td>vehicle-road-yolov8s, 960</td>
+<td>+ կրկնակի ID-ների զտիչ, գծից անցած մեքենաներ</td>
+<td class=n>10</td>
+<td class=n>10</td>
+<td class=n>0</td>
+<td class=n>0</td>
+<td>8 car, 2 truck</td>
+</tr>
+<tr>
+<td>vehicle-road-yolov8s-long, 960</td>
+<td>+ գծից անցած մեքենաներ (<code>--start-crossings</code>)</td>
+<td class=n>10</td>
+<td class=n>10</td>
+<td class=n>0</td>
+<td class=n>0</td>
+<td>8 car, 2 bus</td>
+</tr>
+<tr class=best>
+<td>vehicle-road-yolov8s-long, 960</td>
+<td>UA-DETRAC-ով ընտրված կանոններ (լռելյայն)</td>
+<td class=n>9</td>
+<td class=n>9</td>
+<td class=n>1</td>
+<td class=n>0</td>
+<td>8 car, 1 bus</td>
+</tr>
+</tbody></table></div></div>
+<p>Աղյուսակը ցույց է տալիս մի քանի կարևոր փաստ։</p>
+<p>Առաջին, <strong>ընդհանուր քանակը թաքցնում է սխալները</strong>։ Սկզբնական մոդելների մեծ մասը հաշվել է ճիշտ 10 մեքենա, սակայն միայն 9-ն էին իրական. մեկ մեքենա բաց է թողնվել, իսկ մեկ այլ մեքենա կրկնակի հաշվվել է ID-ի փոխարկման պատճառով։ Զրոյից ուսուցանված մոդելի 11 հատումներից մեկը կեղծ էր։</p>
+<p>Երկրորդ, <strong>շարունակականության փորձարարական ռեժիմը չի բարելավել հաշվարկը</strong> (8 համընկած 9-ի փոխարեն), ուստի այն չի ընտրվել լռելյայն։</p>
+<p>Երրորդ, <strong>առանց դասերի տարբերակման NMS-ը (class-agnostic) վերացրել է ավելորդ իրադարձությունները</strong>. նախկինում նույն մեքենան երբեմն միաժամանակ հայտնաբերվում էր որպես երկու դաս և ստանում էր երկու ID։ Բոլոր հաջորդ տարբերակներում ավելորդ հատումներ չկան։ Կրկնակի ID-ների զտիչը (3.4 բաժին) լրացուցիչ պաշտպանություն է նույն մեքենայի երկու շրջանակի դեպքի համար։</p>
+<p>Չորրորդ, <strong>ճանապարհային տվյալները բարելավել են դասակարգումը</strong>։ VisDrone-ով ուսուցանված մոդելները բեռնատարը դասակարգել են որպես bus կամ van (վերևից դիտման դեպքում բեռնատարի և ավտոբուսի տեսքը նման է), իսկ MIO-TCD-ով ուսուցանված vehicle-road-combined և vehicle-road-yolov8s մոդելները՝ ճիշտ՝ truck։ Սակայն երկարացված ուսուցմամբ մոդելը երկու բեռնատարները կրկին դասակարգել է որպես bus. երկրորդ բեռնատարը կադրերի 86%-ում նշվել է որպես bus, ուստի հետագծի պատմությամբ քվեարկությունը դա չէր ուղղի։ Թեստային ընտրանքներում truck/bus շփոթումը փոքր է (MIO-TCD-ում մոտ 2%, 5.2 բաժին), այսինքն՝ սա ընդհանուր խնդիր չէ, այլ տիրույթի տարբերություն. տեսանյութում եվրոպական արկղային բեռնատարներ են, որոնք դիմացից նման են ավտոբուսի, իսկ MIO-TCD-ում հիմնականում հյուսիսամերիկյան տրանսպորտ է։ Խմբերով հաշվարկը ճիշտ է՝ 8 թեթև և 2 ծանր, ինչպես էտալոնում։</p>
+<p>Հինգերորդ, մնացած բաց թողնված իրադարձությունը առաջին բեռնատարն էր, որը տեսանյութի առաջին կադրում արդեն գտնվում է գծից անմիջապես հետո և երբեք չի փոխում կողմը։ Այս դեպքի համար մշակվել է գծից արդեն անցած մեքենաների կանոնը (3.4 բաժին), որից հետո vehicle-road-yolov8s մոդելը ճիշտ է հաշվել բոլոր 10 մեքենաները՝ ճիշտ ուղղություններով (7 և 3) և ճիշտ դասերով (8 car, 2 truck)։ Event F1-ը 94,7%-ից աճել է մինչև 100%։ Առաջարկվող vehicle-road-yolov8s-long մոդելը այս կանոնով նույնպես հաշվել է բոլոր 10 մեքենաները ճիշտ ուղղություններով (F1 100%) և ճիշտ խմբերով (8 թեթև, 2 ծանր), բայց բեռնատարները նշել է որպես bus։</p>
+<p>Վեցերորդ, <strong>անկախ տվյալներով ընտրված կանոնները այստեղ մեկ մեքենա են կորցնում</strong>։ UA-DETRAC-ի 20 հաջորդականությունում «գծից արդեն անցած մեքենաների» կանոնը ավելացնում էր ավելի շատ կեղծ հատումներ, քան վերականգնում էր բաց թողնվածները, ուստի այն լռելյայն անջատված է (5.9 բաժին)։ Լռելյայն կանոններով մայրուղու տեսանյութում հաշվվել է 9 մեքենա՝ առանց ավելորդների (F1 94,7%), իսկ բաց է թողնված հենց առաջին բեռնատարը, որը գիծը հատել էր տեսագրության սկզբից առաջ։ Սա գիտակցված փոխզիջում է. մեկ տեսանյութի համար ընտրված կանոնը չպետք է գերադասվի 40 անկախ տեսանյութով ընտրվածից։ Կարճ տեսանյութերի դեպքում հին վարքագիծը վերականգնվում է <code>--start-crossings</code> պարամետրով։</p>
+<p>Պետք է ընդգծել, որ այս տեսանյութն օգտագործվել է կանոնների մշակման համար, իսկ էտալոնը նախնական է, ուստի դրա արդյունքները <strong>մշակման արդյունք են, ոչ թե ճշտության անկախ գնահատական</strong>։ Անկախ ստուգումը ներկայացված է 5.5 և 5.9 բաժիններում։</p>
+<figure><img src="img/r/thesis-annotated-v1.jpg" width="1400" height="788" alt="Նկար 5.3. Նշագրված կադր տեսանյութ 1-ից (vehicle-road-yolov8s-long). դեղին՝ հիմնական հաշվման գիծ, մանուշակագույն՝ լրացուցիչ գիծ, երկնագույն՝ տրամաչափված գոտի, մեքենաների տակ՝ արագությունը կմ/ժ" loading="lazy"><figcaption>Նկար 5.3. Նշագրված կադր տեսանյութ 1-ից (vehicle-road-yolov8s-long). դեղին՝ հիմնական հաշվման գիծ, մանուշակագույն՝ լրացուցիչ գիծ, երկնագույն՝ տրամաչափված գոտի, մեքենաների տակ՝ արագությունը կմ/ժ</figcaption></figure></section><section id="s5-5"><h2><span class="num">5.5</span>Արտաքին ստուգում UA-DETRAC հավաքածուով</h2><p>UA-DETRAC MVI_39031 հաջորդականությունը չի օգտագործվել ուսուցման կամ պարամետրերի ընտրության համար, իսկ հաշվման գիծը ֆիքսվել է նախապես։ Արդյունքները ներկայացված են աղյուսակ 5.7-ում։</p>
+<div class="table">
+<div class="cap">Աղյուսակ 5.7. Արտաքին ստուգում UA-DETRAC MVI_39031-ում (300 կադր, 523 շրջանակ, 5 հատում)</div>
+<div class="scroll"><table><thead><tr>
+<th>Մոդել</th>
+<th class=n>Մուտք</th>
+<th class=n>AP50</th>
+<th class=n>AP50–95</th>
+<th class=n>Precision (0,3)</th>
+<th class=n>Recall (0,3)</th>
+<th class=n>Հաշվված</th>
+<th class=n>Համընկած</th>
+<th class=n>Event F1</th>
+</tr></thead><tbody>
+<tr>
+<td>vehicle-finetune-full</td>
+<td class=n>640</td>
+<td class=n>97,0%</td>
+<td class=n>76,8%</td>
+<td class=n>80,4%</td>
+<td class=n>98,1%</td>
+<td class=n>6</td>
+<td class=n>5</td>
+<td class=n>90,9%</td>
+</tr>
+<tr>
+<td>vehicle-expanded-full</td>
+<td class=n>960</td>
+<td class=n>97,3%</td>
+<td class=n>75,5%</td>
+<td class=n>83,2%</td>
+<td class=n>98,3%</td>
+<td class=n>5</td>
+<td class=n>5</td>
+<td class=n>100%</td>
+</tr>
+<tr>
+<td>vehicle-hires-960</td>
+<td class=n>960</td>
+<td class=n>96,7%</td>
+<td class=n>77,0%</td>
+<td class=n>80,3%</td>
+<td class=n>98,5%</td>
+<td class=n>5</td>
+<td class=n>5</td>
+<td class=n>100%</td>
+</tr>
+<tr>
+<td>vehicle-road-combined</td>
+<td class=n>640</td>
+<td class=n>98,6%</td>
+<td class=n>78,1%</td>
+<td class=n>91,2%</td>
+<td class=n>99,2%</td>
+<td class=n>5</td>
+<td class=n>5</td>
+<td class=n>100%</td>
+</tr>
+<tr>
+<td>vehicle-road-combined</td>
+<td class=n>960</td>
+<td class=n>97,3%</td>
+<td class=n>77,8%</td>
+<td class=n>85,7%</td>
+<td class=n>98,5%</td>
+<td class=n>5</td>
+<td class=n>5</td>
+<td class=n>100%</td>
+</tr>
+<tr>
+<td>vehicle-road-yolov8s</td>
+<td class=n>640</td>
+<td class=n>96,8%</td>
+<td class=n>78,9%</td>
+<td class=n>86,6%</td>
+<td class=n>97,9%</td>
+<td class=n>5</td>
+<td class=n>5</td>
+<td class=n>100%</td>
+</tr>
+<tr>
+<td>vehicle-road-yolov8s</td>
+<td class=n>960</td>
+<td class=n>96,4%</td>
+<td class=n>79,0%</td>
+<td class=n>82,1%</td>
+<td class=n>98,9%</td>
+<td class=n>5</td>
+<td class=n>5</td>
+<td class=n>100%</td>
+</tr>
+<tr class=best>
+<td>vehicle-road-yolov8s-long</td>
+<td class=n>960</td>
+<td class=n>97,0%</td>
+<td class=n>78,6%</td>
+<td class=n>78,4%</td>
+<td class=n>99,0%</td>
+<td class=n>5</td>
+<td class=n>5</td>
+<td class=n>100%</td>
+</tr>
+</tbody></table></div></div>
+<p>Բոլոր մոդելները անկախ տեսարանում հայտնաբերում են մեքենաների 98–99%-ը։ MIO-TCD-ով ուսուցանված մոդելները ունեն ավելի բարձր precision (ավելի քիչ կեղծ հայտնաբերումներ) և ամենաբարձր AP50–95 (շրջանակների ավելի ճշգրիտ սահմաններ)։ Ամենավաղ մոդելը (vehicle-finetune-full) մեկ ավելորդ հատում է գրանցել, իսկ մնացածները ճիշտ են հաշվել բոլոր 5 մեքենաները։ Երկարացված ուսուցումը այս տեսարանում չի տվել էական տարբերություն. AP50-ը և recall-ը մի փոքր աճել են, իսկ precision-ը 0,3 շեմով նվազել է 3,7 կետով (ավելի շատ ցածր վստահությամբ շրջանակներ), ինչը չի ազդել հաշվարկի վրա։ Արդյունքներն այստեղ գտնվում են առաստաղին մոտ, և 5 իրադարձությամբ ստուգումը չի կարող տարբերակել այս մոդելները։</p>
+<p>Այս արդյունքը հաստատում է, որ մշակված համակարգը աշխատում է ուսուցման մեջ չօգտագործված տեսախցիկով, սակայն ստուգման ծավալը փոքր է՝ 12 վայրկյան և 5 իրադարձություն, ցերեկային լուսավորություն, մեկ տեսախցիկ։ Ավելի մեծ ծավալով ստուգումը՝ UA-DETRAC-ի 20 ամբողջական հաջորդականությամբ, ներկայացված է 5.9 բաժնում։ Գիշերային և վատ եղանակի պայմանները առանձին չեն գնահատվել։</p></section><section id="s5-6"><h2><span class="num">5.6</span>Արագություն, խտություն և հոսքի հավասարում</h2><p>Տեսանյութ 1-ը մշակվել է տրամաչափմամբ (25 × 250 մ, 4 գոտի) և երկու հաշվման գծով (y = 1296 և y = 1700)։ Ամփոփ արդյունքները ներկայացված են աղյուսակ 5.8-ում։</p>
+<div class="table">
+<div class="cap">Աղյուսակ 5.8. Տեսանյութ 1-ի ամփոփ ցուցանիշները (vehicle-road-yolov8s-long, 960 պքս)</div>
+<div class="scroll"><table><thead><tr>
+<th>Ցուցանիշ</th>
+<th class=n>Արժեք</th>
+</tr></thead><tbody>
+<tr>
+<td>Հատումներ (դեպի ստորին եզր / դեպի վերին եզր)</td>
+<td class=n>9 (6 / 3)</td>
+</tr>
+<tr>
+<td>Թեթև / ծանր տրանսպորտ</td>
+<td class=n>8 / 1</td>
+</tr>
+<tr>
+<td>Ինտենսիվություն</td>
+<td class=n>1506 մեքենա/ժամ</td>
+</tr>
+<tr>
+<td>Արագություն հատման պահին՝ ժամանակային միջին</td>
+<td class=n>122,0 կմ/ժ</td>
+</tr>
+<tr>
+<td>Արագություն հատման պահին՝ տարածական միջին (հարմոնիկ)</td>
+<td class=n>117,5 կմ/ժ</td>
+</tr>
+<tr>
+<td>Արագություն հատման պահին՝ մեդիան / 85-րդ պերցենտիլ</td>
+<td class=n>126,5 / 141,1 կմ/ժ</td>
+</tr>
+<tr>
+<td>Արագությունների միջակայք</td>
+<td class=n>82,0–154,3 կմ/ժ</td>
+</tr>
+<tr>
+<td>Գոտում մեքենաների միջին / առավելագույն քանակ</td>
+<td class=n>2,8 / 5</td>
+</tr>
+<tr>
+<td>Միջին խտություն</td>
+<td class=n>11,2 մեքենա/կմ (2,8 մեքենա/կմ/գոտի)</td>
+</tr>
+<tr>
+<td>Խտություն ըստ ուղղությունների (մարդատարի համարժեքով)</td>
+<td class=n>5,1 և 1,8 pc/կմ/գոտի</td>
+</tr>
+<tr>
+<td>Սպասարկման մակարդակ (վատագույն ուղղություն)</td>
+<td class=n>A (ազատ երթևեկություն)</td>
+</tr>
+<tr>
+<td>k · v_s</td>
+<td class=n>1319 մեքենա/ժամ</td>
+</tr>
+<tr>
+<td>Չափված q-ի և k·v_s-ի հարաբերական տարբերություն</td>
+<td class=n>+14%</td>
+</tr>
+<tr>
+<td>Հավաստիության նախազգուշացումներ</td>
+<td class=n>չկան</td>
+</tr>
+</tbody></table></div></div>
+<p>Ստացված արագությունները (միջինը մոտ 120 կմ/ժ, բեռնատարը՝ 83 կմ/ժ) համապատասխանում են մայրուղու երթևեկությանը. ամենադանդաղը բեռնատարներն են, ինչը տրամաբանական է։ Ըստ ուղղությունների հաշվարկում (3.7 բաժին) գոտիները բաժանվում են երկու ուղղության միջև (2 + 2), իսկ ծանր տրանսպորտը հաշվվում է կրկնակի. դեպի ստորին եզր շարժվող հոսքի խտությունը 5,1 pc/կմ/գոտի է (ֆիզիկական մեքենաներով 2,8), բայց LOS-ը մնում է A։ 250 կմ/ժ-ից բարձր չափումներ չեն եղել։ Ինչպես սպասվում էր, տարածական միջին արագությունը ցածր է ժամանակայինից։</p>
+<p><strong>Երկու գծով ստուգումը</strong> (4.4 բաժին) կատարվել է 8 մեքենայի համար, որոնք հաշվվել են հիմնական գծում և հատել են նաև լրացուցիչ գիծը (աղյուսակ 5.9)։ Գծերի միջև ճանապարհային հեռավորությունը մոտ 38–40 մետր է, անցման ժամանակը՝ 0,9–1,6 վայրկյան։</p>
+<div class="table">
+<div class="cap">Աղյուսակ 5.9. Արագությունը երկու եղանակով (տեսանյութ 1)</div>
+<div class="scroll"><table><thead><tr>
+<th class=n>ID</th>
+<th>Դաս</th>
+<th class=n>Հեռավորություն, մ</th>
+<th class=n>Ժամանակ, վ</th>
+<th class=n>Երկու գծով, կմ/ժ</th>
+<th class=n>Սահող պատուհանով, կմ/ժ</th>
+<th class=n>Տարբերություն</th>
+</tr></thead><tbody>
+<tr>
+<td class=n>6</td>
+<td>car</td>
+<td class=n>38,2</td>
+<td class=n>1,00</td>
+<td class=n>137,4</td>
+<td class=n>134,8</td>
+<td class=n>1,9%</td>
+</tr>
+<tr>
+<td class=n>12</td>
+<td>car</td>
+<td class=n>38,8</td>
+<td class=n>1,00</td>
+<td class=n>139,7</td>
+<td class=n>142,7</td>
+<td class=n>2,1%</td>
+</tr>
+<tr>
+<td class=n>15</td>
+<td>car</td>
+<td class=n>39,2</td>
+<td class=n>1,12</td>
+<td class=n>126,1</td>
+<td class=n>122,5</td>
+<td class=n>2,8%</td>
+</tr>
+<tr>
+<td class=n>4</td>
+<td>car</td>
+<td class=n>38,1</td>
+<td class=n>1,12</td>
+<td class=n>122,4</td>
+<td class=n>118,3</td>
+<td class=n>3,3%</td>
+</tr>
+<tr>
+<td class=n>5</td>
+<td>car</td>
+<td class=n>38,4</td>
+<td class=n>1,20</td>
+<td class=n>115,1</td>
+<td class=n>111,1</td>
+<td class=n>3,5%</td>
+</tr>
+<tr>
+<td class=n>61</td>
+<td>car</td>
+<td class=n>39,1</td>
+<td class=n>0,92</td>
+<td class=n>153,1</td>
+<td class=n>147,1</td>
+<td class=n>3,9%</td>
+</tr>
+<tr>
+<td class=n>26</td>
+<td>bus²</td>
+<td class=n>38,2</td>
+<td class=n>1,64</td>
+<td class=n>83,8</td>
+<td class=n>82,8</td>
+<td class=n>1,2%</td>
+</tr>
+<tr>
+<td class=n>55</td>
+<td>car</td>
+<td class=n>37,7</td>
+<td class=n>1,40</td>
+<td class=n>96,9</td>
+<td class=n>91,5</td>
+<td class=n>5,5%</td>
+</tr>
+</tbody></table></div></div>
+<p class="note">² Իրականում բեռնատար (5.4 բաժին)։</p>
+<p>Երկու անկախ եղանակների միջին բացարձակ տարբերությունը կազմում է 3,0%, առավելագույնը՝ 5,5% (vehicle-road-yolov8s մոդելով՝ 2,0% և 4,8%)։ Սահող պատուհանով գնահատիչը համակարգված կերպով տալիս է 2–4%-ով ցածր արժեք, քան երկու գծով եղանակը։ Համեմատության համար, երկու գծով եղանակի ժամանակի քվանտավորումը (1 կադր = 0,04 վ, մոտ 1 վ անցման դեպքում) ինքնին տալիս է մինչև 4% անորոշություն։ Տարբերությունների մեծ մասը այս սահմաններում է։ Այսպիսով, սահող պատուհանով գնահատիչը կայուն է և չի ավելացնում էական աղմուկ։ Բացարձակ ճշտությունը կախված է տրամաչափումից. 250 մ երկարության 5% սխալը կփոխի բոլոր արագությունները 5%-ով։</p>
+<p><strong>Հոսքի հավասարումը։</strong> Չափված ինտենսիվությունը (1506 մեքենա/ժամ) 14%-ով գերազանցում է k·v_s արտադրյալին (1319 մեքենա/ժամ)։ Նախկին տարբերակում տարբերությունը 32% էր, քանի որ v_s-ը հաշվվում էր այլ մեքենաներից. այժմ տարածական միջին արագությունը վերցվում է նույն հատումներից, որոնցով հաշվված է q-ն (3.7 բաժին)։ Մնացած տարբերությունը բացատրվում է կարճ դիտարկմամբ. 21,5 վայրկյանում 9 մեքենայի դեպքում մեկ մեքենան փոխում է ինտենսիվությունը 167 մեքենա/ժամով, իսկ գոտում միաժամանակ միջինը ընդամենը 2,8 մեքենա է։ Երկու մեծություններն էլ նույն կարգի են, և ծրագրի հավաստիության շեմը (երկու անգամ տարբերություն) չի խախտվել։ Ավելի երկար դիտարկման դեպքում տարբերությունը պետք է նվազի։</p>
+<figure><img src="img/r/thesis-calibration-zones.jpg" width="1400" height="394" alt="Նկար 5.4. Տրամաչափման գոտիները և հաշվման գծերը. ձախից՝ տեսանյութ 1 (25 × 250 մ, 4 գոտի), աջից՝ տեսանյութ 2 (10,8 × 120 մ, 3 գոտի)" loading="lazy"><figcaption>Նկար 5.4. Տրամաչափման գոտիները և հաշվման գծերը. ձախից՝ տեսանյութ 1 (25 × 250 մ, 4 գոտի), աջից՝ տեսանյութ 2 (10,8 × 120 մ, 3 գոտի)</figcaption></figure>
+<p>Ժամանակային միջակայքերով վիճակագրությունը (5 վ միջակայքեր) ցույց է տալիս հոսքի անհավասարաչափությունը. առաջին 5 վայրկյանում գիծը հատել է 4 մեքենա (2880 մեքենա/ժամ համարժեք), հաջորդ երկու միջակայքերում՝ 1-ական (720 մեքենա/ժամ), իսկ չորրորդում՝ 3 (2160 մեքենա/ժամ)։ Միջին արագությունը միջակայքերում փոխվել է 109,5-ից 134,7 կմ/ժ, իսկ խտությունը՝ 7,4-ից 14,0 մեքենա/կմ։ Վերջին, 1,5 վայրկյանանոց միջակայքի համար ժամային ինտենսիվություն չի հաշվվում։ Կարճ միջակայքերի ինտենսիվությունը չպետք է մեկնաբանել որպես ժամային հոսք։</p>
+<figure><img src="img/r/thesis-heatmap-v1.jpg" width="1400" height="788" alt="Նկար 5.5. Մեքենաների դիրքերի ջերմային քարտեզը տեսանյութ 1-ում" loading="lazy"><figcaption>Նկար 5.5. Մեքենաների դիրքերի ջերմային քարտեզը տեսանյութ 1-ում</figcaption></figure></section><section id="s5-7"><h2><span class="num">5.7</span>Արագացված տեսանյութի հայտնաբերումը</h2><p>Տեսանյութ 2-ը (քաղաքային արագընթաց ճանապարհ, 42,5 վ) մշակվել է նույն մոդելով և հեղինակի տրամաչափմամբ (3 գոտի, 120 մ)։ Ծրագիրը գրանցել է 448 հատում, ինչը համապատասխանում է 37 910 մեքենա/ժամ ինտենսիվությանը, այսինքն՝ մոտ 12 600 մեքենա/ժամ մեկ գոտու համար։ Դա ավելի քան հինգ անգամ գերազանցում է երթևեկության գոտու ֆիզիկական թողունակությունը (մոտ 2400)։</p>
+<p>Ծրագիրն ավտոմատ կերպով հայտնաբերել է հավաստիության խախտումները (աղյուսակ 5.10) և ցույց տվել է նախազգուշացում՝ տեսանյութը, ամենայն հավանականությամբ, արագացված է։</p>
+<div class="table">
+<div class="cap">Աղյուսակ 5.10. Տեսանյութ 2-ի հավաստիության ստուգումը</div>
+<div class="scroll"><table><thead><tr>
+<th>Ստուգում</th>
+<th class=n>Չափված արժեք</th>
+<th class=n>Շեմ</th>
+<th>Արդյունք</th>
+</tr></thead><tbody>
+<tr>
+<td>Չափումների մեդիան արագություն (մինչև զտումը)</td>
+<td class=n>709 կմ/ժ</td>
+<td class=n>—</td>
+<td>տեղեկատվական</td>
+</tr>
+<tr>
+<td>Հատման պահի մեդիան արագություն (զտումից հետո)</td>
+<td class=n>չկա վավեր արժեք</td>
+<td class=n>160 կմ/ժ</td>
+<td>չի ստուգվել</td>
+</tr>
+<tr>
+<td>250 կմ/ժ-ից բարձր չափումների բաժին</td>
+<td class=n>100%</td>
+<td class=n>30%</td>
+<td>խախտված</td>
+</tr>
+<tr>
+<td>Ինտենսիվություն մեկ գոտու համար</td>
+<td class=n>12 637 մեքենա/ժամ</td>
+<td class=n>2400 մեքենա/ժամ</td>
+<td>խախտված</td>
+</tr>
+<tr>
+<td>q / (k · v_s) հարաբերություն</td>
+<td class=n>չի հաշվվել</td>
+<td class=n>0,5–2</td>
+<td>չի ստուգվել</td>
+</tr>
+<tr>
+<td>Տեսանելի տեղաշարժ, շրջանակի բարձրություն/կադր</td>
+<td class=n>0,106</td>
+<td class=n>—</td>
+<td>տեսանյութ 1-ում՝ 0,032</td>
+</tr>
+</tbody></table></div></div>
+<p>vehicle-road-yolov8s մոդելով մեկ հատում ուներ 228 կմ/ժ վավեր արագություն, ուստի խախտվել էին չորս ստուգումները (մեդիան 228 &gt; 160 կմ/ժ, q / (k · v_s) = 4,3)։ vehicle-road-yolov8s-long մոդելով բոլոր չափումները գերազանցում են 250 կմ/ժ-ը և մերժվում են, ուստի այդ երկու ստուգումները հնարավոր չէ կատարել։ Նախազգուշացումը ցույց է տրվում երկու դեպքում էլ, քանի որ բավարար է մեկ խախտում։ Հետագծի ամբողջական քվեարկությամբ 448 հատումներից 10-ի դասը տարբերվում է հատման պահի կադրի դասից։</p>
+<p>Մեքենաների տեսանելի տեղաշարժը մեկ կադրում (սեփական չափով) տեսանյութ 2-ում 3,3 անգամ մեծ է, քան տեսանյութ 1-ում, չնայած քաղաքային ճանապարհի իրական արագությունները ավելի ցածր են։ Չափված արագությունների (մեդիան 709 կմ/ժ) և քաղաքային ճանապարհի սովորական արագությունների (60–110 կմ/ժ) համեմատությունից կարելի է եզրակացնել, որ տեսանյութը արագացված է մոտ 6–10 անգամ։ Եթե արագացման ճշգրիտ գործակիցը հայտնի լինի, այն կարելի է տալ <code>--time-scale</code> պարամետրով, և ծրագիրը կվերահաշվի ժամանակները, արագությունները և ինտենսիվությունը։</p>
+<p>Ուշագրավ է, որ առանց հավաստիության ստուգման ծրագիրը կտար տեխնիկապես «ճիշտ», բայց ֆիզիկապես անիմաստ արդյունք։ Այս դեպքը ցույց է տալիս, որ երթևեկության չափման համակարգը պետք է ստուգի ոչ միայն հայտնաբերման որակը, այլև ստացված մեծությունների համապատասխանությունը ֆիզիկական օրենքներին։</p>
+<figure><img src="img/r/thesis-annotated-v2.jpg" width="1400" height="788" alt="Նկար 5.6. Նշագրված կադր տեսանյութ 2-ից. խիտ հոսք, տրամաչափված գոտի և հաշվման գիծ" loading="lazy"><figcaption>Նկար 5.6. Նշագրված կադր տեսանյութ 2-ից. խիտ հոսք, տրամաչափված գոտի և հաշվման գիծ</figcaption></figure></section><section id="s5-8"><h2><span class="num">5.8</span>Արագագործություն</h2><p>Ամբողջ շղթայի (ապակոդավորում, հայտնաբերում, հետագծում, տրամաչափում, նշագրված տեսանյութի և CSV ֆայլերի գրառում) արագությունը Apple M4 համակարգչում (MPS) ներկայացված է աղյուսակ 5.11-ում։</p>
+<div class="table">
+<div class="cap">Աղյուսակ 5.11. Մշակման արագությունը (ամբողջ շղթա)</div>
+<div class="scroll"><table><thead><tr>
+<th>Տեսանյութ</th>
+<th>Մոդել, մուտք</th>
+<th>Կարգավորումներ</th>
+<th class=n>Կադր/վ</th>
+</tr></thead><tbody>
+<tr>
+<td>Տեսանյութ 1 (4K)</td>
+<td>vehicle-road-yolov8s, 960</td>
+<td>մեկ գիծ</td>
+<td class=n>13,0</td>
+</tr>
+<tr>
+<td>Տեսանյութ 1 (4K)</td>
+<td>vehicle-road-yolov8s, 960</td>
+<td>երկու գիծ, տրամաչափում</td>
+<td class=n>8,0</td>
+</tr>
+<tr>
+<td>Տեսանյութ 1 (4K)</td>
+<td>vehicle-road-yolov8s-long, 960</td>
+<td>երկու գիծ, տրամաչափում</td>
+<td class=n>11,6</td>
+</tr>
+<tr>
+<td>Տեսանյութ 1 (4K)</td>
+<td>vehicle-road-combined, 960</td>
+<td>մեկ գիծ</td>
+<td class=n>14,2</td>
+</tr>
+<tr>
+<td>Տեսանյութ 2 (Full HD)</td>
+<td>vehicle-road-yolov8s, 960</td>
+<td>մեկ գիծ, տրամաչափում</td>
+<td class=n>12,5</td>
+</tr>
+<tr>
+<td>Տեսանյութ 2 (Full HD)</td>
+<td>vehicle-road-yolov8s-long, 960</td>
+<td>մեկ գիծ, տրամաչափում</td>
+<td class=n>15,4</td>
+</tr>
+</tbody></table></div></div>
+<p>Երկու YOLOv8s մոդելների ճարտարապետությունը նույնն է, ուստի արագության տարբերությունները պայմանավորված են համակարգչի բեռնվածությամբ և ծրագրի տարբերակով։ UA-DETRAC-ի 960×540 տեսանյութերում ամբողջ շղթան աշխատում է մոտ 24–27 կադր/վ արագությամբ, այսինքն՝ իրական ժամանակում (5.9 բաժին)։ Զուտ հայտնաբերման ժամանակը vehicle-road-yolov8s մոդելի համար 960 պքս մուտքով կազմում է մոտ 26 մվ մեկ պատկերի համար (մոտ 38 պատկեր/վ), այսինքն՝ ժամանակի զգալի մասը ծախսվում է 4K կադրերի ապակոդավորման, մասշտաբավորման և նշագրված տեսանյութի կոդավորման վրա։ Ուղիղ հոսքի համար, որտեղ նշագրված տեսանյութի գրառումը կարող է ավելի փոքր լուծաչափով լինել, մոդելը թույլ է տալիս մշակել 10 կադր/վ և ավելի, ինչը բավարար է հաշվարկի համար, քանի որ 120 կմ/ժ արագությամբ մեքենան 0,1 վայրկյանում անցնում է ընդամենը 3,3 մետր։ Չափումները կատարվել են սովորական աշխատանքային բեռնվածության պայմաններում և ունեն մոտավոր բնույթ։</p></section><section id="s5-9"><h2><span class="num">5.9</span>Հաշվարկի ստուգում UA-DETRAC-ի 20 հաջորդականությամբ և հետագծիչների համեմատություն</h2><p>5.5 բաժնի ստուգումն ընդգրկում էր ընդամենը 12 վայրկյան և 5 հատում։ Ուստի հաշվարկը գնահատվել է նաև UA-DETRAC-ի 20 ամբողջական թեստային հաջորդականությամբ (28 885 կադր, 388 էտալոնային հատում)՝ 4.3 բաժնում նկարագրված արձանագրությամբ։ Նույն vehicle-road-yolov8s-long մոդելով (960 պքս) համեմատվել են վեց հետագծման ալգորիթմ՝ ByteTrack [4], BoT-SORT առանց և ReID-ով [22], OC-SORT [23], Deep OC-SORT [24] և TrackTrack [25]՝ հաշվման սկզբնական կանոններով (աղյուսակ 5.12)։</p>
+<div class="table">
+<div class="cap">Աղյուսակ 5.12. Հետագծիչների համեմատությունը UA-DETRAC-ի 20 գնահատման հաջորդականությունում (սկզբնական կանոններ, մոտոցիկլներն ընդգրկված)</div>
+<div class="scroll"><table><thead><tr>
+<th>Հետագծիչ</th>
+<th class=n>Հաշվված</th>
+<th class=n>Համընկած</th>
+<th class=n>Precision</th>
+<th class=n>Recall</th>
+<th class=n>F1</th>
+<th class=n>Քանակի սխալ</th>
+<th class=n>Կադր/վ</th>
+</tr></thead><tbody>
+<tr>
+<td>ByteTrack</td>
+<td class=n>491</td>
+<td class=n>368</td>
+<td class=n>74,9%</td>
+<td class=n>94,8%</td>
+<td class=n>0,837</td>
+<td class=n>+26,5%</td>
+<td class=n>25,7</td>
+</tr>
+<tr>
+<td>BoT-SORT</td>
+<td class=n>493</td>
+<td class=n>368</td>
+<td class=n>74,6%</td>
+<td class=n>94,8%</td>
+<td class=n>0,835</td>
+<td class=n>+27,1%</td>
+<td class=n>26,5</td>
+</tr>
+<tr>
+<td>BoT-SORT + ReID</td>
+<td class=n>496</td>
+<td class=n>369</td>
+<td class=n>74,4%</td>
+<td class=n>95,1%</td>
+<td class=n>0,835</td>
+<td class=n>+27,8%</td>
+<td class=n>16,2</td>
+</tr>
+<tr>
+<td>OC-SORT</td>
+<td class=n>483</td>
+<td class=n>367</td>
+<td class=n>76,0%</td>
+<td class=n>94,6%</td>
+<td class=n>0,843</td>
+<td class=n>+24,5%</td>
+<td class=n>20,8</td>
+</tr>
+<tr>
+<td>Deep OC-SORT</td>
+<td class=n>486</td>
+<td class=n>368</td>
+<td class=n>75,7%</td>
+<td class=n>94,8%</td>
+<td class=n>0,842</td>
+<td class=n>+25,3%</td>
+<td class=n>12,8⁴</td>
+</tr>
+<tr>
+<td>TrackTrack</td>
+<td class=n>492</td>
+<td class=n>366</td>
+<td class=n>74,4%</td>
+<td class=n>94,3%</td>
+<td class=n>0,832</td>
+<td class=n>+26,8%</td>
+<td class=n>13,4⁴</td>
+</tr>
+</tbody></table></div></div>
+<p class="note">⁴ Արագությունը չափվել է, երբ համակարգչում միաժամանակ աշխատում էր մեկ այլ մշակում։</p>
+<p>Բոլոր հետագծիչների F1-ը գտնվում է 0,832–0,843 միջակայքում, այսինքն՝ տարբերությունը 0,011-ից պակաս է։ Արտաքին տեսքի մոդելներն (ReID) օգտագործող ալգորիթմները էապես դանդաղեցնում են մշակումը, բայց անշարժ տեսախցիկի դեպքում ճշտությունը չեն բարձրացնում։ Բոլորն ունեն նույն թերությունը՝ հաշվված մեքենաները մոտ 25%-ով ավելի են, քան էտալոնում, իսկ լրիվությունը մոտ 95% է։ Հետևաբար ավելորդ հատումների աղբյուրը ոչ թե հետագծիչն է, այլ հաշվման կանոնները և էտալոնը։ ByteTrack-ի 123 ավելորդ հատումները դասակարգվել են պահպանված հետագծերի վերարտադրությամբ (<code>scripts/analyze_extra_crossings.py</code>). 42-ը մոտոցիկլներ են, որոնք UA-DETRAC-ում նշագրված չեն, 25-ը հաշվվել են միայն «գծից արդեն անցած մեքենաների» կանոնով, 17-ը նույն մեքենաներն են, որոնք համընկել են էտալոնի հետ 6 կադրի թույլատրելի շեղումից դուրս, 34-ի մոտակայքում էտալոնային մեքենա չկա (էտալոնում բացակայող մեքենաներ կամ կեղծ հետագծեր), իսկ կրկնակի հաշվարկը և շատ կարճ հետագծերը միասին ընդամենը 5-ն են։</p>
+<p><strong>Հաշվման կանոնների ընտրությունը։</strong> Կանոնների տարբերակները (գծից արդեն անցած մեքենաների կանոն, ցատկի զտիչ 0,3–0,75 շեմերով, հետագծի նվազագույն տևողություն 1–10 կադր) համեմատվել են միայն 20 առանձնացված հաջորդականությունների վրա (ByteTrack, մոտոցիկլներն առանց)։ Լավագույնն է եղել «գծից արդեն անցած մեքենաների» կանոնի անջատումը և 10 կադր նվազագույն տևողությունը. F1-ը 0,867-ից աճել է մինչև 0,893։ Ցատկի զտիչը արդյունքը չի բարելավել, ուստի անջատված է։ Ընտրված կանոնները գնահատման 20 հաջորդականությունում կիրառվել են մեկ անգամ (աղյուսակ 5.13)։</p>
+<div class="table">
+<div class="cap">Աղյուսակ 5.13. Ընտրված հաշվման կանոնների ազդեցությունը գնահատման 20 հաջորդականությունում (մոտոցիկլներն առանց)</div>
+<div class="scroll"><table><thead><tr>
+<th>Հետագծիչ</th>
+<th class=n>F1, սկզբնական</th>
+<th class=n>F1, ընտրված</th>
+<th class=n>Քանակի սխալ, սկզբնական</th>
+<th class=n>Քանակի սխալ, ընտրված</th>
+<th class=n>Recall, ընտրված</th>
+<th class=n>Դասի ճշտություն</th>
+</tr></thead><tbody>
+<tr class=best>
+<td>ByteTrack</td>
+<td class=n>0,879</td>
+<td class=n>0,911</td>
+<td class=n>+15,7%</td>
+<td class=n>+8,2%</td>
+<td class=n>94,8%</td>
+<td class=n>98,1%</td>
+</tr>
+<tr>
+<td>BoT-SORT</td>
+<td class=n>0,879</td>
+<td class=n>0,909</td>
+<td class=n>+15,7%</td>
+<td class=n>+9,3%</td>
+<td class=n>95,1%</td>
+<td class=n>97,8%</td>
+</tr>
+<tr>
+<td>BoT-SORT + ReID</td>
+<td class=n>0,881</td>
+<td class=n>0,908</td>
+<td class=n>+16,0%</td>
+<td class=n>+9,5%</td>
+<td class=n>95,1%</td>
+<td class=n>98,4%</td>
+</tr>
+<tr>
+<td>OC-SORT</td>
+<td class=n>0,880</td>
+<td class=n>0,911</td>
+<td class=n>+14,9%</td>
+<td class=n>+8,2%</td>
+<td class=n>94,8%</td>
+<td class=n>97,8%</td>
+</tr>
+<tr>
+<td>Deep OC-SORT</td>
+<td class=n>0,880</td>
+<td class=n>0,911</td>
+<td class=n>+15,5%</td>
+<td class=n>+8,8%</td>
+<td class=n>95,1%</td>
+<td class=n>97,8%</td>
+</tr>
+<tr>
+<td>TrackTrack</td>
+<td class=n>0,879</td>
+<td class=n>0,905</td>
+<td class=n>+14,7%</td>
+<td class=n>+9,0%</td>
+<td class=n>94,6%</td>
+<td class=n>98,4%</td>
+</tr>
+</tbody></table></div></div>
+<p>Ընտրված կանոնները բարելավել են բոլոր վեց հետագծիչների արդյունքը, ընդ որում լրիվությունը չի նվազել։ ByteTrack-ով հաշվարկի ընդհանուր սխալը +15,7%-ից նվազել է մինչև +8,2%, ըստ հաջորդականությունների միջին բացարձակ սխալը (MAPE)՝ 14,3%, իսկ համընկած հատումների դասը ճիշտ է 98%-ի դեպքում։ Քանի որ ByteTrack-ը ճշտությամբ չի զիջում մյուսներին և ամենաարագներից է, այն մնացել է լռելյայն հետագծիչ։</p>
+<p>Ընտրված կանոններն ունեն գին. «գծից արդեն անցած մեքենաների» կանոնի անջատումից հետո մայրուղու տեսանյութում չի հաշվվում առաջին բեռնատարը, որն առաջին կադրում արդեն գծից այն կողմ էր (5.4 բաժին)։ Այսպիսի իրավիճակը հանդիպում է միայն տեսանյութի սկզբում, իսկ UA-DETRAC-ում կանոնը ավելացնում էր ավելի շատ կեղծ հատումներ, քան վերականգնում էր բաց թողնվածները, ուստի այն պահպանվել է որպես ընտրովի (<code>--start-crossings</code>)։</p></section><section id="s5-10"><h2><span class="num">5.10</span>Ճարտարապետությունների համեմատություն՝ YOLOv8s, YOLO11s, YOLO26s</h2><p>Ստուգվել է, թե արդյոք ավելի նոր YOLO ճարտարապետությունները [26] կբարելավեն արդյունքը։ Երեք մոդելներն ուսուցանվել են նույն եղանակով՝ նույն տվյալներով, COCO կշիռներից, AdamW, lr0 0,001, 8 դարաշրջան, մուտք 640 պքս, batch 16, seed 42, և գնահատվել են նույն ընտրանքներում և UA-DETRAC-ի հաշվման ստուգումով (աղյուսակ 5.14)։</p>
+<div class="table">
+<div class="cap">Աղյուսակ 5.14. Ճարտարապետությունների համեմատությունը (UA-DETRAC՝ 20 հաջորդականություն, ByteTrack, ընտրված կանոններ, մոտոցիկլներն ընդգրկված)</div>
+<div class="scroll"><table><thead><tr>
+<th>Մոդել</th>
+<th class=n>Դարաշրջան</th>
+<th class=n>Val mAP50–95</th>
+<th class=n>Test mAP50</th>
+<th class=n>Test mAP50, motorcycle</th>
+<th class=n>UA-DETRAC F1</th>
+<th class=n>Քանակի սխալ</th>
+<th class=n>Կադր/վ</th>
+</tr></thead><tbody>
+<tr>
+<td>vehicle-road-yolov8s</td>
+<td class=n>8</td>
+<td class=n>44,3%</td>
+<td class=n>52,6%</td>
+<td class=n>24,6%</td>
+<td class=n>—</td>
+<td class=n>—</td>
+<td class=n>—</td>
+</tr>
+<tr>
+<td>vehicle-road-yolo11s</td>
+<td class=n>8</td>
+<td class=n>44,1%</td>
+<td class=n>52,9%</td>
+<td class=n>24,5%</td>
+<td class=n>0,857</td>
+<td class=n>+20,1%</td>
+<td class=n>27,5</td>
+</tr>
+<tr>
+<td>vehicle-road-yolo26s</td>
+<td class=n>8</td>
+<td class=n>45,5%</td>
+<td class=n>54,2%</td>
+<td class=n>28,2%</td>
+<td class=n>0,883</td>
+<td class=n>+14,2%</td>
+<td class=n>27,3</td>
+</tr>
+<tr>
+<td>vehicle-road-yolov8s-long (առաջարկվող)</td>
+<td class=n>8 + 12</td>
+<td class=n>47,2%</td>
+<td class=n>55,7%</td>
+<td class=n>28,5%</td>
+<td class=n>0,873</td>
+<td class=n>+17,3%</td>
+<td class=n>23,6</td>
+</tr>
+</tbody></table></div></div>
+<p>Հավասար պայմաններում YOLO26s-ը լավագույնն է. val mAP50–95-ում այն գերազանցում է YOLOv8s-ին 1,2 կետով, իսկ ամենամեծ աճը մոտոցիկլների համար է (+3,6 կետ թեստում)։ UA-DETRAC-ում այն տալիս է ամենաքիչ ավելորդ հատումները և գերազանցում է նույնիսկ երկարացված ուսուցմամբ YOLOv8s-ին։ YOLO11s-ը չի տարբերվում YOLOv8s-ից։ Զուտ հայտնաբերման ժամանակով YOLO26s-ը մոտ 70%-ով դանդաղ է (0,56 մվ՝ 0,33 մվ-ի փոխարեն մեկ պատկերի համար, խմբային մշակմամբ), բայց ամբողջ շղթայում հետագծման հետ արագությունը գործնականում նույնն է։</p>
+<p>Առաջարկվող մոդելը չի փոխվել. ընտրության կանոնը (4.1 բաժին) վերցնում է ամենաբարձր val mAP50–95-ը, և երկարացված ուսուցմամբ YOLOv8s-ը (47,2%) գերազանցում է YOLO26s-ին (45,5%)։ Սակայն սա հավասար պայմաններում համեմատություն չէ. YOLO26s-ի նույնպիսի երկարացված ուսուցումը (ևս 12 դարաշրջան) չի հաջողվել, քանի որ մոզաիկ ընդլայնմամբ դարաշրջաններում պրոցեսը պահանջում է մոտ 18 ԳԲ հիշողություն, իսկ համակարգիչն ունի 16 ԳԲ։ Ավելի մեծ հիշողությամբ սարքում YOLO26s-ի երկարացված ուսուցումը հավանաբար կտա լավագույն մոդելը։</p></section><section id="s5-11"><h2><span class="num">5.11</span>Արդյունքների կիրառելիության սահմանները</h2><p>Ստացված արդյունքները պետք է մեկնաբանել հետևյալ սահմանափակումներով.</p>
+<ul><li>տեսանյութ 1-ի էտալոնը նախնական է և պատրաստված է առանց անկախ ստուգման, իսկ տեսանյութն օգտագործվել է կանոնների մշակման համար.</li><li>հաշվարկի արտաքին ստուգումը կատարվել է UA-DETRAC-ի 20 հաջորդականությամբ (388 հատում), որոնց էտալոնը ստացվել է հրապարակված հետագծերից, ոչ թե հատումների առանձին ձեռքով նշագրումից, իսկ մոտոցիկլները նշագրված չեն.</li><li>արագության բացարձակ ճշտությունը չի ստուգվել անկախ չափիչ սարքով, իսկ տրամաչափումները մոտավոր են.</li><li>բոլոր տեսանյութերը ցերեկային են և լավ եղանակով. գիշերը, անձրևի, ձյան և մառախուղի պայմաններում ճշտությունը չի գնահատվել.</li><li>յուրաքանչյուր մոդել ուսուցանվել է մեկ անգամ (մեկ seed), ուստի փոքր տարբերությունների նշանակալիությունը հայտնի չէ.</li><li>MIO-TCD-ում նույն տեսախցիկի կադրերը կարող են լինել train և test ընտրանքներում, ինչը կարող է լավատեսական դարձնել MIO-TCD-ի թեստային արդյունքները.</li><li>LOS-ը ըստ ուղղությունների հաշվվում է ծանր տրանսպորտի մեկ համարժեքով (2) և կարճ տեսանյութով, մինչդեռ HCM-ը գնահատում է 15 րոպեանոց ժամանակահատված, ուստի այն ցուցիչ բնույթ ունի.</li><li>YOLO26s-ի համեմատությունը երկարացված ուսուցմամբ YOLOv8s-ի հետ հավասար պայմաններում չէ, քանի որ YOLO26s-ի երկարացված ուսուցումը չի տեղավորվել 16 ԳԲ հիշողության մեջ.</li><li>մեթոդը ենթադրում է հարթ ճանապարհ և անշարժ տեսախցիկ։</li></ul></section><section id="s5-12"><h2><span class="num">5.12</span>Գլխի եզրակացություններ</h2><p>Փորձերը ցույց են տվել, որ ուսուցման փոխանցումը, մուտքի ավելի մեծ չափը և թիրախային տիրույթի (ճանապարհային տեսախցիկներ) տվյալների ավելացումը ամենամեծ ազդեցությունն ունեն դետեկտորի որակի վրա, իսկ պարզ ընդլայնումը էական օգուտ չի տվել։ YOLOv8s մոդելի ուսուցման երկարացումը ևս 12 դարաշրջանով բարելավել է բոլոր թեստային ցուցանիշները 3–5 կետով։ Առաջարկվող vehicle-road-yolov8s-long մոդելը լավագույնն է երկու տիրույթներում (VisDrone 51,4%, MIO-TCD 90,2% mAP50), իսկ սալիկներով՝ VisDrone-ում 52,2%։ Անկախ UA-DETRAC տեսանյութում այն հայտնաբերում է մեքենաների 99,0%-ը։ UA-DETRAC-ի 20 ամբողջական հաջորդականությունում ծրագիրը գտնում է հատումների 94,8%-ը, F1-ը 0,911 է, իսկ ընդհանուր քանակի սխալը՝ +8,2%։ Վեց հետագծիչների F1-ը տարբերվում է 0,011-ից պակաս, ուստի ճշտությունը որոշվում է ոչ թե հետագծիչով, այլ հաշվման կանոններով, որոնք ընտրվել են անկախ տվյալներով։ Հավասար պայմաններում YOLO26s ճարտարապետությունը լավագույնն է նոր մոդելներից, սակայն ընտրության կանոնով առաջարկվող մոդելը մնում է երկարացված ուսուցմամբ YOLOv8s-ը։ Մայրուղու տեսանյութում լռելյայն կանոններով հաշվվել է 10 մեքենայից 9-ը՝ առանց ավելորդների (բաց է թողնված տեսագրության սկզբից առաջ գիծը հատած բեռնատարը), իսկ «գծից արդեն անցած մեքենաների» կանոնով՝ բոլոր 10-ը. եվրոպական բեռնատարները դասակարգվել են որպես ավտոբուս։ Թեստային ընտրանքներում truck/bus շփոթումը փոքր է (MIO-TCD-ում մոտ 2%), իսկ ամենամեծ շփոթումը van և car դասերի միջև է։ Հաշվման կանոնների մշակումը վերացրել է կրկնակի հաշվարկը և բաց թողնված եզրային դեպքերը։ Արագության երկու անկախ եղանակները համընկնում են միջինը 3%-ի սահմաններում, q-ն և k·v-ն տարբերվում են 14%-ով, իսկ հավաստիության ստուգումը հուսալիորեն հայտնաբերում է արագացված տեսանյութը։</p></section>
+</main>
+</div>
+<footer><div class="wrap"><span>Ղազարյան Մարիամ Սարգիսի · Երևան 2026</span>
+<a href="https://github.com/marrr862/traffic-cnn" target="_blank" rel="noopener">github.com/marrr862/traffic-cnn</a></div></footer>
